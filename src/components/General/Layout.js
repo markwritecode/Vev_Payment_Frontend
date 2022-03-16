@@ -1,15 +1,21 @@
+import { useState } from 'react'
 import Header from './Header'
 import Sidebar from './Sidebar'
 
 const Layout = ({ children }) => {
-    return (
-        <div className='bg-[#F9F9F9]'>
-            <div className='h-screen w-full relative flex overflow-hidden'>
-                <Sidebar />
 
-                <div className='w-full h-full flex flex-col justify-between'>
-                    <Header />
-                    <main className='max-w-full h-full flex p-5'>
+    const [expanded, setExpanded] = useState(false)
+
+    const toggleExpansion = () => setExpanded(prev => !prev)
+
+    return (
+        <div className='bg-[#F9F9F9] relative'>
+            <div className='h-screen w-full flex items-center flex-auto'>
+                <Sidebar expanded={expanded} />
+
+                <div className={`w-full h-full flex flex-col justify-between px-5`}>
+                    <Header expanded={expanded} toggleExpansion={toggleExpansion} />
+                    <main className='max-w-full h-full flex py-5 lg:overflow-y-scroll'>
                         {children}
                     </main>
                 </div>

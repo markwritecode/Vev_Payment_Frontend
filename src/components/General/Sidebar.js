@@ -1,15 +1,57 @@
-import { ChevronRightIcon, ServerIcon } from '@heroicons/react/solid'
-import { Link } from 'react-router-dom'
+import { ChevronRightIcon, ClipboardListIcon, ServerIcon } from '@heroicons/react/outline'
+import { NavLink } from 'react-router-dom'
 
-const Sidebar = () => {
+const Sidebar = ({ expanded }) => {
+
     return (
-        <aside className='h-full hidden lg:w-1/5 lg:flex lg:flex-col space-y-10 items-center justify-center text-black'>
-            <Link to='/' className='flex items-center justify-center rounded-lg hover:text-[#1EAAE7] hover:duration-300 hover:ease-linear gap-10'>
-                <ServerIcon className='h-7' />
-                <span>Invoicing</span>
-                <ChevronRightIcon className='h-7' />
-            </Link>
-        </aside>
+        <>
+            {/* View for bigger screen */}
+            <aside className={`flex flex-col ${expanded ? 'w-64' : 'w-14'} h-full text-black transition-all duration-300 bg-[#F9F9F9] border-none py-20 hidden lg:flex`}>
+                <div className='overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow'>
+                    <div className='flex flex-col space-y-10'>
+                        <NavLink to={'/'} className={({ isActive }) => `${isActive && 'text-[#1EAAE7]'} flex flex-row items-center text-gray-500 gap-10`}>
+                            <span className='inline-flex justify-center items-center ml-4'>
+                                <ServerIcon className='h-8 w-8' />
+                            </span>
+                            <span className='ml-2 text-lg font-normal tracking-wide truncate'>Dashboard</span>
+                            <ChevronRightIcon className={`${expanded ? 'block' : 'hidden'} h-5 w-5 font-thin ml-auto`} />
+                        </NavLink>
+                        <NavLink to={'/invoice'} className={({ isActive }) => `${isActive && 'text-[#1EAAE7]'} flex flex-row items-center text-gray-500 gap-10`}>
+                            <span className='inline-flex justify-center items-center ml-4'>
+                                <ClipboardListIcon className='h-8 w-8' />
+                            </span>
+                            <span className='ml-2 text-lg font-normal tracking-wide truncate'>Invoice</span>
+                            <ChevronRightIcon className={`${expanded ? 'block' : 'hidden'} h-5 w-5 font-thin ml-auto`} />
+                        </NavLink>
+                    </div>
+                    <p className={`mb-14 px-5 py-3 ${expanded ? 'block' : 'hidden'} text-center text-xs`}>Copyright @2022</p>
+                </div>
+            </aside>
+
+            {/* View for smaller screen */}
+            <aside className={`flex flex-col ${expanded ? 'w-64 px-5' : 'w-0'} h-full text-black transition-all duration-300 bg-[#F9F9F9] border-none py-20 lg:hidden fixed top-20 left-0 z-10`}>
+                <div className='overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow'>
+                    <div className='flex flex-col space-y-10'>
+
+                        <NavLink to={'/'} className={({ isActive }) => `${isActive && 'text-[#1EAAE7]'} flex flex-row items-center text-gray-500 gap-2`}>
+                            <span className='inline-flex justify-center items-center ml-4'>
+                                <ServerIcon className='h-5 w-5' />
+                            </span>
+                            <span className='ml-2 text-xs font-normal tracking-wide'>Dashboard</span>
+                            <ChevronRightIcon className={`${expanded ? 'block' : 'hidden'} h-5 w-5 font-thin ml-auto`} />
+                        </NavLink>
+                        <NavLink to={'/invoice'} className={({ isActive }) => `${isActive && 'text-[#1EAAE7]'} flex flex-row items-center text-gray-500 gap-2`}>
+                            <span className='inline-flex justify-center items-center ml-4'>
+                                <ClipboardListIcon className='h-5 w-5' />
+                            </span>
+                            <span className='ml-2 text-xs font-normal tracking-wide'>Invoice</span>
+                            <ChevronRightIcon className={`${expanded ? 'block' : 'hidden'} h-5 w-5 font-thin ml-auto`} />
+                        </NavLink>
+                    </div>
+                    <p className={`mb-14 px-5 py-3 ${expanded ? 'block' : 'hidden'} text-center text-xs`}>Copyright @2022</p>
+                </div>
+            </aside>
+        </>
     )
 }
 
