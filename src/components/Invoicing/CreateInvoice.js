@@ -1,4 +1,3 @@
-import { XIcon } from '@heroicons/react/solid'
 import { Drawer, Form, notification } from 'antd'
 import { useState } from 'react'
 import { useInvoice } from '../../contexts/invoice'
@@ -61,7 +60,7 @@ const CreateInvoice = ({ visible, handleCloseDrawer }) => {
     const getCurrentPage = () => {
         switch (step) {
             case 1:
-                return <InvoiceForm invoiceForm={invoiceForm} />
+                return <InvoiceForm invoiceForm={invoiceForm} handleCloseDrawer={handleCloseDrawer} />
             case 2:
                 return <CompleteInvoice incrementStep={incrementStep} decrementStep={decrementStep} />
             default:
@@ -89,22 +88,10 @@ const CreateInvoice = ({ visible, handleCloseDrawer }) => {
             }
             footerStyle={{ padding: '30px' }}
         >
-            <div className='space-y-6'>
-                <div className='flex items-center justify-between'>
-                    <h4 className='text-lg text-gray-500 font-medium'>Create new invoice</h4>
-                    <XIcon onClick={handleCloseDrawer} className='h-5 w-5 text-gray-500 font-semibold cursor-pointer' />
-                </div>
-                <div className='flex items-center justify-between'>
-                    <h5 className='text-xl font-medium text-gray-500'>#A78KMFS</h5>
-                    <p className='text-[#1EAAE7]'>COPY PAYMENT LINK</p>
-                </div>
-
-                <section>
-                    {getCurrentPage()}
-                </section>
-
-            </div>
-
+            <section>
+                {getCurrentPage()}
+            </section>
+            
             <PreviewInvoice showPreview={showPreview} handleClosePreview={handleClosePreview} />
         </Drawer>
 

@@ -15,15 +15,11 @@ const InvoiceItemsList = ({ preview }) => {
     const handleCloseModal = () => setVisible(false)
 
     return (
-        <section className='antialiased text-gray-600'>
+        <section className='antialiased text-gray-600 space-y-2'>
+            {!preview && <button onClick={handleOpenModal} className='text-white text-xs bg-[#1EAAE7] rounded-sm px-3 py-1'>ADD ITEM</button>}
             <div className='flex flex-col justify-center h-full'>
-                <div className={`w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm ${!preview && 'border border-gray-200'}`}>
-                    {
-                        !preview &&
-                        <header className='flex items-center px-5 py-4 border-b border-gray-100'>
-                            <button onClick={handleOpenModal} className='font-semibold text-[#1EAAE7]'>ADD ITEM</button>
-                        </header>
-                    }
+                
+                <div className={`w-full max-w-2xl mx-auto bg-blue-100 rounded-sm`}>
                     <div className='p-3'>
                         <div className='overflow-x-auto'>
                             <table className='table-auto w-full'>

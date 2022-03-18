@@ -4,7 +4,7 @@ const CompleteInvoice = () => {
   return (
     <div>
       <InvoiceItemsList preview={true} />
-      <button>PAY</button>
+      {/* <button>PAY</button> */}
     </div>
   )
 }
