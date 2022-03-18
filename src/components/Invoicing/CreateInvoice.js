@@ -11,15 +11,21 @@ const CreateInvoice = ({ visible, handleCloseDrawer }) => {
 
     const [showPreview, setShowPreview] = useState(false)
     const [step, setStep] = useState(1)
-    const [, setInvoice] = useInvoice()
+    const [invoice, setInvoice] = useInvoice()
     const [invoiceForm] = Form.useForm()
 
     const width = useHandleScreenWidth()
 
     const handleShowPreview = () => {
         invoiceForm.validateFields().then(values => {
-            setInvoice(values)
-            setShowPreview(true)
+            if (invoice.items.length > 0) {
+                setInvoice(prev => {
+                    return { ...prev, ...values }
+                })
+                setShowPreview(true)
+            } else {
+                notification.warning({ message: 'Items list empty', description: 'Click the "Add item" button to add item(s)' })
+            }
         }).catch(err => {
             console.log(err, 'error')
         })
@@ -32,8 +38,14 @@ const CreateInvoice = ({ visible, handleCloseDrawer }) => {
 
     const handleFinish = () => {
         invoiceForm.validateFields().then(values => {
-            setInvoice(values)
-            incrementStep()
+            if (invoice.items.length > 0) {
+                setInvoice(prev => {
+                    return { ...prev, ...values }
+                })
+                incrementStep()
+            } else {
+                notification.warning({ message: 'Items list cannot be empty', description: 'Click the "Add item" button to add item(s)' })
+            }
         }).catch(err => {
             console.log(err, 'error')
         })

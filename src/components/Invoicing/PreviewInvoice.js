@@ -1,11 +1,7 @@
 import { Modal } from 'antd'
-import { useInvoice } from '../../contexts/invoice'
+import InvoiceItemsList from './InvoiceItemsList'
 
 const PreviewInvoiceModal = ({ showPreview, handleClosePreview }) => {
-
-  const [invoice] = useInvoice()
-  console.log(invoice)
-
   return (
     <Modal
       visible={showPreview}
@@ -14,6 +10,7 @@ const PreviewInvoiceModal = ({ showPreview, handleClosePreview }) => {
       footer={null}
     >
       <PreviewInvoice />
+      <InvoiceItemsList preview={true} />
     </Modal>
   )
 }
@@ -22,6 +19,6 @@ export default PreviewInvoiceModal
 
 export const PreviewInvoice = () => {
   return (
-    <div>PreviewInvoice</div>
+    <div>Preview Invoice</div>
   )
 }

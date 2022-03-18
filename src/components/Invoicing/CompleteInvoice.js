@@ -1,9 +1,9 @@
-import { PreviewInvoice } from './PreviewInvoice'
+import InvoiceItemsList from './InvoiceItemsList'
 
 const CompleteInvoice = () => {
   return (
     <div>
-      <PreviewInvoice />
+      <InvoiceItemsList preview={true} />
       <button>PAY</button>
     </div>
   )

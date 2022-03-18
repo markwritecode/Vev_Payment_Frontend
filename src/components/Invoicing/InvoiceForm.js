@@ -1,5 +1,6 @@
 import { DatePicker, Form, Input } from 'antd'
-import { dateFormat } from '../../utils/helperFunctions'
+import { dateFormat } from '../../utils/helperVariables'
+import InvoiceItemsList from './InvoiceItemsList'
 
 const InvoiceForm = ({ invoiceForm }) => {
     return (
@@ -42,6 +43,8 @@ const InvoiceForm = ({ invoiceForm }) => {
                     <DatePicker size='large' className='w-full' format={dateFormat} />
                 </Form.Item>
             </div>
+
+            <InvoiceItemsList />
 
             <Form.Item
                 label="Additional Notes"

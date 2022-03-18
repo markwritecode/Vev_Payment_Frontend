@@ -5,7 +5,7 @@ export const useInvoice = () => useContext(invoiceContext)
 
 const InvoiceContext = ({ children }) => {
 
-    const [invoice, setInvoice] = useState()
+    const [invoice, setInvoice] = useState({ items: [] })
 
     return (
         <invoiceContext.Provider value={[invoice, setInvoice]}>
