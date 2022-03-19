@@ -62,7 +62,7 @@ const CreateInvoice = ({ visible, handleCloseDrawer }) => {
             case 1:
                 return <InvoiceForm invoiceForm={invoiceForm} handleCloseDrawer={handleCloseDrawer} />
             case 2:
-                return <CompleteInvoice incrementStep={incrementStep} decrementStep={decrementStep} />
+                return <CompleteInvoice incrementStep={incrementStep} decrementStep={decrementStep} handleCloseDrawer={handleCloseDrawer} />
             default:
                 return <InvoiceForm />
         }

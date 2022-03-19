@@ -16,14 +16,17 @@ const InvoiceItemsList = ({ preview }) => {
 
     return (
         <section className='antialiased text-gray-600 space-y-2'>
-            {!preview && <button onClick={handleOpenModal} className='text-white text-xs bg-[#1EAAE7] rounded-sm px-3 py-1'>ADD ITEM</button>}
+            {!preview &&
+                <div className='text-right'>
+                    <button onClick={handleOpenModal} className='text-white text-xs bg-[#1EAAE7] rounded-sm px-3 py-2'>ADD ITEM</button>
+                </div>}
             <div className='flex flex-col justify-center h-full'>
-                
-                <div className={`w-full max-w-2xl mx-auto bg-blue-100 rounded-sm`}>
+
+                <div className={`w-full max-w-2xl mx-auto rounded-sm ${preview ? 'border-gray-100 border-[1px]' : 'bg-gray-100'}`}>
                     <div className='p-3'>
                         <div className='overflow-x-auto'>
                             <table className='table-auto w-full'>
-                                <thead className='text-xs font-semibold uppercase text-gray-400'>
+                                <thead className='text-xs font-semibold text-gray-400'>
                                     <tr>
                                         <th className='p-2 whitespace-nowrap'>
                                             <div className='font-semibold text-left'>Item</div>

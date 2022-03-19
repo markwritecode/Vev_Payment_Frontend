@@ -1,6 +1,5 @@
 import { XIcon } from '@heroicons/react/solid'
 import { DatePicker, Form, Input } from 'antd'
-import { dateFormat } from '../../utils/helperVariables'
 import InvoiceItemsList from './InvoiceItemsList'
 
 const InvoiceForm = ({ invoiceForm, handleCloseDrawer }) => {
@@ -9,10 +8,6 @@ const InvoiceForm = ({ invoiceForm, handleCloseDrawer }) => {
             <div className='flex items-center justify-between'>
                 <h4 className='text-lg text-gray-500 font-medium'>Create new invoice</h4>
                 <XIcon onClick={handleCloseDrawer} className='h-5 w-5 text-gray-500 font-semibold cursor-pointer' />
-            </div>
-            <div className='flex items-center justify-between'>
-                <h5 className='text-xl font-medium text-gray-500'>#A78KMFS</h5>
-                <p className='text-[#1EAAE7]'>COPY PAYMENT LINK</p>
             </div>
             <Form
                 layout='vertical'
@@ -42,7 +37,7 @@ const InvoiceForm = ({ invoiceForm, handleCloseDrawer }) => {
                         name="issued_on"
                         rules={[{ required: true, message: 'Please input your username!' }]}
                     >
-                        <DatePicker size='large' className='w-full' format={dateFormat} />
+                        <DatePicker size='large' className='w-full' format={'LL'} />
                     </Form.Item>
 
                     <Form.Item
@@ -50,7 +45,7 @@ const InvoiceForm = ({ invoiceForm, handleCloseDrawer }) => {
                         name="due_on"
                         rules={[{ required: true, message: 'Please input your username!' }]}
                     >
-                        <DatePicker size='large' className='w-full' format={dateFormat} />
+                        <DatePicker size='large' className='w-full' format={'LL'} />
                     </Form.Item>
                 </div>
 
