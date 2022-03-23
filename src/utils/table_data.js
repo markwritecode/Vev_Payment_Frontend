@@ -1,13 +1,16 @@
+import { formatDate } from './helperFunctions'
+
 export const invoice_col = [
     {
         title: 'ID Invoice',
-        dataIndex: 'id_invoice',
-        key: 'id_invoice'
+        dataIndex: 'id',
+        key: 'id'
     },
     {
         title: 'Date',
-        dataIndex: 'date',
-        key: 'date'
+        dataIndex: 'created_at',
+        key: 'created_at',
+        render: created_at => formatDate(new Date(created_at))
     },
     {
         title: 'Recipient',
@@ -16,12 +19,12 @@ export const invoice_col = [
     },
     {
         title: 'Email',
-        dataIndex: 'email',
+        dataIndex: 'recipient',
         key: 'email'
     },
     {
         title: 'Service Type',
-        dataIndex: 'service_type',
+        dataIndex: 'ref_number',
         key: 'service_type'
     },
     {
@@ -30,22 +33,8 @@ export const invoice_col = [
         key: 'status',
         render: status => {
             return (
-                <button className={`rounded-full p-3 text-white ${status === 'Pending' ? 'bg-yellow-500' : status === 'Active' ? 'bg-green-500' : 'bg-gray-500'}`}>{status}</button>
+                <button className={`rounded-full p-3 text-white ${status === 'pending' ? 'bg-yellow-500' : status === 'active' ? 'bg-green-500' : 'bg-gray-500'}`}>{status}</button>
             )
         }
-    },
-    {
-        title: '',
-        key: 'actions'
     }
-]
-
-export const invoice_dummy_data = [
-    { id_invoice: '930453', date: 'June 2, 2022, 08:20 AM', recipient: 'John Paul', email: 'johnpaul@yahoo.com', service_type: 'Goods', status: 'Pending' },
-    { id_invoice: '435476', date: 'April 17, 2022, 10:45 PM', recipient: 'Lahm Putin', email: 'lahmputin@gmail.com', service_type: 'Service', status: 'Active' },
-    { id_invoice: '234545', date: 'December 29, 2022, 12:28 AM', recipient: 'John Paul', email: 'johnpaul@yahoo.com', service_type: 'Goods', status: 'Cancelled' },
-
-    { id_invoice: '930452', date: 'June 2, 2022, 08:20 AM', recipient: 'John Paul', email: 'johnpaul@yahoo.com', service_type: 'Goods', status: 'Pending' },
-    { id_invoice: '435473', date: 'April 17, 2022, 10:45 PM', recipient: 'Lahm Putin', email: 'lahmputin@gmail.com', service_type: 'Service', status: 'Active' },
-    { id_invoice: '234544', date: 'December 29, 2022, 12:28 AM', recipient: 'John Paul', email: 'johnpaul@yahoo.com', service_type: 'Goods', status: 'Cancelled' }
 ]

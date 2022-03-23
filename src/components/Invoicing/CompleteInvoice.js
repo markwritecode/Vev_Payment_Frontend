@@ -8,7 +8,7 @@ const CompleteInvoice = ({ handleCloseDrawer }) => {
         <h4 className='text-lg text-gray-500 font-medium'>Complete invoice</h4>
         <XIcon onClick={handleCloseDrawer} className='h-5 w-5 text-gray-500 font-semibold cursor-pointer' />
       </div>
-      <p className='italic text-lg'>To complete the process, click the send button below</p>
+      {/* <p className='italic text-lg'>To complete the process, click the send button below</p> */}
       <PreviewInvoice />
     </div>
   )

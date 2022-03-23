@@ -14,6 +14,11 @@ const InvoiceForm = ({ invoiceForm, handleCloseDrawer }) => {
                 form={invoiceForm}
                 autoComplete="off"
                 className='space-y-6'
+                initialValues={{
+                    email: 'e@f.com',
+                    description: 'hello',
+                    additional_notes: 'hello world'
+                }}
             >
                 <Form.Item
                     label="Recipient Email"

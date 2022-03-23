@@ -9,7 +9,7 @@ const AddInvoiceItem = ({ visible, handleCloseModal }) => {
 
     const handleFinish = values => {
         setInvoice(prev => {
-            return { ...prev, items: [...prev.items, { ...values, item_total: values.item_quantity * values.item_price }] }
+            return { ...prev, items: [...prev.items, { ...values, "item_total": values.item_quantity * values.item_price }] }
         })
         handleCloseModal()
     }

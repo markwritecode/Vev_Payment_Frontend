@@ -1,6 +1,7 @@
-import { Drawer, Form, notification } from 'antd'
+import { Button, Drawer, Form, notification } from 'antd'
 import { useState } from 'react'
 import { useInvoice } from '../../contexts/invoice'
+import { useCreateInvoice } from '../../hooks/invoice/useInvoice'
 import useHandleScreenWidth from '../../hooks/useHandleScreenWidth'
 import CompleteInvoice from './CompleteInvoice'
 import InvoiceForm from './InvoiceForm'
@@ -12,6 +13,7 @@ const CreateInvoice = ({ visible, handleCloseDrawer }) => {
     const [step, setStep] = useState(1)
     const [invoice, setInvoice] = useInvoice()
     const [invoiceForm] = Form.useForm()
+    const { mutate, isLoading } = useCreateInvoice(handleCloseDrawer)
 
     const width = useHandleScreenWidth()
 
@@ -35,7 +37,7 @@ const CreateInvoice = ({ visible, handleCloseDrawer }) => {
     const incrementStep = () => setStep(previousStep => previousStep + 1)
     const decrementStep = () => setStep(previousStep => previousStep - 1)
 
-    const handleFinish = () => {
+    const handleFormSubmission = () => {
         invoiceForm.validateFields().then(values => {
             if (invoice.items.length > 0) {
                 setInvoice(prev => {
@@ -50,11 +52,17 @@ const CreateInvoice = ({ visible, handleCloseDrawer }) => {
         })
     }
 
-    const handlePay = () => {
-        notification.success({
-            message: 'Successful',
-            description: 'Invoice posted successfully'
-        })
+    const handleCreateInvoice = () => {
+        const data = {
+            "recipient": invoice.email,
+            "description": invoice.description,
+            "items": JSON.stringify(invoice.items.map(item => {
+                return { "item": item.item_name, "qty": item.item_quantity, "amount": item.item_price  }
+            })),
+            "command": "send_save"
+            // "command": "draft"
+        }
+        mutate(data)
     }
 
     const getCurrentPage = () => {
@@ -80,9 +88,11 @@ const CreateInvoice = ({ visible, handleCloseDrawer }) => {
                     <p onClick={handleShowPreview} className='text-[#1EAAE7] cursor-pointer'>PREVIEW</p>
                     <div className='space-x-3'>
                         {step > 1 && <button onClick={decrementStep} className='border-gray-400 border-[1px] text-gray-500 px-3 py-1 rounded-sm'>PREVIOUS</button>}
-                        <button onClick={step === 1 ? handleFinish : handlePay} className='bg-[#1EAAE7] text-white px-3 py-1 rounded-sm'>
+                        <Button
+                            onClick={step === 1 ? handleFormSubmission : handleCreateInvoice}
+                            loading={step > 1 && isLoading} type='primary' className='bg-[#1EAAE7] text-white px-3 py-1 rounded-sm'>
                             {step === 1 ? 'NEXT' : 'SEND'}
-                        </button>
+                        </Button>
                     </div>
                 </div>
             }
@@ -91,7 +101,7 @@ const CreateInvoice = ({ visible, handleCloseDrawer }) => {
             <section>
                 {getCurrentPage()}
             </section>
-            
+
             <PreviewInvoice showPreview={showPreview} handleClosePreview={handleClosePreview} />
         </Drawer>
 

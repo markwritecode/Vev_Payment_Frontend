@@ -1,10 +1,11 @@
-import { CheckCircleIcon, ClipboardListIcon, XCircleIcon } from '@heroicons/react/outline'
-import { Table } from 'antd'
+import { CheckCircleIcon, ClipboardListIcon, DotsHorizontalIcon, XCircleIcon } from '@heroicons/react/outline'
+import { Dropdown, Menu, Table } from 'antd'
 import { useState } from 'react'
 import Layout from '../components/General/Layout'
 import CreateInvoice from '../components/Invoicing/CreateInvoice'
 import InvoiceContext from '../contexts/invoice'
-import { invoice_col, invoice_dummy_data } from '../utils/table_data'
+import { useDeleteInvoice, usePullInvoice } from '../hooks/invoice/useInvoice'
+import { invoice_col } from '../utils/table_data'
 
 const Invoice = () => {
 
@@ -12,6 +13,40 @@ const Invoice = () => {
 
     const handleOpenDrawer = () => setVisible(true)
     const handleCloseDrawer = () => setVisible(false)
+
+    const { pullInvoiceLoading, pulledInvoice} = usePullInvoice()
+    const { mutate: _deleteInvoice } = useDeleteInvoice()
+
+    // const { pulledInvoiceById } = usePullInvoiceById(1647563367)
+
+    const handleDeleteInvoice = invoice_ref => _deleteInvoice({ invoice_ref })
+
+    const menu = item => {
+        return (
+            <Menu>
+                <Menu.Item
+                    key='1'
+                    onClick={() => handleDeleteInvoice(item.ref_number)}>
+                    Delete
+                </Menu.Item>
+            </Menu>
+        )
+    }
+
+    const _invoice_col = [
+        ...invoice_col,
+        {
+            title: '',
+            key: 'actions',
+            render: item => {
+                return (
+                    <Dropdown overlay={() => menu(item)} trigger={['click']}>
+                        <DotsHorizontalIcon className='h-6 w-6 cursor-pointer' />
+                    </Dropdown>
+                )
+            }
+        }
+    ]
 
     return (
         <InvoiceContext>
@@ -61,7 +96,7 @@ const Invoice = () => {
                     </div>
 
                     <div className='bg-white rounded-lg px-5 py-10 mb-10'>
-                        <Table columns={invoice_col} dataSource={invoice_dummy_data} size='large' rowKey={'id_invoice'} bordered={false} scroll={{ x: true }} />
+                        <Table columns={_invoice_col} dataSource={pulledInvoice?.sort((a, b) => (new Date(b.created_at)) - (new Date(a.created_at)) )} loading={pullInvoiceLoading} size='large' rowKey={'created_at'} bordered={false} scroll={{ x: true }} />
                     </div>
                     <CreateInvoice visible={visible} handleCloseDrawer={handleCloseDrawer} />
 
