@@ -23,9 +23,9 @@ export const invoice_col = [
         key: 'email'
     },
     {
-        title: 'Service Type',
+        title: 'Reference No.',
         dataIndex: 'ref_number',
-        key: 'service_type'
+        key: 'ref_number'
     },
     {
         title: 'Status',
@@ -33,7 +33,7 @@ export const invoice_col = [
         key: 'status',
         render: status => {
             return (
-                <button className={`rounded-full p-3 text-white ${status === 'pending' ? 'bg-yellow-500' : status === 'active' ? 'bg-green-500' : 'bg-gray-500'}`}>{status}</button>
+                <button className={`rounded-full px-4 py-2 text-white ${status === 'pending' ? 'bg-yellow-500' : status === 'active' ? 'bg-green-500' : 'bg-gray-500'}`}>{status}</button>
             )
         }
     }

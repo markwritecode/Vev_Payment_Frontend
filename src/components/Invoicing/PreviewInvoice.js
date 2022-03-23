@@ -26,16 +26,6 @@ export const PreviewInvoice = () => {
 
   return (
     <div className='space-y-6'>
-      <div className='flex items-center gap-8'>
-        <div>
-          <h4 className='text-gray-400'>Issued on</h4>
-          <h5>{invoice.issued_on.format('LL')}</h5>
-        </div>
-        <div>
-          <h4 className='text-gray-400'>Due on</h4>
-          <h5>{invoice.due_on.format('LL')}</h5>
-        </div>
-      </div>
       <div>
         <h4 className='text-gray-400'>Invoice for</h4>
         <h5>{invoice.email}</h5>

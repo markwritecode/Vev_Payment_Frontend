@@ -1,5 +1,5 @@
 import { XIcon } from '@heroicons/react/solid'
-import { DatePicker, Form, Input } from 'antd'
+import { Form, Input } from 'antd'
 import InvoiceItemsList from './InvoiceItemsList'
 
 const InvoiceForm = ({ invoiceForm, handleCloseDrawer }) => {
@@ -14,11 +14,6 @@ const InvoiceForm = ({ invoiceForm, handleCloseDrawer }) => {
                 form={invoiceForm}
                 autoComplete="off"
                 className='space-y-6'
-                initialValues={{
-                    email: 'e@f.com',
-                    description: 'hello',
-                    additional_notes: 'hello world'
-                }}
             >
                 <Form.Item
                     label="Recipient Email"
@@ -36,27 +31,9 @@ const InvoiceForm = ({ invoiceForm, handleCloseDrawer }) => {
                     <Input size='large' />
                 </Form.Item>
 
-                <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
-                    <Form.Item
-                        label="Issued on"
-                        name="issued_on"
-                        rules={[{ required: true, message: 'Please input your username!' }]}
-                    >
-                        <DatePicker size='large' className='w-full' format={'LL'} />
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Due on"
-                        name="due_on"
-                        rules={[{ required: true, message: 'Please input your username!' }]}
-                    >
-                        <DatePicker size='large' className='w-full' format={'LL'} />
-                    </Form.Item>
-                </div>
-
                 <Form.Item
                     label="Additional Notes"
-                    name="additional_notes"
+                    name="additional_note"
                 >
                     <Input.TextArea size='large' />
                 </Form.Item>

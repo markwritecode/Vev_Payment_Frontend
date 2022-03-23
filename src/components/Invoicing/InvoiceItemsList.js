@@ -16,10 +16,7 @@ const InvoiceItemsList = ({ preview }) => {
 
     return (
         <section className='antialiased text-gray-600 space-y-2'>
-            {!preview &&
-                <div className='text-right'>
-                    <button onClick={handleOpenModal} className='text-white text-xs bg-[#1EAAE7] rounded-sm px-3 py-2'>ADD ITEM</button>
-                </div>}
+
             <div className='flex flex-col justify-center h-full'>
 
                 <div className={`w-full max-w-2xl mx-auto rounded-sm ${preview ? 'border-gray-100 border-[1px]' : 'bg-gray-100'}`}>
@@ -71,6 +68,10 @@ const InvoiceItemsList = ({ preview }) => {
                     </div>
                 </div>
             </div>
+            {!preview &&
+                <div className='text-right'>
+                    <button onClick={handleOpenModal} className='text-white text-xs bg-[#1EAAE7] rounded-sm px-3 py-2'>ADD ITEM</button>
+                </div>}
 
             <AddInvoiceItem visible={visible} handleCloseModal={handleCloseModal} />
         </section>

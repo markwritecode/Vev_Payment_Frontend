@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useMutation, useQuery } from 'react-query'
+import { queryClient } from '../../App';
 import useHandleNotifications from '../notifications/useHandleNotifications';
 
 export const liveAxios = axios.create({
@@ -16,7 +17,7 @@ export const getter = async url => {
     return response;
 }
 
-export const useCreateInvoice = callback => {
+export const useCreateInvoice = (callback, resetForm) => {
 
     const handleNotify = useHandleNotifications()
 
@@ -24,9 +25,11 @@ export const useCreateInvoice = callback => {
         poster(`invoice/create`, {
             data
         }), {
-        onSuccess: response => {
+        onSuccess: async response => {
             if (response.data?.status === 'ok') {
+                await queryClient.invalidateQueries(['invoice', 'show'])
                 callback()
+                resetForm()
                 handleNotify('success', 'Invoice created successfully')
             } else {
                 handleNotify('error')

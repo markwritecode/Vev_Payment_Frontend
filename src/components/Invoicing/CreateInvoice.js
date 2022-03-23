@@ -13,7 +13,7 @@ const CreateInvoice = ({ visible, handleCloseDrawer }) => {
     const [step, setStep] = useState(1)
     const [invoice, setInvoice] = useInvoice()
     const [invoiceForm] = Form.useForm()
-    const { mutate, isLoading } = useCreateInvoice(handleCloseDrawer)
+    const { mutate, isLoading } = useCreateInvoice(handleCloseDrawer, () => invoiceForm.resetFields())
 
     const width = useHandleScreenWidth()
 
@@ -56,6 +56,7 @@ const CreateInvoice = ({ visible, handleCloseDrawer }) => {
         const data = {
             "recipient": invoice.email,
             "description": invoice.description,
+            "additional_note": invoice.additional_note,
             "items": JSON.stringify(invoice.items.map(item => {
                 return { "item": item.item_name, "qty": item.item_quantity, "amount": item.item_price  }
             })),
