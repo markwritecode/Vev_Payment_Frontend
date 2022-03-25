@@ -17,7 +17,7 @@ export const getter = async url => {
     return response;
 }
 
-export const useCreateInvoice = (callback, resetForm) => {
+export const useCreateInvoice = callback => {
 
     const handleNotify = useHandleNotifications()
 
@@ -29,7 +29,6 @@ export const useCreateInvoice = (callback, resetForm) => {
             if (response.data?.status === 'ok') {
                 await queryClient.invalidateQueries(['invoice', 'show'])
                 callback()
-                resetForm()
                 handleNotify('success', 'Invoice created successfully')
             } else {
                 handleNotify('error')
@@ -52,6 +51,29 @@ export const useDeleteInvoice = () => {
         onSuccess: response => {
             if (response.data?.status === 'ok') {
                 handleNotify('success', 'Invoice deleted successfully')
+            } else {
+                handleNotify('error')
+            }
+        },
+        onError: (error) => {
+            handleNotify('error', error)
+        },
+    })
+}
+
+export const useUpdateInvoice = callback => {
+
+    const handleNotify = useHandleNotifications()
+
+    return useMutation(data =>
+        poster(`invoice/update`, {
+            data
+        }), {
+        onSuccess: async response => {
+            if (response.data?.status === 'ok') {
+                await queryClient.invalidateQueries(['invoice', 'show'])
+                callback()
+                handleNotify('success', 'Invoice updated successfully')
             } else {
                 handleNotify('error')
             }

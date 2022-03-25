@@ -1,19 +1,28 @@
 import { Button, Drawer, Form, notification } from 'antd'
 import { useState } from 'react'
 import { useInvoice } from '../../contexts/invoice'
-import { useCreateInvoice } from '../../hooks/invoice/useInvoice'
+import { useCreateInvoice, useUpdateInvoice } from '../../hooks/invoice/useInvoice'
 import useHandleScreenWidth from '../../hooks/useHandleScreenWidth'
 import CompleteInvoice from './CompleteInvoice'
 import InvoiceForm from './InvoiceForm'
 import PreviewInvoice from './PreviewInvoice'
 
-const CreateInvoice = ({ visible, handleCloseDrawer }) => {
+const CreateInvoice = ({ visible, handleCloseDrawer, updateData }) => {
 
     const [showPreview, setShowPreview] = useState(false)
     const [step, setStep] = useState(1)
     const [invoice, setInvoice] = useInvoice()
     const [invoiceForm] = Form.useForm()
-    const { mutate, isLoading } = useCreateInvoice(handleCloseDrawer, () => invoiceForm.resetFields())
+
+
+    const clearInvoice = () => {
+        setInvoice({ items: [] })
+        handleCloseDrawer()
+        invoiceForm.resetFields()
+    }
+
+    const { mutate, isLoading } = useCreateInvoice(clearInvoice)
+    const { mutate: mutateUpdate, isLoading: updateLoading } = useUpdateInvoice(clearInvoice)
 
     const width = useHandleScreenWidth()
 
@@ -54,22 +63,25 @@ const CreateInvoice = ({ visible, handleCloseDrawer }) => {
 
     const handleCreateInvoice = () => {
         const data = {
-            "recipient": invoice.email,
             "description": invoice.description,
             "additional_note": invoice.additional_note,
             "items": JSON.stringify(invoice.items.map(item => {
-                return { "item": item.item_name, "qty": item.item_quantity, "amount": item.item_price  }
+                return { "item": item.item_name, "qty": item.item_quantity, "amount": item.item_price }
             })),
-            "command": "send_save"
+        }
+        const payload = {
+            "recipient": invoice.email,
+            "command": "send_save",
+            ...data,
             // "command": "draft"
         }
-        mutate(data)
+        updateData ? mutateUpdate({ ...data, "reference_number": updateData.ref_number }) : mutate(payload)
     }
 
     const getCurrentPage = () => {
         switch (step) {
             case 1:
-                return <InvoiceForm invoiceForm={invoiceForm} handleCloseDrawer={handleCloseDrawer} />
+                return <InvoiceForm updateData={updateData} invoiceForm={invoiceForm} handleCloseDrawer={handleCloseDrawer} />
             case 2:
                 return <CompleteInvoice incrementStep={incrementStep} decrementStep={decrementStep} handleCloseDrawer={handleCloseDrawer} />
             default:
@@ -91,7 +103,7 @@ const CreateInvoice = ({ visible, handleCloseDrawer }) => {
                         {step > 1 && <button onClick={decrementStep} className='border-gray-400 border-[1px] text-gray-500 px-3 py-1 rounded-sm'>PREVIOUS</button>}
                         <Button
                             onClick={step === 1 ? handleFormSubmission : handleCreateInvoice}
-                            loading={step > 1 && isLoading} type='primary' className='bg-[#1EAAE7] text-white px-3 py-1 rounded-sm'>
+                            loading={step > 1 && (updateData ? updateLoading : isLoading)} type='primary' className='bg-[#1EAAE7] text-white px-3 py-1 rounded-sm'>
                             {step === 1 ? 'NEXT' : 'SEND'}
                         </Button>
                     </div>

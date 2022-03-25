@@ -2,7 +2,8 @@ import { XIcon } from '@heroicons/react/solid'
 import { Form, Input } from 'antd'
 import InvoiceItemsList from './InvoiceItemsList'
 
-const InvoiceForm = ({ invoiceForm, handleCloseDrawer }) => {
+const InvoiceForm = ({ invoiceForm, handleCloseDrawer, updateData }) => {
+
     return (
         <div className='space-y-6'>
             <div className='flex items-center justify-between'>
@@ -14,14 +15,22 @@ const InvoiceForm = ({ invoiceForm, handleCloseDrawer }) => {
                 form={invoiceForm}
                 autoComplete="off"
                 className='space-y-6'
+                initialValues={{
+                    email: updateData?.recipient,
+                    description: updateData?.description,
+                    additional_note: updateData?.additional_note
+                }}
             >
-                <Form.Item
-                    label="Recipient Email"
-                    name="email"
-                    rules={[{ required: true, message: 'Please input your email!' }, { type: 'email', message: 'Input a valid email' }]}
-                >
-                    <Input size='large' />
-                </Form.Item>
+                {
+                    !updateData &&
+                    <Form.Item
+                        label="Recipient Email"
+                        name="email"
+                        rules={[{ required: true, message: 'Please input your email!' }, { type: 'email', message: 'Input a valid email' }]}
+                    >
+                        <Input size='large' />
+                    </Form.Item>
+                }
 
                 <Form.Item
                     label="Project/Description"

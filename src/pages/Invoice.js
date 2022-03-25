@@ -1,33 +1,41 @@
-import { CheckCircleIcon, ClipboardListIcon, DotsHorizontalIcon, SearchIcon, XCircleIcon } from '@heroicons/react/outline'
-import { Button, Dropdown, Input, Menu, Space, Table } from 'antd'
+import { CheckCircleIcon, ClipboardListIcon, DotsHorizontalIcon, XCircleIcon } from '@heroicons/react/outline'
+import { Avatar, Dropdown, Menu, Table } from 'antd'
 import { useState } from 'react'
 import Layout from '../components/General/Layout'
 import CreateInvoice from '../components/Invoicing/CreateInvoice'
 import InvoiceContext from '../contexts/invoice'
 import { useDeleteInvoice, usePullInvoice } from '../hooks/invoice/useInvoice'
 import { formatDate } from '../utils/helperFunctions'
-import Highlighter from 'react-highlight-words';
+import 'antd/lib/input/style/search-input.less'
 
 const Invoice = () => {
 
     const [visible, setVisible] = useState(false)
-    const [state, setState] = useState({
-        searchText: '',
-        searchedColumn: '',
-    })
+    const [search, setSearch] = useState('')
+    const [updateData, setUpdateData] = useState(null)
+    const [updateVisible, setUpdateVisible] = useState(false)
 
     const handleOpenDrawer = () => setVisible(true)
     const handleCloseDrawer = () => setVisible(false)
+
+    const handleOpenUpdateDrawer = () => setUpdateVisible(true)
+    const handleCloseUpdateDrawer = () => {
+        setUpdateVisible(false)
+        setUpdateData(null)
+    }
 
     const { pullInvoiceLoading, pulledInvoice } = usePullInvoice()
     const { mutate: _deleteInvoice } = useDeleteInvoice()
 
     const handleDeleteInvoice = invoice_ref => _deleteInvoice({ invoice_ref })
 
+    const handleSearch = e => setSearch(e.target.value)
+
     const menu = item => {
         return (
             <Menu>
                 <Menu.Item
+                    onClick={handleOpenUpdateDrawer}
                     key='2'>
                     Edit
                 </Menu.Item>
@@ -43,87 +51,13 @@ const Invoice = () => {
         )
     }
 
-    const handleSearch = (selectedKeys, confirm, dataIndex) => {
-        confirm();
-        setState({
-            searchText: selectedKeys[0],
-            searchedColumn: dataIndex,
-        });
-    };
-
-    const handleReset = clearFilters => {
-        clearFilters();
-        setState(prev => {
-            return { ...prev, searchText: '' }
-        });
-    };
-
-
-    const getColumnSearchProps = dataIndex => ({
-        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
-            <div style={{ padding: 8 }}>
-                <Input
-                    ref={node => {
-                        state.searchInput = node;
-                    }}
-                    placeholder={`Search ${dataIndex}`}
-                    value={selectedKeys[0]}
-                    onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-                    onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-                    style={{ marginBottom: 8, display: 'block' }}
-                />
-                <Space>
-                    <Button
-                        type="primary"
-                        className='bg-blue-400'
-                        onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-                        size="small"
-                        style={{ width: 90 }}
-                    >
-                        Search
-                    </Button>
-                    <Button onClick={() => {
-                        confirm({ closeDropdown: false })
-                        setState({
-                            searchText: selectedKeys[0],
-                            searchedColumn: dataIndex,
-                        })
-                        handleReset(clearFilters)
-                    }}
-                        size="small" style={{ width: 90 }}>
-                        Reset
-                    </Button>
-                </Space>
-            </div>
-        ),
-        filterIcon: filtered => <SearchIcon className='h-5 w-5' />,
-        onFilter: (value, record) =>
-            record[dataIndex]
-                ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
-                : '',
-        onFilterDropdownVisibleChange: visible => {
-            if (visible) {
-                setTimeout(() => state.searchInput.select(), 100);
-            }
-        },
-        render: text =>
-            state.searchedColumn === dataIndex ? (
-                <Highlighter
-                    highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
-                    searchWords={[state.searchText]}
-                    autoEscape
-                    textToHighlight={text ? text.toString() : ''}
-                />
-            ) : (
-                text
-            ),
-    })
+    const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae', 'F7CCAC', '#712B75', '#5EE6EB', '#5463FF', '#332FD0', '#85C88A']
 
     const invoice_col = [
         {
-            title: 'ID Invoice',
-            dataIndex: 'id',
-            key: 'id'
+            title: 'Reference No.',
+            dataIndex: 'ref_number',
+            key: 'ref_number'
         },
         {
             title: 'Date',
@@ -135,17 +69,28 @@ const Invoice = () => {
             title: 'Recipient',
             dataIndex: 'recipient',
             key: 'recipient',
-            ...getColumnSearchProps('recipient')
+            render: (recipient, record) => {
+                return (
+                    <div className='flex items-center gap-2'>
+                        <Avatar
+                            style={{
+                                backgroundColor: record.color,
+                                verticalAlign: 'middle',
+                            }}
+                            className='uppercase'
+                            size="large"
+                        >
+                            {recipient[0] + recipient[1]}
+                        </Avatar>
+                        <span>{recipient}</span>
+                    </div>
+                )
+            }
         },
         {
             title: 'Email',
             dataIndex: 'recipient',
             key: 'email'
-        },
-        {
-            title: 'Reference No.',
-            dataIndex: 'ref_number',
-            key: 'ref_number'
         },
         {
             title: 'Status',
@@ -163,7 +108,12 @@ const Invoice = () => {
             render: item => {
                 return (
                     <Dropdown overlay={() => menu(item)} trigger={['click']}>
-                        <DotsHorizontalIcon className='h-6 w-6 cursor-pointer' />
+                        <DotsHorizontalIcon
+                            onClick={e => {
+                                e.preventDefault()
+                                setUpdateData(item)
+                            }}
+                            className='h-6 w-6 cursor-pointer' />
                     </Dropdown>
                 )
             }
@@ -190,22 +140,22 @@ const Invoice = () => {
 
                         <div className='flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8'>
                             <div className='space-y-1'>
-                                <h4 className='text-4xl font-bold'>346</h4>
+                                <h4 className='text-4xl font-bold'>{pulledInvoice?.filter(item => item.status === 'paid')?.length}</h4>
                                 <h5 className='text-gray-400'>Paid Invoices</h5>
                             </div>
                             <CheckCircleIcon className='w-10 text-green-300' />
                         </div>
                         <div className='flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8'>
                             <div className='space-y-1'>
-                                <h4 className='text-4xl font-bold'>236</h4>
+                                <h4 className='text-4xl font-bold'>{pulledInvoice?.filter(item => item.status === 'pending')?.length}</h4>
                                 <h5 className='text-gray-400'>Total Unpaid Invoices</h5>
                             </div>
                             <XCircleIcon className='w-10 text-red-300' />
                         </div>
                         <div className='flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8'>
                             <div className='space-y-1'>
-                                <h4 className='text-4xl font-bold'>{pulledInvoice?.length}</h4>
-                                <h5 className='text-gray-400'>Total Invoices</h5>
+                                <h4 className='text-4xl font-bold'>{pulledInvoice?.filter(item => item.status === 'draft')?.length}</h4>
+                                <h5 className='text-gray-400'>Total Drafted Invoices</h5>
                             </div>
                             <ClipboardListIcon className='w-10' />
                         </div>
@@ -213,16 +163,40 @@ const Invoice = () => {
 
                     <div className='flex items-center justify-between'>
                         <div>
-                            <h5 className='text-lg'>Payment History</h5>
+                            <h5 className='text-lg'>Invoice History</h5>
                             <p className='text-gray-400 text-xs mt-2'>Lorem ipsum dolor sit amet, consectetur</p>
                         </div>
                         <button onClick={handleOpenDrawer} className='bg-[#1EAAE7] text-white px-2 py-2 rounded-sm'>CREATE INVOICE</button>
                     </div>
 
                     <div className='bg-white rounded-lg px-5 py-10 mb-10'>
-                        <Table columns={invoice_col} dataSource={pulledInvoice?.sort((a, b) => (new Date(b.created_at)) - (new Date(a.created_at)))} loading={pullInvoiceLoading} size='large' rowKey={'created_at'} bordered={false} scroll={{ x: true }} />
+                        <div className='text-right my-5'>
+                            <div className="relative text-gray-600 focus-within:text-gray-400">
+                                <span className="absolute inset-y-0 right-5 flex items-center">
+                                    <button className="p-1 focus:outline-none focus:shadow-outline">
+                                        <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" className="w-4 h-4">
+                                            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                        </svg>
+                                    </button>
+                                </span>
+                                <input onChange={handleSearch} type="search" className="px-3 py-3 text-sm text-white bg-gray-100 rounded-full pl-10 focus:outline-none focus:text-gray-900" placeholder="Search recipient" />
+                            </div>
+                        </div>
+                        <Table
+                            columns={invoice_col}
+                            dataSource={pulledInvoice
+                                ?.map((item, index) => {
+                                    const i = index > 9 ? `${index}`[1] : index
+                                    return { ...item, color: colorList[i] }
+                                })
+                                ?.sort((a, b) => (new Date(b.created_at)) - (new Date(a.created_at)))
+                                .filter(item => item.recipient.includes(search))
+                            }
+                            loading={pullInvoiceLoading} size='large' rowKey={'created_at'} bordered={false} scroll={{ x: true }}
+                        />
                     </div>
                     <CreateInvoice visible={visible} handleCloseDrawer={handleCloseDrawer} />
+                    <CreateInvoice visible={updateVisible} handleCloseDrawer={handleCloseUpdateDrawer} updateData={updateData} />
 
                 </div>
             </Layout>
