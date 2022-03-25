@@ -15,14 +15,16 @@ const CreateInvoice = ({ visible, handleCloseDrawer, updateData }) => {
     const [invoiceForm] = Form.useForm()
 
 
-    const clearInvoice = () => {
+    const resetProcess = () => {
         setInvoice({ items: [] })
-        handleCloseDrawer()
         invoiceForm.resetFields()
+        setStep(1)
     }
 
-    const { mutate, isLoading } = useCreateInvoice(clearInvoice)
-    const { mutate: mutateUpdate, isLoading: updateLoading } = useUpdateInvoice(clearInvoice)
+    const handleFullClose = () => handleCloseDrawer(resetProcess)
+
+    const { mutate, isLoading } = useCreateInvoice(handleFullClose)
+    const { mutate: mutateUpdate, isLoading: updateLoading } = useUpdateInvoice(handleFullClose)
 
     const width = useHandleScreenWidth()
 
@@ -94,7 +96,7 @@ const CreateInvoice = ({ visible, handleCloseDrawer, updateData }) => {
             visible={visible}
             size='large'
             width={width <= 500 ? '100%' : width <= 700 ? '80%' : width <= 1000 ? '70%' : width <= 1200 ? '50%' : width <= 1400 ? '40%' : '30%'}
-            onClose={handleCloseDrawer}
+            onClose={handleFullClose}
             closable={false}
             footer={
                 <div className='flex items-center justify-between'>

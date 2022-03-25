@@ -16,12 +16,16 @@ const Invoice = () => {
     const [updateVisible, setUpdateVisible] = useState(false)
 
     const handleOpenDrawer = () => setVisible(true)
-    const handleCloseDrawer = () => setVisible(false)
+    const handleCloseDrawer = clearFields => {
+        setVisible(false)
+        clearFields()
+    }
 
     const handleOpenUpdateDrawer = () => setUpdateVisible(true)
-    const handleCloseUpdateDrawer = () => {
+    const handleCloseUpdateDrawer = clearFields => {
         setUpdateVisible(false)
         setUpdateData(null)
+        clearFields()
     }
 
     const { pullInvoiceLoading, pulledInvoice } = usePullInvoice()
@@ -63,7 +67,7 @@ const Invoice = () => {
             title: 'Date',
             dataIndex: 'created_at',
             key: 'created_at',
-            render: created_at => formatDate(new Date(created_at))
+            render: created_at => formatDate(new Date(created_at)),
         },
         {
             title: 'Recipient',
