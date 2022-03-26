@@ -3,15 +3,13 @@ import { useEffect, useState } from 'react'
 import { useInvoice } from '../../contexts/invoice'
 import { useCreateInvoice, useUpdateInvoice } from '../../hooks/invoice/useInvoice'
 import useHandleScreenWidth from '../../hooks/useHandleScreenWidth'
-import CompleteInvoice from './CompleteInvoice'
 import InvoiceForm from './InvoiceForm'
 import PreviewInvoice from './PreviewInvoice'
 
 const CreateInvoice = ({ visible, handleCloseDrawer, updateData }) => {
 
     const [showPreview, setShowPreview] = useState(false)
-    const [step, setStep] = useState(1)
-    const [loading, setLoading] = useState({ draft: false, save: false })
+    const [loading, setLoading] = useState({ draft: false, send_save: false })
     const [invoice, setInvoice] = useInvoice()
     const [invoiceForm] = Form.useForm()
 
@@ -19,7 +17,6 @@ const CreateInvoice = ({ visible, handleCloseDrawer, updateData }) => {
     const resetProcess = () => {
         setInvoice({ items: [] })
         invoiceForm.resetFields()
-        setStep(1)
     }
 
     useEffect(() => {
@@ -31,7 +28,8 @@ const CreateInvoice = ({ visible, handleCloseDrawer, updateData }) => {
                             'item_name': item.item_name,
                             'item_quantity': Number(item.item_qty),
                             'item_price': Number(item.item_amount),
-                            'item_total': Number(item.item_qty) * Number(item.item_amount)
+                            'item_total': Number(item.item_qty) * Number(item.item_amount),
+                            'id': Math.random()
                         }
                     })]
             }
@@ -41,7 +39,7 @@ const CreateInvoice = ({ visible, handleCloseDrawer, updateData }) => {
 
     const handleFullClose = () => {
         handleCloseDrawer(resetProcess)
-        setLoading({ draft: false, save: false })
+        setLoading({ draft: false, send_save: false })
     }
 
     const { mutate } = useCreateInvoice(handleFullClose)
@@ -66,16 +64,10 @@ const CreateInvoice = ({ visible, handleCloseDrawer, updateData }) => {
 
     const handleClosePreview = () => setShowPreview(false)
 
-    const incrementStep = () => setStep(previousStep => previousStep + 1)
-    const decrementStep = () => setStep(previousStep => previousStep - 1)
-
-    const handleFormSubmission = () => {
+    const handleFormSubmission = type => {
         invoiceForm.validateFields().then(values => {
             if (invoice.items.length > 0) {
-                setInvoice(prev => {
-                    return { ...prev, ...values }
-                })
-                incrementStep()
+                handleCreateInvoice(type, values)
             } else {
                 notification.warning({ message: 'Items list cannot be empty', description: 'Click the "Add item" button to add item(s)' })
             }
@@ -84,34 +76,27 @@ const CreateInvoice = ({ visible, handleCloseDrawer, updateData }) => {
         })
     }
 
-    const handleCreateInvoice = type => {
+    const handleCreateInvoice = (type, values) => {
         const data = {
-            "description": invoice.description,
-            "additional_note": invoice.additional_note || '',
+            "description": values.description,
+            "additional_note": values.additional_note || '',
             "items": JSON.stringify(invoice.items.map(item => {
                 return { "item": item.item_name, "qty": item.item_quantity, "amount": item.item_price }
             })),
         }
-        const payload = {
-            "recipient": invoice.email,
-            "command": type,
-            ...data
+        const create_payload = {
+            ...data,
+            "recipient": values.email,
+            "command": type
+        }
+        const update_payload = {
+            ...data,
+            "reference_number": updateData?.ref_number
         }
         setLoading(prev => {
             return { ...prev, [type]: true }
         })
-        updateData ? mutateUpdate({ ...data, "reference_number": updateData.ref_number }) : mutate(payload)
-    }
-
-    const getCurrentPage = () => {
-        switch (step) {
-            case 1:
-                return <InvoiceForm updateData={updateData} invoiceForm={invoiceForm} handleCloseDrawer={handleCloseDrawer} />
-            case 2:
-                return <CompleteInvoice incrementStep={incrementStep} decrementStep={decrementStep} handleCloseDrawer={handleCloseDrawer} />
-            default:
-                return <InvoiceForm />
-        }
+        updateData ? mutateUpdate(update_payload) : mutate(create_payload)
     }
 
     return (
@@ -125,22 +110,26 @@ const CreateInvoice = ({ visible, handleCloseDrawer, updateData }) => {
                 <div className='flex items-center justify-between'>
                     <p onClick={handleShowPreview} className='text-[#1EAAE7] cursor-pointer'>PREVIEW</p>
                     <div className='space-x-3'>
-                        {step > 1 && !updateData && <Button loading={loading.draft} onClick={() => handleCreateInvoice('draft')} className='border-gray-400 border-[1px] text-gray-500 px-3 py-1 rounded-sm'>SAVE AS DRAFT</Button>}
+                        {!updateData &&
+                            <Button
+                                loading={loading.draft}
+                                onClick={() => handleFormSubmission('draft')}
+                                className='border-gray-400 border-[1px] text-gray-500 px-3 py-1 rounded-sm'>
+                                SAVE AS DRAFT
+                            </Button>}
                         <Button
-                            onClick={step === 1 ? handleFormSubmission : () => handleCreateInvoice('save')}
-                            loading={step > 1 && (updateData ? updateLoading : loading.save)} type='primary' className='bg-[#1EAAE7] text-white px-3 py-1 rounded-sm'>
-                            {step === 1 ? 'NEXT' : 'SEND'}
+                            onClick={() => handleFormSubmission('send_save')}
+                            loading={updateData ? updateLoading : loading.send_save} type='primary' className='bg-[#1EAAE7] text-white px-3 py-1 rounded-sm'>
+                            {updateData ? 'UPDATE' : 'SEND'}
                         </Button>
                     </div>
                 </div>
             }
             footerStyle={{ padding: '30px' }}
         >
-            <section>
-                {getCurrentPage()}
-            </section>
+            <InvoiceForm updateData={updateData} invoiceForm={invoiceForm} handleCloseDrawer={handleCloseDrawer} />
 
-            <PreviewInvoice showPreview={showPreview} handleClosePreview={handleClosePreview} />
+            {showPreview && <PreviewInvoice showPreview={showPreview} handleClosePreview={handleClosePreview} />}
         </Drawer>
 
     )

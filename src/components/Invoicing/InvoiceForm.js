@@ -7,7 +7,9 @@ const InvoiceForm = ({ invoiceForm, handleCloseDrawer, updateData }) => {
     return (
         <div className='space-y-6'>
             <div className='flex items-center justify-between'>
-                <h4 className='text-lg text-gray-500 font-medium'>Create new invoice</h4>
+                <h4 className='text-lg text-gray-500 font-medium'>
+                    {updateData ? `Reference number: ${updateData.ref_number}` : 'Create new invoice'}
+                </h4>
                 <XIcon onClick={handleCloseDrawer} className='h-5 w-5 text-gray-500 font-semibold cursor-pointer' />
             </div>
             <Form

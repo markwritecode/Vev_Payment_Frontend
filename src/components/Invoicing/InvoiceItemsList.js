@@ -1,3 +1,4 @@
+import { TrashIcon } from '@heroicons/react/outline'
 import React, { useState } from 'react'
 import { useInvoice } from '../../contexts/invoice'
 import { currencyFormatter } from '../../utils/helperFunctions'
@@ -6,7 +7,7 @@ import AddInvoiceItem from './AddInvoiceItem'
 const InvoiceItemsList = ({ preview }) => {
 
     const [visible, setVisible] = useState(false)
-    const [invoice] = useInvoice()
+    const [invoice, setInvoice] = useInvoice()
 
     const handleOpenModal = e => {
         e.preventDefault()
@@ -16,6 +17,16 @@ const InvoiceItemsList = ({ preview }) => {
         setVisible(false)
         clearForm && clearForm()
     }
+
+    const deleteItem = id => {
+        setInvoice(prev => {
+            return { ...prev, items: prev.items.filter(item => item.id !== id) }
+        })
+    }
+
+    const totalAmount = invoice.items.reduce((curr, value) => {
+        return curr + value.item_total
+    }, 0)
 
     return (
         <section className='antialiased text-gray-600 space-y-2'>
@@ -40,6 +51,10 @@ const InvoiceItemsList = ({ preview }) => {
                                         <th className='p-2 whitespace-nowrap'>
                                             <div className='font-semibold text-center'>Total</div>
                                         </th>
+                                        {!preview &&
+                                            <th className='p-2 whitespace-nowrap'>
+                                                <div className='font-semibold text-center'>Delete</div>
+                                            </th>}
                                     </tr>
                                 </thead>
                                 <tbody className='text-sm divide-y divide-gray-100'>
@@ -61,6 +76,12 @@ const InvoiceItemsList = ({ preview }) => {
                                                     <td className='p-2 whitespace-nowrap'>
                                                         <div className='text-center'>{currencyFormatter(item.item_total)}</div>
                                                     </td>
+                                                    {!preview &&
+                                                        <td className='p-2 whitespace-nowrap'>
+                                                            <div className='text-center'>
+                                                                <TrashIcon onClick={() => deleteItem(item.id)} className='h-5 mx-auto text-red-400 cursor-pointer' />
+                                                            </div>
+                                                        </td>}
                                                 </tr>
                                             )
                                         })
@@ -71,10 +92,11 @@ const InvoiceItemsList = ({ preview }) => {
                     </div>
                 </div>
             </div>
-            {!preview &&
-                <div className='text-right'>
-                    <button onClick={handleOpenModal} className='text-white text-xs bg-[#1EAAE7] rounded-sm px-3 py-2'>ADD ITEM</button>
-                </div>}
+
+            {!preview && <div className='flex items-center justify-between pt-10'>
+                <button onClick={handleOpenModal} className='text-white text-xs bg-[#1EAAE7] rounded-sm px-3 py-2'>ADD ITEM</button>
+                <p className='text-gray-400'>Total Amount: <span className='text-black'>₦{currencyFormatter(totalAmount)}</span></p>
+            </div>}
 
             <AddInvoiceItem visible={visible} handleCloseModal={handleCloseModal} />
         </section>
