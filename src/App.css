@@ -17,3 +17,7 @@
     display: none;
     /* width: 20px; */
 }
+
+.table-menu-confirm button, .ant-btn-primary {
+    background-color: #1890ff !important;
+}

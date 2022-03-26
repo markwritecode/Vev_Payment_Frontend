@@ -11,7 +11,7 @@ const AddInvoiceItem = ({ visible, handleCloseModal }) => {
         setInvoice(prev => {
             return { ...prev, items: [...prev.items, { ...values, "item_total": values.item_quantity * values.item_price }] }
         })
-        handleCloseModal()
+        handleCloseModal(itemsForm.resetFields())
     }
 
     return (

@@ -1,12 +1,11 @@
 import { CheckCircleIcon, ClipboardListIcon, DotsHorizontalIcon, XCircleIcon } from '@heroicons/react/outline'
-import { Avatar, Dropdown, Menu, Table } from 'antd'
+import { Avatar, Dropdown, Menu, Popconfirm, Table } from 'antd'
 import { useState } from 'react'
 import Layout from '../components/General/Layout'
 import CreateInvoice from '../components/Invoicing/CreateInvoice'
 import InvoiceContext from '../contexts/invoice'
 import { useDeleteInvoice, usePullInvoice } from '../hooks/invoice/useInvoice'
 import { formatDate } from '../utils/helperFunctions'
-import 'antd/lib/input/style/search-input.less'
 
 const Invoice = () => {
 
@@ -37,7 +36,7 @@ const Invoice = () => {
 
     const menu = item => {
         return (
-            <Menu>
+            <Menu className='table-menu-confirm'>
                 <Menu.Item
                     onClick={handleOpenUpdateDrawer}
                     key='2'>
@@ -46,9 +45,14 @@ const Invoice = () => {
                 {
                     item.status === 'draft' &&
                     <Menu.Item
-                        key='1'
-                        onClick={() => handleDeleteInvoice(item.ref_number)}>
-                        Delete
+                        key='1'>
+                        <Popconfirm
+                            title="Are you sure you want to delete invoice?"
+                            onConfirm={() => handleDeleteInvoice(item.ref_number)}
+                            okText="Yes"
+                            cancelText="No"
+                        >Delete
+                        </Popconfirm>
                     </Menu.Item>
                 }
             </Menu>
@@ -126,6 +130,10 @@ const Invoice = () => {
 
     if (pullInvoiceLoading) return <p>Loading page...</p>
 
+    const _pulledInvoice = pulledInvoice?.map(item => {
+        return { ...item.invoice, items: item.items }
+    })
+
     return (
         <InvoiceContext>
             <Layout>
@@ -136,7 +144,7 @@ const Invoice = () => {
 
                         <div className='flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8'>
                             <div className='space-y-1'>
-                                <h4 className='text-4xl font-bold'>{pulledInvoice?.length}</h4>
+                                <h4 className='text-4xl font-bold'>{_pulledInvoice?.length}</h4>
                                 <h5 className='text-gray-400'>Total Invoices</h5>
                             </div>
                             <ClipboardListIcon className='w-10' />
@@ -144,21 +152,21 @@ const Invoice = () => {
 
                         <div className='flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8'>
                             <div className='space-y-1'>
-                                <h4 className='text-4xl font-bold'>{pulledInvoice?.filter(item => item.status === 'paid')?.length}</h4>
+                                <h4 className='text-4xl font-bold'>{_pulledInvoice?.filter(item => item.status === 'paid')?.length}</h4>
                                 <h5 className='text-gray-400'>Paid Invoices</h5>
                             </div>
                             <CheckCircleIcon className='w-10 text-green-300' />
                         </div>
                         <div className='flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8'>
                             <div className='space-y-1'>
-                                <h4 className='text-4xl font-bold'>{pulledInvoice?.filter(item => item.status === 'pending')?.length}</h4>
+                                <h4 className='text-4xl font-bold'>{_pulledInvoice?.filter(item => item.status === 'pending')?.length}</h4>
                                 <h5 className='text-gray-400'>Total Unpaid Invoices</h5>
                             </div>
                             <XCircleIcon className='w-10 text-red-300' />
                         </div>
                         <div className='flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8'>
                             <div className='space-y-1'>
-                                <h4 className='text-4xl font-bold'>{pulledInvoice?.filter(item => item.status === 'draft')?.length}</h4>
+                                <h4 className='text-4xl font-bold'>{_pulledInvoice?.filter(item => item.status === 'draft')?.length}</h4>
                                 <h5 className='text-gray-400'>Total Drafted Invoices</h5>
                             </div>
                             <ClipboardListIcon className='w-10' />
@@ -188,7 +196,7 @@ const Invoice = () => {
                         </div>
                         <Table
                             columns={invoice_col}
-                            dataSource={pulledInvoice
+                            dataSource={_pulledInvoice
                                 ?.map((item, index) => {
                                     const i = index > 9 ? `${index}`[1] : index
                                     return { ...item, color: colorList[i] }
@@ -199,8 +207,8 @@ const Invoice = () => {
                             loading={pullInvoiceLoading} size='large' rowKey={'created_at'} bordered={false} scroll={{ x: true }}
                         />
                     </div>
-                    <CreateInvoice visible={visible} handleCloseDrawer={handleCloseDrawer} />
-                    <CreateInvoice visible={updateVisible} handleCloseDrawer={handleCloseUpdateDrawer} updateData={updateData} />
+                    {visible && <CreateInvoice visible={visible} handleCloseDrawer={handleCloseDrawer} />}
+                    {updateVisible && <CreateInvoice visible={updateVisible} handleCloseDrawer={handleCloseUpdateDrawer} updateData={updateData} />}
 
                 </div>
             </Layout>

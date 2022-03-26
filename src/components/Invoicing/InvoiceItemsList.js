@@ -12,7 +12,10 @@ const InvoiceItemsList = ({ preview }) => {
         e.preventDefault()
         setVisible(true)
     }
-    const handleCloseModal = () => setVisible(false)
+    const handleCloseModal = clearForm => {
+        setVisible(false)
+        clearForm && clearForm()
+    }
 
     return (
         <section className='antialiased text-gray-600 space-y-2'>
@@ -53,7 +56,7 @@ const InvoiceItemsList = ({ preview }) => {
                                                         <div className='text-left'>{item.item_quantity}</div>
                                                     </td>
                                                     <td className='p-2 whitespace-nowrap'>
-                                                        <div className='text-left font-medium text-green-500'>${currencyFormatter(item.item_price)}</div>
+                                                        <div className='text-left font-medium text-green-500'>₦{currencyFormatter(item.item_price)}</div>
                                                     </td>
                                                     <td className='p-2 whitespace-nowrap'>
                                                         <div className='text-center'>{currencyFormatter(item.item_total)}</div>

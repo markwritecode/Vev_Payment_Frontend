@@ -35,7 +35,7 @@ export const useCreateInvoice = callback => {
             }
         },
         onError: error => {
-            handleNotify('error', error)
+            handleNotify('error', error.message)
         },
     })
 }
@@ -48,8 +48,9 @@ export const useDeleteInvoice = () => {
         poster(`invoice/delete`, {
             data
         }), {
-        onSuccess: response => {
+        onSuccess: async response => {
             if (response.data?.status === 'ok') {
+                await queryClient.invalidateQueries(['invoice', 'show'])
                 handleNotify('success', 'Invoice deleted successfully')
             } else {
                 handleNotify('error')
@@ -86,7 +87,7 @@ export const useUpdateInvoice = callback => {
 
 export const usePullInvoice = () => {
 
-    const url = `invoice/show`
+    const url = `invoice/show/0/100`
 
     const { isLoading, data } = useQuery(['invoice', 'show'], () => getter(url).then((response) => {
         return response?.data?.invoices
