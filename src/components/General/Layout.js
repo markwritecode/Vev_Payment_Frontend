@@ -10,14 +10,16 @@ const Layout = ({ children }) => {
 
     return (
         <div className='bg-[#F9F9F9] relative'>
-            <Header expanded={expanded} toggleExpansion={toggleExpansion} />
-            <div className='flex overflow-hidden bg-white pt-16'>
+            <div className='h-screen w-full flex items-center flex-auto'>
                 <Sidebar expanded={expanded} />
-                <div className={`bg-gray-900 ${!expanded && 'hidden'} opacity-50 fixed inset-0 z-10`}></div>
 
-                <main className='h-full w-full bg-gray-50 relative overflow-y-auto lg:ml-64 pt-6 px-4'>
-                    {children}
-                </main>
+                <div className={`w-full h-full flex flex-col justify-between px-5`}>
+                    <Header expanded={expanded} toggleExpansion={toggleExpansion} />
+                    <main className='max-w-full h-full flex py-5 lg:overflow-y-scroll'>
+                        {children}
+                    </main>
+                </div>
+
             </div>
         </div>
     )
