@@ -127,7 +127,7 @@ const CreateInvoice = ({ visible, handleCloseDrawer, updateData }) => {
                     <div className='space-x-3'>
                         {step > 1 && !updateData && <Button loading={loading.draft} onClick={() => handleCreateInvoice('draft')} className='border-gray-400 border-[1px] text-gray-500 px-3 py-1 rounded-sm'>SAVE AS DRAFT</Button>}
                         <Button
-                            onClick={step === 1 ? handleFormSubmission : () => handleCreateInvoice('send_save')}
+                            onClick={step === 1 ? handleFormSubmission : () => handleCreateInvoice('save')}
                             loading={step > 1 && (updateData ? updateLoading : loading.save)} type='primary' className='bg-[#1EAAE7] text-white px-3 py-1 rounded-sm'>
                             {step === 1 ? 'NEXT' : 'SEND'}
                         </Button>
