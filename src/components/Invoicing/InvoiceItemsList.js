@@ -95,7 +95,7 @@ const InvoiceItemsList = ({ preview }) => {
 
             {!preview && <div className='flex items-center justify-between pt-10'>
                 <button onClick={handleOpenModal} className='text-white text-xs bg-[#1EAAE7] rounded-sm px-3 py-2'>ADD ITEM</button>
-                <p className='text-gray-400'>Total: <span className='text-black'>₦{currencyFormatter(totalAmount)}</span></p>
+                <p className='text-gray-400'>Total: <span className='text-black ml-5'>₦{currencyFormatter(totalAmount)}</span></p>
             </div>}
 
             <AddInvoiceItem visible={visible} handleCloseModal={handleCloseModal} />

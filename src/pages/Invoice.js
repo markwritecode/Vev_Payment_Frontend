@@ -8,6 +8,7 @@ import CreateInvoice from '../components/Invoicing/CreateInvoice'
 import InvoiceContext from '../contexts/invoice'
 import { useDeleteInvoice, usePullInvoice } from '../hooks/invoice/useInvoice'
 import { currencyFormatter } from '../utils/helperFunctions'
+import { colorList } from '../utils/helperVariables'
 
 const Invoice = () => {
 
@@ -61,8 +62,6 @@ const Invoice = () => {
         )
     }
 
-    const colorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae', 'F7CCAC', '#712B75', '#5EE6EB', '#5463FF', '#332FD0', '#85C88A']
-
     const invoice_col = [
         {
             title: 'No',
@@ -89,9 +88,8 @@ const Invoice = () => {
                                 verticalAlign: 'middle',
                             }}
                             className='uppercase'
-                            size="large"
                         >
-                            {recipient[0] + recipient[1]}
+                            {recipient[0]}
                         </Avatar>
                         <span>{recipient}</span>
                     </div>

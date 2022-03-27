@@ -1,6 +1,7 @@
 import { XIcon } from '@heroicons/react/solid'
-import { Form, Input, Select } from 'antd'
+import { Avatar, Form, Input, Select } from 'antd'
 import { useQueryEmail } from '../../hooks/invoice/useInvoice'
+import { colorList } from '../../utils/helperVariables'
 import InvoiceItemsList from './InvoiceItemsList'
 
 const InvoiceForm = ({ invoiceForm, handleCloseDrawer, updateData }) => {
@@ -50,10 +51,21 @@ const InvoiceForm = ({ invoiceForm, handleCloseDrawer, updateData }) => {
                             onSearch={handleSearch}
                             style={{ width: '100%' }}
                         >
-                            {data?.data?.email_name.map(item => {
+                            {data?.data?.email_name.map((item, index) => {
+                                const i = index > 9 ? `${index}`[1] : index
                                 return (
                                     <Select.Option key={item.id} value={item.email}>
-                                        {item.email}
+                                        <Avatar
+                                            size={'small'}
+                                            style={{
+                                                backgroundColor: colorList[i],
+                                                opacity: 0.6,
+                                                verticalAlign: 'middle',
+                                            }}
+                                            className='uppercase'>
+                                            {item.email[0]}
+                                        </Avatar>
+                                        <span className='ml-3'>{item.email}</span>
                                     </Select.Option>
                                 )
                             })}
