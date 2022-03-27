@@ -38,7 +38,7 @@ export const PreviewInvoice = () => {
           {invoice.additional_notes && <p className='text-gray-400'>{invoice.additional_notes}</p>}
         </div>
         <div>
-          <p className='text-gray-400'>Total Amount: <span className='text-black'>₦{currencyFormatter(totalAmount)}</span></p>
+          <p className='text-gray-400'>Total: <span className='text-black'>₦{currencyFormatter(totalAmount)}</span></p>
         </div>
       </div>
     </div>

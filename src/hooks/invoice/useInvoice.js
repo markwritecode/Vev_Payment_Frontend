@@ -85,6 +85,29 @@ export const useUpdateInvoice = callback => {
     })
 }
 
+export const useQueryEmail = callback => {
+
+    const handleNotify = useHandleNotifications()
+
+    return useMutation(data =>
+        poster(`user/show`, {
+            data
+        }), {
+        onSuccess: async response => {
+            if (response.data?.status === 'ok') {
+                await queryClient.invalidateQueries(['invoice', 'show'])
+                callback()
+                handleNotify('success', 'Invoice updated successfully')
+            } else {
+                handleNotify('error')
+            }
+        },
+        onError: (error) => {
+            handleNotify('error', error)
+        },
+    })
+}
+
 export const usePullInvoice = () => {
 
     const url = `invoice/show/0/100`
