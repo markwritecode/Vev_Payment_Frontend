@@ -46,7 +46,7 @@ const InvoiceForm = ({ invoiceForm, handleCloseDrawer, updateData }) => {
                             allowClear
                             showArrow={false}
                             loading={isLoading}
-                            notFoundContent={'Enter atleast four characters to search'}
+                            notFoundContent={isLoading ? 'Loading emails...' : 'Enter atleast four characters to search'}
                             onSearch={handleSearch}
                             style={{ width: '100%' }}
                         >
