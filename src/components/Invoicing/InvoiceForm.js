@@ -37,7 +37,7 @@ const InvoiceForm = ({ invoiceForm, handleCloseDrawer, updateData }) => {
                     <Form.Item
                         label="Recipient Email"
                         name="email"
-                        rules={[{ required: true, message: 'Please input your email!' }, { type: 'email', message: 'Input a valid email' }]}
+                        rules={[{ required: true, message: 'Please select an email!' }]}
                     >
                         <Select
                             showSearch
@@ -46,7 +46,7 @@ const InvoiceForm = ({ invoiceForm, handleCloseDrawer, updateData }) => {
                             allowClear
                             showArrow={false}
                             loading={isLoading}
-                            notFoundContent={isLoading ? 'Loading emails...' : 'Enter atleast four characters to search'}
+                            notFoundContent={isLoading ? 'Loading emails...' : data?.data?.email_name.length < 1 ? 'Email does not exist' : 'Enter atleast four characters to search'}
                             onSearch={handleSearch}
                             style={{ width: '100%' }}
                         >
