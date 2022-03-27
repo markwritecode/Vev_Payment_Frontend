@@ -95,9 +95,8 @@ export const useQueryEmail = callback => {
         }), {
         onSuccess: async response => {
             if (response.data?.status === 'ok') {
-                await queryClient.invalidateQueries(['invoice', 'show'])
-                callback()
-                handleNotify('success', 'Invoice updated successfully')
+                // await queryClient.invalidateQueries(['invoice', 'show'])
+                // handleNotify('success', 'Invoice updated successfully')
             } else {
                 handleNotify('error')
             }

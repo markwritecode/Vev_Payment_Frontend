@@ -1,8 +1,17 @@
 import { XIcon } from '@heroicons/react/solid'
-import { Form, Input } from 'antd'
+import { Form, Input, Select } from 'antd'
+import { useQueryEmail } from '../../hooks/invoice/useInvoice'
 import InvoiceItemsList from './InvoiceItemsList'
 
 const InvoiceForm = ({ invoiceForm, handleCloseDrawer, updateData }) => {
+
+    const { mutate, isLoading, data } = useQueryEmail()
+
+    const handleSearch = value => {
+        if (value.length >= 4) {
+            mutate({ 'email_name': value })
+        }
+    }
 
     return (
         <div className='space-y-6'>
@@ -30,7 +39,25 @@ const InvoiceForm = ({ invoiceForm, handleCloseDrawer, updateData }) => {
                         name="email"
                         rules={[{ required: true, message: 'Please input your email!' }, { type: 'email', message: 'Input a valid email' }]}
                     >
-                        <Input size='large' />
+                        <Select
+                            showSearch
+                            placeholder='Select Recipient'
+                            size='large'
+                            allowClear
+                            showArrow={false}
+                            loading={isLoading}
+                            notFoundContent={'Enter atleast four characters to search'}
+                            onSearch={handleSearch}
+                            style={{ width: '100%' }}
+                        >
+                            {data?.data?.email_name.map(item => {
+                                return (
+                                    <Select.Option key={item.id} value={item.email}>
+                                        {item.email}
+                                    </Select.Option>
+                                )
+                            })}
+                        </Select>
                     </Form.Item>
                 }
 
