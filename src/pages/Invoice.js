@@ -1,13 +1,12 @@
 import { CheckCircleIcon, ClipboardListIcon, DotsHorizontalIcon, ViewGridAddIcon, XCircleIcon } from '@heroicons/react/outline'
 import { CheckIcon } from '@heroicons/react/solid'
 import { Avatar, Dropdown, Menu, Popconfirm, Table } from 'antd'
-import moment from 'moment'
 import { useState } from 'react'
 import Layout from '../components/General/Layout'
 import CreateInvoice from '../components/Invoicing/CreateInvoice'
 import InvoiceContext from '../contexts/invoice'
 import { useDeleteInvoice, usePullInvoice } from '../hooks/invoice/useInvoice'
-import { currencyFormatter } from '../utils/helperFunctions'
+import { currencyFormatter, formatDate, formatDateNum } from '../utils/helperFunctions'
 import { colorList } from '../utils/helperVariables'
 
 const Invoice = () => {
@@ -73,7 +72,12 @@ const Invoice = () => {
             title: 'Date',
             dataIndex: 'created_at',
             key: 'created_at',
-            render: created_at => moment(new Date(created_at)).format('MMM d, YYYY'),
+            render: created_at => (
+                <>
+                    <span className='hidden lg:block'>{formatDate(created_at)}</span>
+                    <span className='lg:hidden'>{formatDateNum(created_at)}</span>
+                </>
+            )
         },
         {
             title: 'Client',
@@ -183,15 +187,15 @@ const Invoice = () => {
                     <div className='flex items-center justify-between pt-8'>
                         <div>
                             <h5 className='text-xl font-medium'>Invoice History</h5>
-                            <p className='text-gray-400 text-sm mt-2'>List of all your recent transactions</p>
+                            <p className='text-gray-400 text-sm mt-2 hidden lg:block'>List of all your recent transactions</p>
                         </div>
-                        <button onClick={handleOpenDrawer} className='bg-[#1EAAE7] text-white px-6 py-4 rounded-md flex items-center gap-2'>
+                        <button onClick={handleOpenDrawer} className='bg-[#1EAAE7] text-white px-3 py-3 lg:px-6 lg:py-4 rounded-md flex items-center gap-2'>
                             <ViewGridAddIcon className='h-4 w-4' />
-                            <span>NEW INVOICE</span>
+                            <span className='text-xs lg:text-sm'>NEW INVOICE</span>
                         </button>
                     </div>
 
-                    <div className='rounded-lg mb-10'>
+                    <div className='rounded-lg mb-10 w-full'>
                         <div className='text-right my-5'>
                             <div className="relative text-gray-600 focus-within:text-gray-400">
                                 <span className="absolute inset-y-0 left-5 flex items-center">
@@ -210,7 +214,6 @@ const Invoice = () => {
                             </div>
                         </div>
                         <Table
-                            className='bg-white p-3 rounded-lg'
                             columns={invoice_col}
                             dataSource={_pulledInvoice
                                 ?.map((item, index) => {
@@ -220,7 +223,7 @@ const Invoice = () => {
                                 ?.sort((a, b) => (new Date(b.created_at)) - (new Date(a.created_at)))
                                 .filter(item => item.recipient.includes(search))
                             }
-                            loading={pullInvoiceLoading} size='large' rowKey={'created_at'} bordered={false} scroll={{ x: true }}
+                            loading={pullInvoiceLoading} size='large' rowKey={'created_at'} bordered={false}
                         />
                     </div>
                     {visible && <CreateInvoice visible={visible} handleCloseDrawer={handleCloseDrawer} />}

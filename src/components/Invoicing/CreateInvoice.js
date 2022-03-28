@@ -103,7 +103,7 @@ const CreateInvoice = ({ visible, handleCloseDrawer, updateData }) => {
         <Drawer
             visible={visible}
             size='large'
-            width={width <= 500 ? '100%' : width <= 700 ? '80%' : width <= 1000 ? '70%' : width <= 1200 ? '50%' : width <= 1400 ? '40%' : '30%'}
+            width={width <= 500 ? '100%' : width <= 700 ? '70%' : width <= 900 ? '60%' : width <= 1100 ? '45%' : width <= 1200 ? '40%' : width <= 1400 ? '35%' : '25%'}
             onClose={handleFullClose}
             closable={false}
             footer={

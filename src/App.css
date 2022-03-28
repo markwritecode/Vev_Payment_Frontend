@@ -7,6 +7,7 @@
 
 .ant-table-tbody>tr>td {
     border: none !important;
+    width: 100px !important;
 }
 
 .ant-table-thead>tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan]):before {
@@ -20,4 +21,15 @@
 
 .table-menu-confirm button, .ant-btn-primary {
     background-color: #1890ff !important;
+}
+
+.ant-table {
+    border-radius: 0.5rem !important;
+    height: 500px !important;
+    overflow: scroll;
+    padding: 1.75rem 1rem !important;
+}
+
+.ant-table table {
+    width: 100%;
 }
