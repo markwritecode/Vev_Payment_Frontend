@@ -1,5 +1,8 @@
-import { ChevronRightIcon, ClipboardListIcon, ServerIcon } from '@heroicons/react/outline'
 import { NavLink } from 'react-router-dom'
+import { GiMoneyStack } from 'react-icons/gi'
+import { RiDashboardFill } from 'react-icons/ri'
+import { FaFileInvoice } from 'react-icons/fa'
+import { FiChevronRight } from 'react-icons/fi'
 
 const Sidebar = ({ expanded }) => {
 
@@ -11,17 +14,24 @@ const Sidebar = ({ expanded }) => {
                     <div className='flex flex-col space-y-10'>
                         <NavLink to={'/'} className={({ isActive }) => `${isActive && 'text-[#1EAAE7]'} flex flex-row items-center text-gray-500 gap-10`}>
                             <span className='inline-flex justify-center items-center ml-4'>
-                                <ServerIcon className='h-8 w-8' />
+                                <RiDashboardFill className='h-6 w-6' />
                             </span>
                             <span className='ml-2 text-lg font-normal tracking-wide truncate'>Dashboard</span>
-                            <ChevronRightIcon className={`${expanded ? 'block' : 'hidden'} h-5 w-5 font-thin ml-auto`} />
+                            <FiChevronRight className={`${expanded ? 'block' : 'hidden'} h-5 w-5 font-thin ml-auto`} />
                         </NavLink>
                         <NavLink to={'/invoice'} className={({ isActive }) => `${isActive && 'text-[#1EAAE7]'} flex flex-row items-center text-gray-500 gap-10`}>
                             <span className='inline-flex justify-center items-center ml-4'>
-                                <ClipboardListIcon className='h-8 w-8' />
+                                <FaFileInvoice className='h-6 w-6' />
                             </span>
                             <span className='ml-2 text-lg font-normal tracking-wide truncate'>Invoice</span>
-                            <ChevronRightIcon className={`${expanded ? 'block' : 'hidden'} h-5 w-5 font-thin ml-auto`} />
+                            <FiChevronRight className={`${expanded ? 'block' : 'hidden'} h-5 w-5 font-thin ml-auto`} />
+                        </NavLink>
+                        <NavLink to={'/transactions'} className={({ isActive }) => `${isActive && 'text-[#1EAAE7]'} flex flex-row items-center text-gray-500 gap-10`}>
+                            <span className='inline-flex justify-center items-center ml-4'>
+                                <GiMoneyStack className='h-6 w-6' />
+                            </span>
+                            <span className='ml-2 text-lg font-normal tracking-wide truncate'>Transaction</span>
+                            <FiChevronRight className={`${expanded ? 'block' : 'hidden'} h-5 w-5 font-thin ml-auto`} />
                         </NavLink>
                     </div>
                     <p className={`mb-14 px-5 py-3 ${expanded ? 'block' : 'hidden'} text-center text-xs`}>Copyright @2022</p>
@@ -35,17 +45,24 @@ const Sidebar = ({ expanded }) => {
 
                         <NavLink to={'/'} className={({ isActive }) => `${isActive && 'text-[#1EAAE7]'} flex flex-row items-center text-gray-500 gap-2`}>
                             <span className='inline-flex justify-center items-center ml-4'>
-                                <ServerIcon className='h-5 w-5' />
+                                <RiDashboardFill className='h-6 w-6' />
                             </span>
                             <span className='ml-2 text-xs font-normal tracking-wide'>Dashboard</span>
-                            <ChevronRightIcon className={`${expanded ? 'block' : 'hidden'} h-5 w-5 font-thin ml-auto`} />
+                            <FiChevronRight className={`${expanded ? 'block' : 'hidden'} h-5 w-5 font-thin ml-auto`} />
                         </NavLink>
                         <NavLink to={'/invoice'} className={({ isActive }) => `${isActive && 'text-[#1EAAE7]'} flex flex-row items-center text-gray-500 gap-2`}>
                             <span className='inline-flex justify-center items-center ml-4'>
-                                <ClipboardListIcon className='h-5 w-5' />
+                                <FaFileInvoice className='h-6 w-6' />
                             </span>
                             <span className='ml-2 text-xs font-normal tracking-wide'>Invoice</span>
-                            <ChevronRightIcon className={`${expanded ? 'block' : 'hidden'} h-5 w-5 font-thin ml-auto`} />
+                            <FiChevronRight className={`${expanded ? 'block' : 'hidden'} h-5 w-5 font-thin ml-auto`} />
+                        </NavLink>
+                        <NavLink to={'/transactions'} className={({ isActive }) => `${isActive && 'text-[#1EAAE7]'} flex flex-row items-center text-gray-500 gap-10`}>
+                            <span className='inline-flex justify-center items-center ml-4'>
+                                <GiMoneyStack className='h-8 w-8' />
+                            </span>
+                            <span className='ml-2 text-lg font-normal tracking-wide truncate'>Transaction</span>
+                            <FiChevronRight className={`${expanded ? 'block' : 'hidden'} h-5 w-5 font-thin ml-auto`} />
                         </NavLink>
                     </div>
                     <p className={`mb-14 px-5 py-3 ${expanded ? 'block' : 'hidden'} text-center text-xs`}>Copyright @2022</p>

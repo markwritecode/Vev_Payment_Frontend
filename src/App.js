@@ -3,6 +3,7 @@ import Dashboard from './pages/Dashboard'
 import Invoice from './pages/Invoice'
 import './App.css'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import Transactions from './pages/Transactions'
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,6 +22,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Dashboard />} />
           <Route path='invoice' element={<Invoice />} />
+          <Route path='transactions' element={<Transactions />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
