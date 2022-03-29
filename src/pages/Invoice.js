@@ -1,8 +1,9 @@
-import { CheckCircleIcon, ClipboardListIcon, DotsHorizontalIcon, ViewGridAddIcon, XCircleIcon } from '@heroicons/react/outline'
-import { CheckIcon } from '@heroicons/react/solid'
+import { HiOutlineViewGridAdd, HiDotsHorizontal, HiOutlineClipboardList, HiOutlineCheck } from 'react-icons/hi'
+import { IoMdCheckmarkCircleOutline, IoMdCloseCircleOutline } from 'react-icons/io'
 import { Avatar, Dropdown, Menu, Popconfirm, Table } from 'antd'
 import { useState } from 'react'
 import Layout from '../components/General/Layout'
+import Loading from '../components/General/Loading'
 import CreateInvoice from '../components/Invoicing/CreateInvoice'
 import InvoiceContext from '../contexts/invoice'
 import { useDeleteInvoice, usePullInvoice } from '../hooks/invoice/useInvoice'
@@ -115,7 +116,7 @@ const Invoice = () => {
                     <button
                         className={`rounded-full px-3 py-1 flex items-center gap-1 
                     ${status === 'draft' ? 'text-green-400 bg-green-50' : status === 'pending' ? 'text-blue-400 bg-blue-50' : ''} `}>
-                        {status === 'draft' ? <CheckIcon className='h-3 w-3' /> : <div className='h-2 w-2 bg-blue-400 rounded-full' />}
+                        {status === 'draft' ? <HiOutlineCheck className='h-3 w-3' /> : <div className='h-2 w-2 bg-blue-400 rounded-full' />}
                         {status}
                     </button>
                 )
@@ -127,7 +128,7 @@ const Invoice = () => {
             render: item => {
                 return (
                     <Dropdown overlay={() => menu(item)} trigger={['click']}>
-                        <DotsHorizontalIcon
+                        <HiDotsHorizontal
                             onClick={e => {
                                 e.preventDefault()
                                 setUpdateData(item)
@@ -139,7 +140,7 @@ const Invoice = () => {
         }
     ]
 
-    if (pullInvoiceLoading) return <p>Loading page...</p>
+    if (pullInvoiceLoading) return <Loading />
 
     const _pulledInvoice = pulledInvoice?.map(item => {
         return { ...item.invoice, items: item.items }
@@ -158,7 +159,7 @@ const Invoice = () => {
                                 <h4 className='text-4xl font-bold'>{_pulledInvoice?.length}</h4>
                                 <h5 className='text-gray-400'>Total Invoices</h5>
                             </div>
-                            <ClipboardListIcon className='w-10' />
+                            <HiOutlineClipboardList className='h-10 w-10' />
                         </div>
 
                         <div className='flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8'>
@@ -166,21 +167,21 @@ const Invoice = () => {
                                 <h4 className='text-4xl font-bold'>{_pulledInvoice?.filter(item => item.status === 'paid')?.length}</h4>
                                 <h5 className='text-gray-400'>Paid Invoices</h5>
                             </div>
-                            <CheckCircleIcon className='w-10 text-green-300' />
+                            <IoMdCheckmarkCircleOutline className='h-10 w-10 text-green-300' />
                         </div>
                         <div className='flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8'>
                             <div className='space-y-1'>
                                 <h4 className='text-4xl font-bold'>{_pulledInvoice?.filter(item => item.status === 'pending')?.length}</h4>
                                 <h5 className='text-gray-400'>Total Unpaid Invoices</h5>
                             </div>
-                            <XCircleIcon className='w-10 text-red-300' />
+                            <IoMdCloseCircleOutline className='h-10 w-10 text-red-300' />
                         </div>
                         <div className='flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8'>
                             <div className='space-y-1'>
                                 <h4 className='text-4xl font-bold'>{_pulledInvoice?.filter(item => item.status === 'draft')?.length}</h4>
                                 <h5 className='text-gray-400'>Total Drafted Invoices</h5>
                             </div>
-                            <ClipboardListIcon className='w-10' />
+                            <HiOutlineClipboardList className='h-10 w-10' />
                         </div>
                     </div>
 
@@ -190,7 +191,7 @@ const Invoice = () => {
                             <p className='text-gray-400 text-sm mt-2 hidden lg:block'>List of all your recent transactions</p>
                         </div>
                         <button onClick={handleOpenDrawer} className='bg-[#1EAAE7] text-white px-3 py-3 lg:px-6 lg:py-4 rounded-md flex items-center gap-2'>
-                            <ViewGridAddIcon className='h-4 w-4' />
+                            <HiOutlineViewGridAdd className='h-4 w-4' />
                             <span className='text-xs lg:text-sm'>NEW INVOICE</span>
                         </button>
                     </div>
