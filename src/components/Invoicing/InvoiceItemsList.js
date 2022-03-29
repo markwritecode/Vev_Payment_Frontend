@@ -1,4 +1,4 @@
-import { TrashIcon } from '@heroicons/react/outline'
+import { IoTrashOutline } from 'react-icons/io5'
 import React, { useState } from 'react'
 import { useInvoice } from '../../contexts/invoice'
 import { currencyFormatter } from '../../utils/helperFunctions'
@@ -79,7 +79,7 @@ const InvoiceItemsList = ({ preview }) => {
                                                     {!preview &&
                                                         <td className='p-2 whitespace-nowrap'>
                                                             <div className='text-center'>
-                                                                <TrashIcon onClick={() => deleteItem(item.id)} className='h-5 mx-auto text-red-400 cursor-pointer' />
+                                                                <IoTrashOutline onClick={() => deleteItem(item.id)} className='w-5 h-5 mx-auto text-red-400 cursor-pointer' />
                                                             </div>
                                                         </td>}
                                                 </tr>

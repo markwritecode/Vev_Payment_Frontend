@@ -1,4 +1,4 @@
-import { XIcon } from '@heroicons/react/solid'
+import { IoClose } from 'react-icons/io5'
 import { Avatar, Form, Input, Select } from 'antd'
 import { useQueryEmail } from '../../hooks/invoice/useInvoice'
 import { colorList } from '../../utils/helperVariables'
@@ -20,7 +20,7 @@ const InvoiceForm = ({ invoiceForm, handleCloseDrawer, updateData }) => {
                 <h4 className='text-lg text-gray-500 font-medium'>
                     {updateData ? `Reference number: ${updateData.ref_number}` : 'Create new invoice'}
                 </h4>
-                <XIcon onClick={handleCloseDrawer} className='h-5 w-5 text-gray-500 font-semibold cursor-pointer' />
+                <IoClose onClick={handleCloseDrawer} className='h-5 w-5 text-gray-500 font-semibold cursor-pointer' />
             </div>
             <Form
                 layout='vertical'
