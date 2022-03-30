@@ -12,7 +12,7 @@ const Transactions = () => {
                         <LeftDashboard />
                     </div>
 
-                    <div className='lg:col-span-2 bg-white border-[1px] border-gray-100 rounded-lg p-10 space-y-6'>
+                    <div className='lg:col-span-2 bg-white rounded-lg p-10 space-y-6'>
                         <RightDashboard />
                     </div>
 
