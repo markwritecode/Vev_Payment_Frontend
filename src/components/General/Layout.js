@@ -15,7 +15,7 @@ const Layout = ({ children }) => {
 
                 <div className={`w-full h-full flex flex-col justify-between`}>
                     <Header expanded={expanded} toggleExpansion={toggleExpansion} />
-                    <main className='max-w-full h-full flex px-5 py-5 overflow-y-scroll'>
+                    <main className='w-full h-full flex lg:pl-5 overflow-y-scroll'>
                         {children}
                     </main>
                 </div>

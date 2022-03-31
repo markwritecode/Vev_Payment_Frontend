@@ -4,19 +4,19 @@ import { RiMenuUnfoldLine, RiMenuFoldLine } from 'react-icons/ri'
 
 const Header = ({ expanded, toggleExpansion }) => {
     return (
-        <header className='w-full px-5 space-x-10 sticky top-0 bg-[#F9F9F9]'>
+        <header className='w-full pl-5 space-x-10 sticky top-0 bg-[#F9F9F9]'>
             <div className='flex items-center justify-between w-full py-2 border-b-[1px] border-gray-200'>
                 {
                     expanded ?
                         <RiMenuFoldLine onClick={toggleExpansion} className='w-7 h-7 font-thin text-[#1EAAE7] cursor-pointer' /> :
                         <RiMenuUnfoldLine onClick={toggleExpansion} className='w-7 h-7 font-thin text-[#1EAAE7] cursor-pointer' />
                 }
-                <div className='flex flex-shrink-0 items-center space-x-1 lg:space-x-10 text-black'>
+                <div className='flex flex-shrink-0 items-center pr-5 space-x-1 lg:space-x-10 text-black'>
 
-                    <div className='hover:bg-white rounded-full p-2 cursor-pointer'>
+                    <div className='hover:bg-white rounded-full p-3 cursor-pointer'>
                         <div className='relative'>
                             <div className='absolute right-0 top-0  bg-red-500 rounded-full'>
-                                <span className='text-sm text-white p-1'>12</span>
+                                <span className='text-xs text-white p-1'>12</span>
                             </div>
                             <div className='p-2'>
                                 <IoNotificationsOutline className='h-7 w-7 text-gray-500' />
