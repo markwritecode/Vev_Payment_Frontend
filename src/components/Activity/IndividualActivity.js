@@ -6,14 +6,14 @@ import { FiFeather } from "react-icons/fi"
 const IndividualActivity = ({ activity }) => {
     return (
         <div className='flex items-center gap-6 relative z-10'>
-            <div className='border-l-2 h-full absolute left-4 -z-10' />
+            <div className='border-l-[1px] h-full absolute left-4 -z-10' />
             <div className='text-white'>
                 {
                     activity.actions.includes('solve') ?
                         <div className='rounded-full p-2 bg-green-500'>
                             <BsCode className='h-4 w-4' />
                         </div> : activity.actions.includes('issue') ?
-                            <div className='rounded-full p-2 bg-purple-500'>
+                            <div className='rounded-full p-2 bg-[#5253aac0]'>
                                 <DiCodepen className='h-4 w-4' />
                             </div> :
                             <div className='rounded-full p-2 bg-cyan-300'>
@@ -32,7 +32,7 @@ const IndividualActivity = ({ activity }) => {
                     }
                 </Avatar.Group>
             </div>
-            <div className='grid grid-cols-5 items-center lg:items-start w-full py-10 border-b-[1px]'>
+            <div className='grid grid-cols-5 items-center lg:items-start w-full py-10 border-b-[0.5px] border-gray-200'>
                 <div className='col-span-2'>
                     <h3 className='font-medium'>{activity.users.map((user, index) => {
                         const length = activity.users.length
