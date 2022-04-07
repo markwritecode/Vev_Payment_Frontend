@@ -12,3 +12,8 @@ export const formatDateNum = (date) => {
     const options = { year: 'numeric', month: 'numeric', day: 'numeric' }
     return new Date(date).toLocaleDateString(undefined, options)
 }
+
+export const formatDateAndTime = (date) => {
+    const options = { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }
+    return new Date(date).toLocaleDateString(undefined, options)
+}

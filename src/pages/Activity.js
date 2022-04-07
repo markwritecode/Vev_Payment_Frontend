@@ -1,10 +1,16 @@
 import Layout from '../components/General/Layout'
-import { dummy_data } from '../utils/dummy'
 import IndividualActivity from '../components/Activity/IndividualActivity'
 import { HiDotsVertical } from 'react-icons/hi'
 import { RiRefreshLine } from 'react-icons/ri'
+import { usePullActivity } from '../hooks/activity/useActivity'
+import Loading from '../components/General/Loading'
 
 const Activity = () => {
+
+    const { pulledActivity, pullActivityLoading } = usePullActivity()
+
+    if (pullActivityLoading) return <Loading />
+
     return (
         <Layout>
             <div className='h-full w-full px-10 py-10 bg-white overflow-y-auto'>
@@ -15,17 +21,17 @@ const Activity = () => {
                 </div>
                 <section className='space-y-6'>
                     <div>
-                        <h3 className='font-medium'>Today</h3>
-                        {dummy_data.map(activity => <IndividualActivity activity={activity} key={activity.id} />)}
+                        {/* <h3 className='font-medium'>Today</h3> */}
+                        {pulledActivity?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))?.map(activity => <IndividualActivity activity={activity} key={activity.id} />)}
                     </div>
-                    <div>
+                    {/* <div>
                         <h3 className='font-medium'>Yesterday</h3>
                         {dummy_data.map(activity => <IndividualActivity activity={activity} key={activity.id} />)}
                     </div>
                     <div>
                         <h3 className='font-medium'>Yesterday</h3>
                         {dummy_data.map(activity => <IndividualActivity activity={activity} key={activity.id} />)}
-                    </div>
+                    </div> */}
                 </section>
             </div>
         </Layout>
