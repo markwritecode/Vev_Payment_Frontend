@@ -5,11 +5,11 @@ export const usePullActivity = () => {
 
     const url = `activity/show`
 
-    const { isLoading, data } = useQuery(['activity', 'show'], () => getter(url).then((response) => {
+    const { isLoading, data, refetch } = useQuery(['activity', 'show'], () => getter(url).then((response) => {
         return response?.data?.activity
     }), {
         refetchOnMount: false,
     })
 
-    return { pullActivityLoading: isLoading, pulledActivity: data }
+    return { pullActivityLoading: isLoading, pulledActivity: data, refetch }
 }
