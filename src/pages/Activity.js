@@ -54,7 +54,7 @@ const Activity = () => {
                     </div> */}
                     <section className='space-y-6'>
                         <div>
-                            {/* <h3 className='font-medium'>Today</h3> */}
+                            <h3 className='font-medium'>Today</h3>
                             {pulledActivity
                                 ?.filter(activity => {
                                     return activity.type.toLowerCase().includes(search) || activity.owner.toLowerCase().includes(search) || activity.message.toLowerCase().includes(search)

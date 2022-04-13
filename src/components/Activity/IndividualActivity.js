@@ -1,12 +1,25 @@
 import { Avatar } from 'antd'
+import { useState } from 'react'
 import { BsClock, BsCode } from 'react-icons/bs'
 import { DiCodepen } from 'react-icons/di'
 import { FiFeather } from 'react-icons/fi'
 import { formatDateAndTime } from '../../utils/helperFunctions'
+import ActivityDetails from './ActivityDetails'
 
 const IndividualActivity = ({ activity }) => {
+
+    const [visible, setVisible] = useState(false)
+
+    const openActivityDetails = () => {
+        setVisible(true)
+    }
+
+    const closeActivityDetails = () => {
+        setVisible(false)
+    }
+
     return (
-        <div className='flex items-center gap-6 relative z-10'>
+        <div className='flex items-center gap-6 relative z-10 cursor-pointer hover:bg-gray-50'>
             <div className='border-l-[1px] h-full absolute left-4 -z-10' />
             <div className='text-white'>
                 {
@@ -29,7 +42,7 @@ const IndividualActivity = ({ activity }) => {
                     src={`https://i.pravatar.cc/600?img=${activity.id}`}
                     size={50} />
             </div>
-            <div className='grid grid-cols-5 items-center lg:items-start w-full py-10 border-b-[0.5px] border-gray-200'>
+            <div className='grid grid-cols-5 items-center lg:items-start w-full py-10 border-b-[0.5px] border-gray-200' onClick={openActivityDetails}>
                 <div className='col-span-2'>
                     <h3 className='font-medium'>{activity.owner}</h3>
                     <h5 className='text-gray-400'>{`#${activity.reference_number}`}</h5>
@@ -55,6 +68,7 @@ const IndividualActivity = ({ activity }) => {
                     <span>{formatDateAndTime(activity.created_at)}</span>
                 </div>
             </div>
+            {visible && <ActivityDetails visible={visible} closeActivityDetails={closeActivityDetails} activity={activity} />}
         </div>
     )
 }

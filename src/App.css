@@ -33,3 +33,7 @@
 .ant-table table {
     width: 100%;
 }
+
+.ActivityDetails .ant-drawer-footer {
+    border-top: 0 !important;
+}
