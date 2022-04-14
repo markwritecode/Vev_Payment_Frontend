@@ -1,11 +1,12 @@
 import { Avatar, Drawer } from 'antd'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { FaFirstAid } from 'react-icons/fa'
 import { MdOutlinePendingActions } from 'react-icons/md'
 import { IoMdCheckmarkCircleOutline } from 'react-icons/io'
 import { usePullActivityDetails } from '../../hooks/activity/useActivity'
 import useHandleScreenWidth from '../../hooks/useHandleScreenWidth'
 import { currencyFormatter, formatDateAndTime2 } from '../../utils/helperFunctions'
+import PreviewActivity from './PreviewActivity'
 
 const ActivityDetails = ({ visible, closeActivityDetails, activity }) => {
 
@@ -56,10 +57,15 @@ export default ActivityDetails
 
 const InvoiceComponent = ({ activity, loading, user }) => {
 
+    const [visible, setVisible] = useState(false)
+
     if (loading) return <p>Loading...</p>
 
     const formattedPrice = () => Number(activity?.total).toFixed(2).split('.')
     const isOwner = () => user.email === activity.owner
+
+    const handleOpenModal = () => setVisible(true)
+    const handleCloseModal = () => setVisible(false)
 
     return (
         <section className='space-y-8'>
@@ -83,7 +89,7 @@ const InvoiceComponent = ({ activity, loading, user }) => {
                     </div>
                 </div>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
-                    <button className='w-full text-[#1EAAE7] bg-white font-semibold py-3 rounded-lg'>Preview</button>
+                    <button onClick={handleOpenModal} className='w-full text-[#1EAAE7] bg-white font-semibold py-3 rounded-lg'>Preview</button>
                     {activity?.status === 'pending' && !isOwner() && <button className='w-full text-white bg-gradient-to-r from-[#1eabe7e3] to-cyan-300 font-semibold py-3 rounded-lg'>Pay</button>}
                 </div>
             </div>
@@ -106,6 +112,7 @@ const InvoiceComponent = ({ activity, loading, user }) => {
                     <h4 className='text-gray-400 capitalize'>{activity?.additional_note}</h4>
                 </div>
             </div>
+            {visible && <PreviewActivity visible={visible} handleCloseModal={handleCloseModal} activity={activity} type='Invoice' isOwner={isOwner} />}
         </section>
     )
 }
