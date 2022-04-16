@@ -6,7 +6,7 @@ import { FiFeather } from 'react-icons/fi'
 import { formatDateAndTime } from '../../utils/helperFunctions'
 import ActivityDetails from './ActivityDetails'
 
-const IndividualActivity = ({ activity }) => {
+const IndividualActivity = ({ activity, setStep }) => {
 
     const [visible, setVisible] = useState(false)
 
@@ -56,7 +56,7 @@ const IndividualActivity = ({ activity }) => {
                         <span className='ml-3'>
                             <span
                                 className={`border-[1px] rounded-sm mx-1 px-1 
-                                                                ${activity.action === 'send' ? 'border-purple-500 bg-purple-200 text-purple-500' :
+                                                            ${activity.action === 'send' ? 'border-purple-500 bg-purple-200 text-purple-500' :
                                         activity.action === 'research' ? 'border-orange-500 bg-orange-100 text-orange-500' : 'border-green-500 bg-green-200 text-green-500'}`}>
                                 {activity.action}
                             </span>
@@ -68,7 +68,7 @@ const IndividualActivity = ({ activity }) => {
                     <span>{formatDateAndTime(activity.created_at)}</span>
                 </div>
             </div>
-            {visible && <ActivityDetails visible={visible} closeActivityDetails={closeActivityDetails} activity={activity} />}
+            {visible && <ActivityDetails visible={visible} closeActivityDetails={closeActivityDetails} activity={activity} setStep={setStep} />}
         </div>
     )
 }

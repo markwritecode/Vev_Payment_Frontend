@@ -5,10 +5,12 @@ import { RiRefreshLine } from 'react-icons/ri'
 import { usePullActivity } from '../hooks/activity/useActivity'
 import Loading from '../components/General/Loading'
 import { useState } from 'react'
+import Checkout from '../components/Activity/Checkout'
 
 const Activity = () => {
 
     const [search, setSearch] = useState('')
+    const [step, setStep] = useState('default')
 
     const handleSearch = e => setSearch(e.target.value.toLowerCase())
 
@@ -53,15 +55,18 @@ const Activity = () => {
                         <HiDotsVertical className='h-7 w-7 text-gray-400' />
                     </div> */}
                     <section className='space-y-6'>
-                        <div>
-                            <h3 className='font-medium'>Today</h3>
-                            {pulledActivity
-                                ?.filter(activity => {
-                                    return activity.type.toLowerCase().includes(search) || activity.owner.toLowerCase().includes(search) || activity.message.toLowerCase().includes(search)
-                                })
-                                ?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-                                ?.map(activity => <IndividualActivity activity={activity} key={activity.id} />)}
-                        </div>
+                        {
+                            step === 'default' ?
+                                <div>
+                                    {/* <h3 className='font-medium'>Today</h3> */}
+                                    {pulledActivity
+                                        ?.filter(activity => {
+                                            return activity.type.toLowerCase().includes(search) || activity.owner.toLowerCase().includes(search) || activity.message.toLowerCase().includes(search)
+                                        })
+                                        ?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+                                        ?.map(activity => <IndividualActivity activity={activity} key={activity.id} setStep={setStep} />)}
+                                </div> : <Checkout />
+                        }
                     </section>
                 </div>
             </div>

@@ -8,7 +8,7 @@ import useHandleScreenWidth from '../../hooks/useHandleScreenWidth'
 import { currencyFormatter, formatDateAndTime2 } from '../../utils/helperFunctions'
 import PreviewActivity from './PreviewActivity'
 
-const ActivityDetails = ({ visible, closeActivityDetails, activity }) => {
+const ActivityDetails = ({ visible, closeActivityDetails, activity, setStep }) => {
 
     const width = useHandleScreenWidth()
 
@@ -44,6 +44,7 @@ const ActivityDetails = ({ visible, closeActivityDetails, activity }) => {
                     loading={(pullActivityDetailsLoading || isRefetching)}
                     activity={pullActivityDetails?.activity_details}
                     user={pullActivityDetails?.user}
+                    setStep={setStep}
                 /> :
                 <TransactionComponent
                     loading={(pullActivityDetailsLoading || isRefetching)}
@@ -55,14 +56,14 @@ const ActivityDetails = ({ visible, closeActivityDetails, activity }) => {
 
 export default ActivityDetails
 
-const InvoiceComponent = ({ activity, loading, user }) => {
+const InvoiceComponent = ({ activity, loading, user, setStep }) => {
 
     const [visible, setVisible] = useState(false)
 
     if (loading) return <p>Loading...</p>
 
     const formattedPrice = () => Number(activity?.total).toFixed(2).split('.')
-    const isOwner = () => user.email === activity.owner
+    const isOwner = () => user?.email === activity?.owner
 
     const handleOpenModal = () => setVisible(true)
     const handleCloseModal = () => setVisible(false)
@@ -90,7 +91,9 @@ const InvoiceComponent = ({ activity, loading, user }) => {
                 </div>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
                     <button onClick={handleOpenModal} className='w-full text-[#1EAAE7] bg-white font-semibold py-3 rounded-lg'>Preview</button>
-                    {activity?.status === 'pending' && !isOwner() && <button className='w-full text-white bg-gradient-to-r from-[#1eabe7e3] to-cyan-300 font-semibold py-3 rounded-lg'>Pay</button>}
+                    {activity?.status === 'pending' && !isOwner() && <button
+                        onClick={() => setStep('checkout')}
+                        className='w-full text-white bg-gradient-to-r from-[#1eabe7e3] to-cyan-300 font-semibold py-3 rounded-lg'>Pay</button>}
                 </div>
             </div>
 
