@@ -7,6 +7,7 @@ import { usePullActivityDetails } from '../../hooks/activity/useActivity'
 import useHandleScreenWidth from '../../hooks/useHandleScreenWidth'
 import { currencyFormatter, formatDateAndTime2 } from '../../utils/helperFunctions'
 import PreviewActivity from './PreviewActivity'
+import { useActivityContext } from '../../pages/Activity'
 
 const ActivityDetails = ({ visible, closeActivityDetails, activity, setStep }) => {
 
@@ -59,6 +60,12 @@ export default ActivityDetails
 const InvoiceComponent = ({ activity, loading, user, setStep }) => {
 
     const [visible, setVisible] = useState(false)
+    const [, setActivityData] = useActivityContext()
+
+    const openPaymentPage = () => {
+        setActivityData({ activity, user })
+        setStep('checkout')
+    }
 
     if (loading) return <p>Loading...</p>
 
@@ -92,7 +99,7 @@ const InvoiceComponent = ({ activity, loading, user, setStep }) => {
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
                     <button onClick={handleOpenModal} className='w-full text-[#1EAAE7] bg-white font-semibold py-3 rounded-lg'>Preview</button>
                     {activity?.status === 'pending' && !isOwner() && <button
-                        onClick={() => setStep('checkout')}
+                        onClick={openPaymentPage}
                         className='w-full text-white bg-gradient-to-r from-[#1eabe7e3] to-cyan-300 font-semibold py-3 rounded-lg'>Pay</button>}
                 </div>
             </div>

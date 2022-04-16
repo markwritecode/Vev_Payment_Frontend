@@ -4,17 +4,26 @@ import { HiDotsVertical } from 'react-icons/hi'
 import { RiRefreshLine } from 'react-icons/ri'
 import { usePullActivity } from '../hooks/activity/useActivity'
 import Loading from '../components/General/Loading'
-import { useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 import Checkout from '../components/Activity/Checkout'
+
+const activityContext = createContext()
 
 const Activity = () => {
 
     const [step, setStep] = useState('default')
-
-    return <>{step === 'default' ? <DefaultView setStep={setStep} /> : <Checkout />}</>
+    const [activityData, setActivityData] = useState({ hello: 'world' })
+    
+    return (
+        <activityContext.Provider value={[activityData, setActivityData]}>
+            {step === 'default' ? <DefaultView setStep={setStep} /> : <Checkout />}
+        </activityContext.Provider>
+    )
 }
 
 export default Activity
+
+export const useActivityContext = () => useContext(activityContext)
 
 const DefaultView = ({ setStep }) => {
 
