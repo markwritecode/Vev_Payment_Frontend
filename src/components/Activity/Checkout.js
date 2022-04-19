@@ -2,15 +2,16 @@ import { Avatar, Form } from 'antd'
 import { useState } from 'react'
 import { FaFileInvoice } from 'react-icons/fa'
 import { IoIosLock } from 'react-icons/io'
+import { useCreateTransactions } from '../../hooks/transactions/useCreateTransaction'
 import { useActivityContext } from '../../pages/Activity'
+import { currencyFormatter } from '../../utils/helperFunctions'
 import { paymentOptions } from '../../utils/helperVariables'
 
 const Checkout = () => {
+    const [activityContext] = useActivityContext()
+    const initialItem = activityContext?.items[0]
     const [currentItem, setCurrentItem] = useState({
-        'name': 'Collection 01 + 02',
-        'value': 'collection_three',
-        'price': '48.00',
-        'description': 'Buy both collections. 20 x Presets in total'
+        ...initialItem, vat: (Number(initialItem.subtotal) * 0.2).toFixed(2), total: ((Number(initialItem.subtotal) * 0.2) + (Number(initialItem.subtotal))).toFixed(2)
     })
 
     return (
@@ -27,13 +28,7 @@ const LeftSide = ({ currentItem, setCurrentItem }) => {
 
     const [activityContext] = useActivityContext()
 
-    const data = [
-        { name: 'Collection 01', value: 'collection_one', price: '29.00', description: '10 x Presets. Released in 2018' },
-        { name: 'Collection 02', value: 'collection_two', price: '37.50', description: '10 x Presets. Released in 2020' },
-        { name: 'Collection 01 + 02', value: 'collection_three', price: '48.00', description: 'Buy both collections. 20 x Presets in total' }
-    ]
-
-    const handleChange = item => setCurrentItem({ ...item, vat: (Number(item.price) * 0.2).toFixed(2), total: ((Number(item.price) * 0.2) + (Number(item.price))).toFixed(2) })
+    const handleChange = item => setCurrentItem({ ...item, vat: (Number(item.subtotal) * 0.2).toFixed(2), total: ((Number(item.subtotal) * 0.2) + (Number(item.subtotal))).toFixed(2) })
 
     return (
         <div className='lg:w-1/2'>
@@ -48,7 +43,7 @@ const LeftSide = ({ currentItem, setCurrentItem }) => {
                 <div className='lg:w-1/2 space-y-4'>
                     <div className='flex items-center justify-between'>
                         <h3 className='text-lg font-medium'>Invoice Payment</h3>
-                        <h5 className='text-base font-light'>${currentItem.price}</h5>
+                        <h5 className='text-base font-light'>${currencyFormatter(currentItem.subtotal)}</h5>
                     </div>
                     <div className='h-62 w-full mb-3'>
                         {/* <img
@@ -60,18 +55,18 @@ const LeftSide = ({ currentItem, setCurrentItem }) => {
                     </div>
                     <p className='text-gray-600 text-justify capitalize'>{activityContext.activity.description}</p>
                     {
-                        data.map(item => {
+                        activityContext.items.map(item => {
                             return (
-                                <label key={item.name} className={`flex items-start cursor-pointer justify-between w-full bg-gray-200 rounded-md border-2 ${(item.value === currentItem.value) && 'border-2 border-[#1eabe7e3]'} p-4 focus:outline-none`}>
+                                <label key={item.id} className={`flex items-start cursor-pointer justify-between w-full bg-gray-200 rounded-md border-2 ${(item.id === currentItem.value) && 'border-2 border-[#1eabe7e3]'} p-4 focus:outline-none`}>
                                     <div className='flex items-start gap-2'>
-                                        <input type='radio' onChange={() => handleChange(item)} name={'item_list'} value={item.value} checked={currentItem.value === item.value} className='form-radio h-5 w-5 text-[#1eabe7e3]' />
+                                        <input type='radio' onChange={() => handleChange(item)} name={'item_list'} value={item.id} checked={currentItem.id === item.id} className='form-radio h-5 w-5 text-[#1eabe7e3]' />
                                         <div className='space-y-4'>
-                                            <p className='text-sm text-gray-800 font-medium text-left'>{item.name}</p>
-                                            <p className='text-left text-gray-500'>{item.description}</p>
+                                            <p className='text-sm text-gray-800 font-medium text-left capitalize'>{item.item_name}</p>
+                                            <p className='text-left text-gray-500'>{item.description} {`${item.item_qty}  x items. ${currencyFormatter(item.item_amount)} for each.`}</p>
                                         </div>
                                     </div>
 
-                                    <span className='text-gray-600 text-sm'>${item.price}</span>
+                                    <span className='text-gray-600 text-sm'>${currencyFormatter(item.subtotal)}</span>
                                 </label>
                             )
                         })
@@ -87,9 +82,16 @@ const RightSide = ({ currentItem }) => {
 
     const [activityContext] = useActivityContext()
     const [checkoutForm] = Form.useForm()
+    const { mutate } = useCreateTransactions()
 
     const handleFinish = () => {
-        checkoutForm.validateFields().then(values => console.log(values))
+        checkoutForm.validateFields().then(() => {
+            const payload = {
+                payment_method: 'online_payment_getway',
+                reference: activityContext.activity.ref_number
+            }
+            mutate(payload)
+        })
     }
 
     return (
@@ -179,7 +181,7 @@ const RightSide = ({ currentItem }) => {
                                     <span className='text-gray-600'>Subtotal</span>
                                 </div>
                                 <div className='pl-3'>
-                                    <span>${currentItem.price}</span>
+                                    <span>${currencyFormatter(currentItem.subtotal)}</span>
                                 </div>
                             </div>
                             <div className='w-full flex mb-3 items-center'>
@@ -187,7 +189,7 @@ const RightSide = ({ currentItem }) => {
                                     <span className='text-gray-600'>VAT (20%)</span>
                                 </div>
                                 <div className='pl-3'>
-                                    <span>${currentItem.vat}</span>
+                                    <span>${currencyFormatter(currentItem.vat)}</span>
                                 </div>
                             </div>
                             <div className='w-full flex mb-3 items-center'>
@@ -195,12 +197,12 @@ const RightSide = ({ currentItem }) => {
                                     <span className='text-gray-600 font-semibold'>Total</span>
                                 </div>
                                 <div className='pl-3'>
-                                    <span className='font-semibold'>${currentItem.total}</span>
+                                    <span className='font-semibold'>${currencyFormatter(currentItem.total)}</span>
                                 </div>
                             </div>
                         </div>
                         <div className='w-full'>
-                            <button onClick={handleFinish} className='text-center w-full bg-gradient-to-r from-[#1eabe7e3] to-cyan-300 rounded-lg p-3 font-semibold text-white'>Pay ${currentItem.total}</button>
+                            <button onClick={handleFinish} className='text-center w-full bg-gradient-to-r from-[#1eabe7e3] to-cyan-300 rounded-lg p-3 font-semibold text-white'>Pay ${currencyFormatter(currentItem.total)}</button>
                         </div>
                         <p className='text-gray-300 text-xs flex items-center gap-1 justify-center font-medium'>
                             <IoIosLock className='h-5 w-5' />
