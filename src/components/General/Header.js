@@ -1,8 +1,12 @@
 import { Avatar } from 'antd'
 import { IoNotificationsOutline } from 'react-icons/io5'
 import { RiMenuUnfoldLine, RiMenuFoldLine } from 'react-icons/ri'
+import { useAuth } from '../../contexts/auth'
 
 const Header = ({ expanded, toggleExpansion }) => {
+
+    const [, action] = useAuth()
+
     return (
         <header className='w-full pl-5 space-x-10 sticky top-0 bg-[#F9F9F9]'>
             <div className='flex items-center justify-between w-full py-2 border-b-[1px] border-gray-200'>
@@ -24,7 +28,7 @@ const Header = ({ expanded, toggleExpansion }) => {
                         </div>
                     </div>
 
-                    <div className='flex items-center space-x-4 cursor-pointer'>
+                    <div className='flex items-center space-x-4 cursor-pointer' onClick={() => action('signout')}>
                         <div className='lg:flex flex-col items-end hidden'>
                             <div className='text-md font-medium'>Hello, Franklin</div>
                             <div className='text-xs text-gray-500 font-regular'>45834300</div>

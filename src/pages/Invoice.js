@@ -2,7 +2,6 @@ import { HiOutlineViewGridAdd, HiDotsHorizontal, HiOutlineClipboardList, HiOutli
 import { IoMdCheckmarkCircleOutline, IoMdCloseCircleOutline } from 'react-icons/io'
 import { Avatar, Dropdown, Menu, Popconfirm, Table } from 'antd'
 import { useState } from 'react'
-import Layout from '../components/General/Layout'
 import Loading from '../components/General/Loading'
 import CreateInvoice from '../components/Invoicing/CreateInvoice'
 import InvoiceContext from '../contexts/invoice'
@@ -148,90 +147,88 @@ const Invoice = () => {
 
     return (
         <InvoiceContext>
-            <Layout>
-                <div className='h-full w-full px-10 py-10 space-y-8' id='Invoice-Page'>
-                    <h3 className='text-4xl font-semibold'>Invoices</h3>
+            <div className='h-full w-full px-10 py-10 space-y-8' id='Invoice-Page'>
+                <h3 className='text-4xl font-semibold'>Invoices</h3>
 
-                    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'>
+                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'>
 
-                        <div className='flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8'>
-                            <div className='space-y-1'>
-                                <h4 className='text-4xl font-bold'>{_pulledInvoice?.length}</h4>
-                                <h5 className='text-gray-400'>Total Invoices</h5>
-                            </div>
-                            <HiOutlineClipboardList className='h-10 w-10' />
+                    <div className='flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8'>
+                        <div className='space-y-1'>
+                            <h4 className='text-4xl font-bold'>{_pulledInvoice?.length}</h4>
+                            <h5 className='text-gray-400'>Total Invoices</h5>
                         </div>
-
-                        <div className='flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8'>
-                            <div className='space-y-1'>
-                                <h4 className='text-4xl font-bold'>{_pulledInvoice?.filter(item => item.status === 'paid')?.length}</h4>
-                                <h5 className='text-gray-400'>Paid Invoices</h5>
-                            </div>
-                            <IoMdCheckmarkCircleOutline className='h-10 w-10 text-green-300' />
-                        </div>
-                        <div className='flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8'>
-                            <div className='space-y-1'>
-                                <h4 className='text-4xl font-bold'>{_pulledInvoice?.filter(item => item.status === 'pending')?.length}</h4>
-                                <h5 className='text-gray-400'>Total Unpaid Invoices</h5>
-                            </div>
-                            <IoMdCloseCircleOutline className='h-10 w-10 text-red-300' />
-                        </div>
-                        <div className='flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8'>
-                            <div className='space-y-1'>
-                                <h4 className='text-4xl font-bold'>{_pulledInvoice?.filter(item => item.status === 'draft')?.length}</h4>
-                                <h5 className='text-gray-400'>Total Drafted Invoices</h5>
-                            </div>
-                            <HiOutlineClipboardList className='h-10 w-10' />
-                        </div>
+                        <HiOutlineClipboardList className='h-10 w-10' />
                     </div>
 
-                    <div className='flex items-center justify-between pt-8'>
-                        <div>
-                            <h5 className='text-xl font-medium'>Invoice History</h5>
-                            <p className='text-gray-400 text-sm mt-2 hidden lg:block'>List of all your recent transactions</p>
+                    <div className='flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8'>
+                        <div className='space-y-1'>
+                            <h4 className='text-4xl font-bold'>{_pulledInvoice?.filter(item => item.status === 'paid')?.length}</h4>
+                            <h5 className='text-gray-400'>Paid Invoices</h5>
                         </div>
-                        <button onClick={handleOpenDrawer} className='bg-[#1EAAE7] text-white px-3 py-3 lg:px-6 lg:py-4 rounded-md flex items-center gap-2'>
-                            <HiOutlineViewGridAdd className='h-4 w-4' />
-                            <span className='text-xs lg:text-sm'>NEW INVOICE</span>
-                        </button>
+                        <IoMdCheckmarkCircleOutline className='h-10 w-10 text-green-300' />
                     </div>
-
-                    <div className='rounded-lg mb-10 w-full'>
-                        <div className='text-right my-5'>
-                            <div className="relative text-gray-600 focus-within:text-gray-400">
-                                <span className="absolute inset-y-0 left-5 flex items-center">
-                                    <button className="p-1 focus:outline-none focus:shadow-outline">
-                                        <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" className="w-4 h-4">
-                                            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                        </svg>
-                                    </button>
-                                </span>
-                                <input
-                                    onChange={handleSearch}
-                                    type="search"
-                                    className="w-full px-3 py-4 text-white bg-white rounded-md pl-12 focus:outline-none focus:text-gray-900"
-                                    placeholder="Search recipient"
-                                />
-                            </div>
+                    <div className='flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8'>
+                        <div className='space-y-1'>
+                            <h4 className='text-4xl font-bold'>{_pulledInvoice?.filter(item => item.status === 'pending')?.length}</h4>
+                            <h5 className='text-gray-400'>Total Unpaid Invoices</h5>
                         </div>
-                        <Table
-                            columns={invoice_col}
-                            dataSource={_pulledInvoice
-                                ?.map((item, index) => {
-                                    const i = index > 9 ? `${index}`[1] : index
-                                    return { ...item, color: colorList[i] }
-                                })
-                                ?.sort((a, b) => (new Date(b.created_at)) - (new Date(a.created_at)))
-                                .filter(item => item.recipient.includes(search))
-                            }
-                            loading={pullInvoiceLoading} size='large' rowKey={'created_at'} bordered={false}
-                        />
+                        <IoMdCloseCircleOutline className='h-10 w-10 text-red-300' />
                     </div>
-                    {visible && <CreateInvoice visible={visible} handleCloseDrawer={handleCloseDrawer} />}
-                    {updateVisible && <CreateInvoice visible={updateVisible} handleCloseDrawer={handleCloseUpdateDrawer} updateData={updateData} />}
-
+                    <div className='flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8'>
+                        <div className='space-y-1'>
+                            <h4 className='text-4xl font-bold'>{_pulledInvoice?.filter(item => item.status === 'draft')?.length}</h4>
+                            <h5 className='text-gray-400'>Total Drafted Invoices</h5>
+                        </div>
+                        <HiOutlineClipboardList className='h-10 w-10' />
+                    </div>
                 </div>
-            </Layout>
+
+                <div className='flex items-center justify-between pt-8'>
+                    <div>
+                        <h5 className='text-xl font-medium'>Invoice History</h5>
+                        <p className='text-gray-400 text-sm mt-2 hidden lg:block'>List of all your recent transactions</p>
+                    </div>
+                    <button onClick={handleOpenDrawer} className='bg-[#1EAAE7] text-white px-3 py-3 lg:px-6 lg:py-4 rounded-md flex items-center gap-2'>
+                        <HiOutlineViewGridAdd className='h-4 w-4' />
+                        <span className='text-xs lg:text-sm'>NEW INVOICE</span>
+                    </button>
+                </div>
+
+                <div className='rounded-lg mb-10 w-full'>
+                    <div className='text-right my-5'>
+                        <div className="relative text-gray-600 focus-within:text-gray-400">
+                            <span className="absolute inset-y-0 left-5 flex items-center">
+                                <button className="p-1 focus:outline-none focus:shadow-outline">
+                                    <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" className="w-4 h-4">
+                                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                    </svg>
+                                </button>
+                            </span>
+                            <input
+                                onChange={handleSearch}
+                                type="search"
+                                className="w-full px-3 py-4 text-white bg-white rounded-md pl-12 focus:outline-none focus:text-gray-900"
+                                placeholder="Search recipient"
+                            />
+                        </div>
+                    </div>
+                    <Table
+                        columns={invoice_col}
+                        dataSource={_pulledInvoice
+                            ?.map((item, index) => {
+                                const i = index > 9 ? `${index}`[1] : index
+                                return { ...item, color: colorList[i] }
+                            })
+                            ?.sort((a, b) => (new Date(b.created_at)) - (new Date(a.created_at)))
+                            .filter(item => item.recipient.includes(search))
+                        }
+                        loading={pullInvoiceLoading} size='large' rowKey={'created_at'} bordered={false}
+                    />
+                </div>
+                {visible && <CreateInvoice visible={visible} handleCloseDrawer={handleCloseDrawer} />}
+                {updateVisible && <CreateInvoice visible={updateVisible} handleCloseDrawer={handleCloseUpdateDrawer} updateData={updateData} />}
+
+            </div>
         </InvoiceContext>
     )
 }

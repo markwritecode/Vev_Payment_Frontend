@@ -1,10 +1,9 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Dashboard from './pages/Dashboard'
-import Invoice from './pages/Invoice'
+import { BrowserRouter } from 'react-router-dom'
 import './App.css'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import Transactions from './pages/Transactions'
-import Activity from './pages/Activity'
+import Authenticated from './components/AuthMode/Authenticated'
+import UnAuthenticated from './components/AuthMode/UnAuthenticated'
+import { useAuth } from './contexts/auth'
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,15 +16,13 @@ export const queryClient = new QueryClient({
 })
 
 const App = () => {
+
+  const [auth] = useAuth()
+
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Dashboard />} />
-          <Route path='invoice' element={<Invoice />} />
-          <Route path='transactions' element={<Transactions />} />
-          <Route path='activity' element={<Activity />} />
-        </Routes>
+        {auth ? <Authenticated /> : <UnAuthenticated />}
       </BrowserRouter>
     </QueryClientProvider>
   )

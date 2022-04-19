@@ -17,10 +17,13 @@ import 'antd/lib/popconfirm/style/index.css'
 import 'antd/lib/table/style/index.css'
 import 'antd/lib/style/index.css'
 import './index.css'
+import AuthProvider from './contexts/auth'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )
