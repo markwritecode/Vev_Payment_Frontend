@@ -1,3 +1,6 @@
+import PaymentsCard from './PaymentsCard'
+import TransactionsCard from './TransactionsCard'
+
 const LeftDashboard = () => {
     return (
         <div className='h-full space-y-10'>
@@ -28,8 +31,9 @@ const LeftDashboard = () => {
                     </defs>
                 </svg>
             </div>
-            <div className='bg-white rounded-lg p-10 space-y-10'>
-                Hello
+            <div className='rounded-lg grid grid-cols-2 lg:gap-10'>
+                <PaymentsCard />
+                <TransactionsCard />
             </div>
         </div>
     )
