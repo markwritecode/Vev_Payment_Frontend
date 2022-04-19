@@ -14,7 +14,7 @@ const Checkout = () => {
     })
 
     return (
-        <div className='bg-[#F5F5F7] h-screen lg:flex'>
+        <div className='bg-[#F5F5F7] h-screen w-screen fixed top-0 left-0 lg:flex overflow-y-auto'>
             <LeftSide currentItem={currentItem} setCurrentItem={setCurrentItem} />
             <RightSide currentItem={currentItem} />
         </div>
