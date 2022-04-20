@@ -45,6 +45,7 @@ const ActivityDetails = ({ visible, closeActivityDetails, activity, setStep }) =
                     loading={(pullActivityDetailsLoading || isRefetching)}
                     activity={pullActivityDetails?.activity_details}
                     user={pullActivityDetails?.user}
+                    items={pullActivityDetails?.items}
                     setStep={setStep}
                 /> :
                 <TransactionComponent
@@ -57,13 +58,13 @@ const ActivityDetails = ({ visible, closeActivityDetails, activity, setStep }) =
 
 export default ActivityDetails
 
-const InvoiceComponent = ({ activity, loading, user, setStep }) => {
+const InvoiceComponent = ({ activity, loading, user, items, setStep }) => {
 
     const [visible, setVisible] = useState(false)
     const [, setActivityData] = useActivityContext()
 
     const openPaymentPage = () => {
-        setActivityData({ activity, user })
+        setActivityData({ activity, user, items })
         setStep('checkout')
     }
 
@@ -122,7 +123,7 @@ const InvoiceComponent = ({ activity, loading, user, setStep }) => {
                     <h4 className='text-gray-400 capitalize'>{activity?.additional_note}</h4>
                 </div>
             </div>
-            {visible && <PreviewActivity visible={visible} handleCloseModal={handleCloseModal} activity={activity} type='Invoice' isOwner={isOwner} />}
+            {visible && <PreviewActivity visible={visible} handleCloseModal={handleCloseModal} activity={activity} items={items} type='Invoice' isOwner={isOwner} />}
         </section>
     )
 }
