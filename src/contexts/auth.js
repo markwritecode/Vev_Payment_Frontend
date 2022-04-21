@@ -13,7 +13,8 @@ const AuthProvider = ({ children }) => {
         setAuth(true)
     }
     const signout = () => {
-        localStorage.removeItem('ichor-token-key')
+        // localStorage.removeItem('ichor-token-key')
+        localStorage.clear()
         setAuth(false)
     }
 
