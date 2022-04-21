@@ -37,3 +37,9 @@
 .ActivityDetails .ant-drawer-footer {
     border-top: 0 !important;
 }
+
+.ant-input:focus {
+    box-shadow: none !important;
+    border-right-width: 1px;
+    outline: 0;
+}

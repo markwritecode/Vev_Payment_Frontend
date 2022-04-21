@@ -1,4 +1,4 @@
-import { Form } from 'antd'
+import { Form, Input } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/auth'
 import { useSignIn } from '../hooks/user/useSignUp'
@@ -10,7 +10,6 @@ const SignIn = () => {
     const navigate = useNavigate()
     const { mutate, data, status } = useSignIn(() => navigate(urls.auth.DASHBOARD))
     const [auth, action] = useAuth()
-    console.log(auth)
 
     const handleFinish = () => {
         signinForm.validateFields().then(values => {
@@ -40,12 +39,12 @@ const SignIn = () => {
                     <Form.Item
                         name='email'
                         rules={[{ required: true, message: 'Field cannot be empty' }, { type: 'email', message: 'Enter a valid email' }]}>
-                        <input className='p-3 border-[1px] border-slate-500 rounded-sm w-80 focus:outline-none focus:border-[#1eabe7e3]' placeholder='Email' />
+                        <Input className='p-3 border-[1px] border-slate-500 rounded-sm w-80 focus:outline-none focus:border-[#1eabe7e3]' placeholder='Email' />
                     </Form.Item>
                     <Form.Item
                         name='password'
                         rules={[{ required: true, message: 'Field cannot be empty' }]}>
-                        <input className='p-3 border-[1px] border-slate-500 rounded-sm w-80 focus:outline-none focus:border-[#1eabe7e3]' type='password' placeholder='Password' />
+                        <Input className='p-3 border-[1px] border-slate-500 rounded-sm w-80 focus:outline-none focus:border-[#1eabe7e3]' type='password' placeholder='Password' />
                     </Form.Item>
                     <div className='mr-auto'>
                         <p className='font-bold text-[#1eabe7e3]'>Forgot password?</p>

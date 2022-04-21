@@ -1,4 +1,4 @@
-import { Form } from 'antd'
+import { Form, Input } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { useCreateUser } from '../hooks/user/useSignUp'
 import { urls } from '../utils/helperVariables'
@@ -36,17 +36,17 @@ const SignUp = () => {
                     <Form.Item
                         name='email'
                         rules={[{ required: true, message: 'Field cannot be empty' }, { type: 'email', message: 'Enter a valid email' }]}>
-                        <input className='p-3 border-[1px] border-slate-500 rounded-sm w-80 focus:outline-none focus:border-[#1eabe7e3]' placeholder='Email' />
+                        <Input className='p-3 border-[1px] border-slate-500 rounded-sm w-80 focus:outline-none focus:border-[#1eabe7e3]' placeholder='Email' />
                     </Form.Item>
                     <Form.Item
                         name='name'
                         rules={[{ required: true, message: 'Field cannot be empty' }]}>
-                        <input className='p-3 border-[1px] border-slate-500 rounded-sm w-80 focus:outline-none focus:border-[#1eabe7e3]' placeholder='Full name' />
+                        <Input className='p-3 border-[1px] border-slate-500 rounded-sm w-80 focus:outline-none focus:border-[#1eabe7e3]' placeholder='Full name' />
                     </Form.Item>
                     <Form.Item
                         name='password'
                         rules={[{ required: true, message: 'Field cannot be empty' }]}>
-                        <input className='p-3 border-[1px] border-slate-500 rounded-sm w-80 focus:outline-none focus:border-[#1eabe7e3]' type='password' placeholder='Password' />
+                        <Input className='p-3 border-[1px] border-slate-500 rounded-sm w-80 focus:outline-none focus:border-[#1eabe7e3]' type='password' placeholder='Password' />
                     </Form.Item>
                     <div className='flex flex-col space-y-5 w-full'>
                         <button
