@@ -28,7 +28,9 @@ const Header = ({ expanded, toggleExpansion }) => {
                         </div>
                     </div>
 
-                    <div className='flex items-center space-x-4 cursor-pointer' onClick={() => action('signout')}>
+                    <span className=' cursor-pointer text-blue-700' onClick={() => action('signout')}>LOGOUT</span>
+
+                    <div className='flex items-center space-x-4 cursor-pointer'>
                         <div className='lg:flex flex-col items-end hidden'>
                             <div className='text-md font-medium'>Hello, Franklin</div>
                             <div className='text-xs text-gray-500 font-regular'>45834300</div>

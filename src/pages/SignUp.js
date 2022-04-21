@@ -1,4 +1,4 @@
-import { Form, Input } from 'antd'
+import { Button, Form, Input } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { useCreateUser } from '../hooks/user/useSignUp'
 import { urls } from '../utils/helperVariables'
@@ -7,7 +7,7 @@ const SignUp = () => {
 
     const [signupForm] = Form.useForm()
     const navigate = useNavigate()
-    const { mutate } = useCreateUser(() => navigate(urls.un_auth.LOGIN))
+    const { mutate, isLoading } = useCreateUser(() => navigate(urls.un_auth.LOGIN))
 
     const handleFinish = () => {
         signupForm.validateFields().then(values => {
@@ -49,11 +49,12 @@ const SignUp = () => {
                         <Input className='p-3 border-[1px] border-slate-500 rounded-sm w-80 focus:outline-none focus:border-[#1eabe7e3]' type='password' placeholder='Password' />
                     </Form.Item>
                     <div className='flex flex-col space-y-5 w-full'>
-                        <button
+                        <Button
+                            loading={isLoading}
                             onClick={handleFinish}
-                            className='w-full bg-gradient-to-r from-[#1eabe7e3] to-cyan-300 rounded-3xl p-3 text-white font-bold transition duration-200'>
+                            className='w-full h-12 bg-gradient-to-r from-[#1eabe7e3] to-cyan-300 rounded-3xl text-white font-bold transition duration-200'>
                             Sign Up
-                        </button>
+                        </Button>
                         <div className='flex items-center justify-center border-t-[1px] border-t-slate-300 w-full relative'>
                             <div className='-mt-1 font-bod bg-white px-5 absolute'>Or</div>
                         </div>

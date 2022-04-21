@@ -1,6 +1,5 @@
-import { Form, Input } from 'antd'
+import { Button, Form, Input } from 'antd'
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../contexts/auth'
 import { useSignIn } from '../hooks/user/useSignUp'
 import { urls } from '../utils/helperVariables'
 
@@ -8,13 +7,11 @@ const SignIn = () => {
 
     const [signinForm] = Form.useForm()
     const navigate = useNavigate()
-    const { mutate, data, status } = useSignIn(() => navigate(urls.auth.DASHBOARD))
-    const [auth, action] = useAuth()
+    const { mutate, isLoading } = useSignIn()
 
     const handleFinish = () => {
         signinForm.validateFields().then(values => {
-            // mutate(values)
-            action('signin')
+            mutate(values)
         })
     }
 
@@ -50,7 +47,7 @@ const SignIn = () => {
                         <p className='font-bold text-[#1eabe7e3]'>Forgot password?</p>
                     </div>
                     <div className='flex flex-col space-y-5 w-full'>
-                        <button onClick={handleFinish} className='w-full bg-gradient-to-r from-[#1eabe7e3] to-cyan-300 rounded-3xl p-3 text-white font-bold transition duration-200'>Sign in</button>
+                        <Button loading={isLoading} onClick={handleFinish} className='w-full h-12 bg-gradient-to-r from-[#1eabe7e3] to-cyan-300 rounded-3xl text-white font-bold transition duration-200'>Sign in</Button>
                         <div className='flex items-center justify-center border-t-[1px] border-t-slate-300 w-full relative'>
                             <div className='-mt-1 font-bod bg-white px-5 absolute'>Or</div>
                         </div>

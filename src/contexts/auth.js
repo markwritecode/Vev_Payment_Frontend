@@ -4,13 +4,21 @@ const authContext = createContext()
 
 const AuthProvider = ({ children }) => {
 
-    const [auth, setAuth] = useState(false)
+    const token = localStorage.getItem('ichor-token-key')
 
-    const signin = () => setAuth(true)
-    const signout = () => setAuth(false)
+    const [auth, setAuth] = useState(() => token ? true : false)
 
-    const action = type => {
-        if (type === 'signin') signin()
+    const signin = key => {
+        localStorage.setItem('ichor-token-key', key)
+        setAuth(true)
+    }
+    const signout = () => {
+        localStorage.removeItem('ichor-token-key')
+        setAuth(false)
+    }
+
+    const action = (type, key) => {
+        if (type === 'signin') signin(key)
         else if (type === 'signout') signout()
     }
 

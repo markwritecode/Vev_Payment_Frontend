@@ -1,4 +1,5 @@
 import { useMutation } from 'react-query'
+import { useAuth } from '../../contexts/auth'
 import { poster } from '../invoice/useInvoice'
 import useHandleNotifications from '../notifications/useHandleNotifications'
 
@@ -24,9 +25,10 @@ export const useCreateUser = callback => {
     })
 }
 
-export const useSignIn = callback => {
+export const useSignIn = () => {
 
     const handleNotify = useHandleNotifications()
+    const [, action] = useAuth()
 
     return useMutation(data =>
         poster(`user/login`, {
@@ -34,7 +36,7 @@ export const useSignIn = callback => {
         }), {
         onSuccess: async response => {
             if (response.data?.status === 'ok') {
-                callback()
+                action('signin', response?.data?.token)
                 handleNotify('success', 'Sign in successful')
             } else {
                 handleNotify('error')
