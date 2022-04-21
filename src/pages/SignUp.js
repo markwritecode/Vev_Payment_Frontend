@@ -52,8 +52,8 @@ const SignUp = () => {
                         <Button
                             loading={isLoading}
                             onClick={handleFinish}
-                            className='w-full h-12 bg-gradient-to-r from-[#1eabe7e3] to-cyan-300 rounded-3xl text-white font-bold transition duration-200'>
-                            Sign Up
+                            className='w-full bg-gradient-to-r from-[#1eabe7e3] to-cyan-300 rounded-3xl p-3 space-x-2 text-white font-bold transition duration-200'>
+                            <span>Sign Up</span>
                         </Button>
                         <div className='flex items-center justify-center border-t-[1px] border-t-slate-300 w-full relative'>
                             <div className='-mt-1 font-bod bg-white px-5 absolute'>Or</div>

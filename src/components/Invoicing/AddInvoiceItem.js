@@ -52,7 +52,7 @@ const AddInvoiceItem = ({ visible, handleCloseModal }) => {
                     </Form.Item>
                 </div>
                 <div className='flex items-center justify-between'>
-                    <Button htmlType='submit' type='primary' className='bg-[#1EAAE7] text-sm'>ADD ITEM</Button>
+                    <Button htmlType='submit' type='primary' className='bg-[#1EAAE7] text-sm text-white px-2 py-1 space-x-2 rounded-sm'>ADD ITEM</Button>
                     {/* <p>Total: 0</p> */}
                 </div>
 

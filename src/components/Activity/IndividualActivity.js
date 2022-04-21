@@ -26,7 +26,7 @@ const IndividualActivity = ({ activity, setStep }) => {
                     activity.type === 'invoicing' ?
                         <div className='rounded-full p-2 bg-cyan-300'>
                             <BsCode className='h-4 w-4' />
-                        </div> : activity.actions.includes('issue') ?
+                        </div> : activity.type === 'transaction' ?
                             <div className='rounded-full p-2 bg-[#5253aac0]'>
                                 <DiCodepen className='h-4 w-4' />
                             </div> :
@@ -55,9 +55,9 @@ const IndividualActivity = ({ activity, setStep }) => {
                         {`#${activity.reference_number}`}
                         <span className='ml-3'>
                             <span
-                                className={`border-[1px] rounded-sm mx-1 px-1 
+                                className={`border-[1px] rounded-sm mx-1 px-1 pb-[0.15rem]
                                                             ${activity.action === 'send' ? 'border-purple-500 bg-purple-200 text-purple-500' :
-                                        activity.action === 'research' ? 'border-orange-500 bg-orange-100 text-orange-500' : 'border-green-500 bg-green-200 text-green-500'}`}>
+                                        activity.action === 'payment' ? 'border-orange-500 bg-orange-100 text-orange-500' : 'border-green-500 bg-green-200 text-green-500'}`}>
                                 {activity.action}
                             </span>
                         </span>

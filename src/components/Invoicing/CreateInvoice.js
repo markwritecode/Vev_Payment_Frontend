@@ -114,13 +114,13 @@ const CreateInvoice = ({ visible, handleCloseDrawer, updateData }) => {
                             <Button
                                 loading={loading.draft}
                                 onClick={() => handleFormSubmission('draft')}
-                                className='border-gray-400 border-[1px] text-gray-500 px-3 py-1 rounded-sm'>
-                                SAVE AS DRAFT
+                                className='border-gray-400 border-[1px] text-gray-500 px-3 py-1 space-x-2 rounded-sm'>
+                                <span>SAVE AS DRAFT</span>
                             </Button>}
                         <Button
                             onClick={() => handleFormSubmission('send_save')}
-                            loading={updateData ? updateLoading : loading.send_save} type='primary' className='bg-[#1EAAE7] text-white px-3 py-1 rounded-sm'>
-                            {updateData ? 'UPDATE' : 'SEND'}
+                            loading={updateData ? updateLoading : loading.send_save} type='primary' className='text-white px-3 py-1 space-x-2 rounded-sm'>
+                            <span>{updateData ? 'UPDATE' : 'SEND'}</span>
                         </Button>
                     </div>
                 </div>
