@@ -22,7 +22,7 @@ const Sidebar = ({ expanded }) => {
                             navData.map(item => {
                                 return (
                                     <NavLink to={item.to} key={item.name} className={({ isActive }) => `${isActive && 'text-[#1EAAE7]'} flex flex-row items-center text-gray-500 gap-10`}>
-                                        <span className='inline-flex justify-center items-center ml-4'>
+                                        <span className='inline-flex justify-center items-center ml-5'>
                                             {item.icon}
                                         </span>
                                         <span className='ml-2 text-lg font-normal tracking-wide truncate'>{item.name}</span>

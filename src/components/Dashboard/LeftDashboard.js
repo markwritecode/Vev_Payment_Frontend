@@ -6,7 +6,7 @@ const LeftDashboard = () => {
         <div className='h-full space-y-10'>
             <div className='bg-white rounded-lg p-10 space-y-10'>
                 <h5 className='text-xl text-[#1eabe7e3] font-bold pb-10'>Activity</h5>
-                <svg className='w-full' viewBox='0 0 218 69' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                {/* <svg className='w-full' viewBox='0 0 218 69' fill='none' xmlns='http://www.w3.org/2000/svg'>
                     <path
                         d='M0 67.5C27.8998 67.5 24.6002 15 52.5 15C80.3998 15 77.1002 29 105 29C132.9 29 128.6 52 156.5 52C184.4 52 189.127 63.8158 217.027 63.8158'
                         stroke='url(#paint0_linear_622:13664)'
@@ -29,7 +29,7 @@ const LeftDashboard = () => {
                             <stop offset='1' stopColor='#7517F8' />
                         </linearGradient>
                     </defs>
-                </svg>
+                </svg> */}
             </div>
             <div className='rounded-lg grid grid-cols-2 lg:gap-10'>
                 <PaymentsCard />
