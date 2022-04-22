@@ -2,7 +2,7 @@ import { useMutation } from 'react-query'
 import { poster } from '../invoice/useInvoice'
 import useHandleNotifications from '../notifications/useHandleNotifications'
 
-export const useCreateTransactions = () => {
+export const useCreateTransactions = callback => {
 
     const handleNotify = useHandleNotifications()
 
@@ -12,7 +12,7 @@ export const useCreateTransactions = () => {
         }), {
         onSuccess: async response => {
             if (response.data?.status === 'ok') {
-                // callback()
+                callback()
                 handleNotify('success', 'Transaction logged')
             } else {
                 handleNotify('error')

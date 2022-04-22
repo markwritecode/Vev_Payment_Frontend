@@ -1,4 +1,4 @@
-import { Button, Form, Input } from 'antd'
+import { Form, Input } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { useCreateUser } from '../hooks/user/useSignUp'
 import { urls } from '../utils/helperVariables'
@@ -52,12 +52,12 @@ const SignUp = () => {
                         <Input className='p-3 border-[1px] border-slate-500 rounded-sm sm:w-80 focus:outline-none focus:border-[#1eabe7e3]' type='password' placeholder='Password' />
                     </Form.Item>
                     <div className='flex flex-col space-y-5 w-full'>
-                        <Button
-                            loading={isLoading}
+                        <button
+                            disabled={isLoading}
                             onClick={handleFinish}
-                            className='w-full bg-gradient-to-r from-[#1eabe7e3] to-cyan-300 rounded-3xl p-3 space-x-2 text-white font-bold transition duration-200'>
-                            <span>Sign Up</span>
-                        </Button>
+                            className='w-full bg-gradient-to-r from-[#1eabe7e3] to-cyan-300 rounded-3xl p-3 text-white font-bold transition duration-200'>
+                            {isLoading ? 'Signing Up...' : 'Sign Up'}
+                        </button>
                         <div className='flex items-center justify-center border-t-[1px] border-t-slate-300 w-full relative'>
                             <div className='-mt-1 font-bod bg-white px-5 absolute'>Or</div>
                         </div>

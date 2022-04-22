@@ -132,12 +132,13 @@ const TransactionComponent = ({ activity, loading }) => {
 
     if (loading) return <p>Loading...</p>
 
-    const formattedPrice = () => Number(activity?.total).toFixed(2).split('.')
+    const formattedPrice = () => Number(activity?.amount).toFixed(2).split('.')
 
     return (
         <section className='space-y-8'>
             <div className='text-center space-y-4 mt-8'>
-                <IoMdCheckmarkCircleOutline className='h-10 w-10 text-green-300 mx-auto' />
+                {activity?.status !== 'pending' && <IoMdCheckmarkCircleOutline className='h-10 w-10 text-green-300 mx-auto' />}
+                {activity?.status === 'pending' && <MdOutlinePendingActions className='h-10 w-10 text-yellow-300 mx-auto' />}
                 <h3 className='font-medium text-base opacity-60'>Transaction Total</h3>
                 <h5 className='text-4xl font-medium'>
                     - <span className='opacity-60'>$</span>{currencyFormatter(formattedPrice()[0])}<span className='opacity-60'>.{formattedPrice()[1]} USD</span>
@@ -160,20 +161,20 @@ const TransactionComponent = ({ activity, loading }) => {
             </div>
             <div className='space-y-8'>
                 <div>
-                    <h3 className='text-xs font-semibold'>STATUS</h3>
-                    <h4 className='text-green-500'>Completed</h4>
+                    <h3 className='text-xs font-semibold'>DOCUMENT REFERENCE</h3>
+                    <h4 className='text-gray-400 capitalize'>{activity?.document_reference}</h4>
                 </div>
                 <div>
-                    <h3 className='text-xs font-semibold'>TRANSACTION DATE</h3>
-                    <h4 className='font-semibold text-gray-400'>June 24, 2021 at 9:32 am (Your time)</h4>
+                    <h3 className='text-xs font-semibold'>DATE CREATED</h3>
+                    <h4 className='text-gray-400 capitalize'>{formatDateAndTime2(activity?.created_at)}</h4>
                 </div>
                 <div>
-                    <h3 className='text-xs font-semibold'>TRAINING PLAN</h3>
-                    <h4 className='font-semibold text-gray-400'>Intro to Super Smash Bros. Ultimate (6 lessons)</h4>
+                    <h3 className='text-xs font-semibold'>PURPOSE</h3>
+                    <h4 className='font-semibold text-gray-400 capitalize'>{activity?.purpose.split('_').join(' ')}</h4>
                 </div>
                 <div>
                     <h3 className='text-xs font-semibold'>PAYMENT METHOD</h3>
-                    <h4 className='font-semibold text-gray-400'>Mastercard **** 8798</h4>
+                    <h4 className='font-semibold text-gray-400 capitalize'>{activity?.payment_method.split('_').join(' ')}</h4>
                 </div>
             </div>
         </section>

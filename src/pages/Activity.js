@@ -15,7 +15,7 @@ const Activity = () => {
 
     return (
         <activityContext.Provider value={[activityData, setActivityData]}>
-            {step === 'default' ? <DefaultView setStep={setStep} /> : <Checkout />}
+            {step === 'default' ? <DefaultView setStep={setStep} /> : <Checkout setStep={setStep} />}
         </activityContext.Provider>
     )
 }

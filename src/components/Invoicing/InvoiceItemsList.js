@@ -94,7 +94,7 @@ const InvoiceItemsList = ({ preview }) => {
             </div>
 
             {!preview && <div className='flex items-center justify-between pt-10'>
-                <button onClick={handleOpenModal} className='text-white text-xs bg-[#1EAAE7] rounded-sm px-3 py-2'>ADD ITEM</button>
+                <span onClick={handleOpenModal} className='text-white text-xs bg-[#1EAAE7] rounded-sm px-3 py-2 cursor-pointer'>ADD ITEM</span>
                 <p className='text-gray-400'>Total: <span className='text-black ml-5'>₦{currencyFormatter(totalAmount)}</span></p>
             </div>}
 

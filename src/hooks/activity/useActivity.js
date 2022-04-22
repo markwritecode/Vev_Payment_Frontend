@@ -18,7 +18,7 @@ export const usePullActivityDetails = ref => {
 
     const url = `activity/details/${ref}`
 
-    const { isLoading, data, refetch, isRefetching } = useQuery(['activity', 'details'], () => getter(url).then((response) => {
+    const { isLoading, data, refetch, isRefetching } = useQuery(['activity', 'details', ref], () => getter(url).then((response) => {
         return response?.data
     }), {
         refetchOnMount: false,

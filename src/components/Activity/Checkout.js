@@ -2,12 +2,13 @@ import { Avatar, Form } from 'antd'
 import { useState } from 'react'
 import { FaFileInvoice } from 'react-icons/fa'
 import { IoIosLock } from 'react-icons/io'
+import { IoArrowBackOutline } from 'react-icons/io5'
 import { useCreateTransactions } from '../../hooks/transactions/useCreateTransaction'
 import { useActivityContext } from '../../pages/Activity'
 import { currencyFormatter } from '../../utils/helperFunctions'
 import { paymentOptions } from '../../utils/helperVariables'
 
-const Checkout = () => {
+const Checkout = ({ setStep }) => {
     const [activityContext] = useActivityContext()
     const initialItem = activityContext?.items[0]
     const [currentItem, setCurrentItem] = useState({
@@ -15,9 +16,9 @@ const Checkout = () => {
     })
 
     return (
-        <div className='bg-[#F5F5F7] h-screen w-screen fixed top-0 left-0 lg:flex overflow-y-auto'>
+        <div className='bg-[#F5F5F7] h-screen w-screen fixed top-0 left-0 lg:grid lg:grid-cols-2'>
             <LeftSide currentItem={currentItem} setCurrentItem={setCurrentItem} />
-            <RightSide currentItem={currentItem} />
+            <RightSide currentItem={currentItem} setStep={setStep} />
         </div>
     )
 }
@@ -31,7 +32,7 @@ const LeftSide = ({ currentItem, setCurrentItem }) => {
     const handleChange = item => setCurrentItem({ ...item, vat: (Number(item.subtotal) * 0.2).toFixed(2), total: ((Number(item.subtotal) * 0.2) + (Number(item.subtotal))).toFixed(2) })
 
     return (
-        <div className='lg:w-1/2'>
+        <div className='h-full'>
             <div className='flex items-center gap-2 p-5'>
                 <Avatar shape='circle' src={`https://i.pravatar.cc/600?img=${activityContext.user.id}`} size={40} />
                 <div className=''>
@@ -78,11 +79,11 @@ const LeftSide = ({ currentItem, setCurrentItem }) => {
     )
 }
 
-const RightSide = ({ currentItem }) => {
+const RightSide = ({ currentItem, setStep }) => {
 
     const [activityContext] = useActivityContext()
     const [checkoutForm] = Form.useForm()
-    const { mutate } = useCreateTransactions()
+    const { mutate, isLoading } = useCreateTransactions(() => setStep('default'))
 
     const handleFinish = () => {
         checkoutForm.validateFields().then(() => {
@@ -95,13 +96,10 @@ const RightSide = ({ currentItem }) => {
     }
 
     return (
-        <div className='bg-white lg:w-1/2'>
-            <div className='flex items-center gap-2 p-5 opacity-0'>
-                <Avatar shape='circle' src={`https://i.pravatar.cc/600?img=${activityContext.user.id}`} size={40} />
-                <div className=''>
-                    <h3 className='font-medium text-gray-500 text-xs capitalize'>{activityContext.user.name}</h3>
-                    <h5 className='text-gray-400 text-xs font-medium'>{activityContext.user.email}</h5>
-                </div>
+        <div className='bg-white h-full'>
+            <div onClick={() => setStep('default')} className='flex items-center justify-end cursor-pointer gap-1 p-5'>
+                <IoArrowBackOutline /> 
+                <span>Go back</span>
             </div>
             <div className='flex justify-center items-start py-16'>
                 <div className='space-y-8'>
@@ -202,7 +200,9 @@ const RightSide = ({ currentItem }) => {
                             </div>
                         </div>
                         <div className='w-full'>
-                            <button onClick={handleFinish} className='text-center w-full bg-gradient-to-r from-[#1eabe7e3] to-cyan-300 rounded-lg p-3 font-semibold text-white'>Pay ${currencyFormatter(currentItem.total)}</button>
+                            <button disabled={isLoading} onClick={handleFinish} className='text-center w-full bg-gradient-to-r from-[#1eabe7e3] to-cyan-300 rounded-lg p-3 font-semibold text-white'>
+                                {isLoading ? 'Making Payment...' : `Pay $${currencyFormatter(currentItem.total)}`}
+                            </button>
                         </div>
                         <p className='text-gray-300 text-xs flex items-center gap-1 justify-center font-medium'>
                             <IoIosLock className='h-5 w-5' />

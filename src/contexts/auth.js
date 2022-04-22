@@ -1,8 +1,11 @@
 import { createContext, useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const authContext = createContext()
 
 const AuthProvider = ({ children }) => {
+
+    const navigate = useNavigate()
 
     const token = localStorage.getItem('ichor-token-key')
 
@@ -16,6 +19,7 @@ const AuthProvider = ({ children }) => {
         // localStorage.removeItem('ichor-token-key')
         localStorage.clear()
         setAuth(false)
+        navigate('/')
     }
 
     const action = (type, key) => {

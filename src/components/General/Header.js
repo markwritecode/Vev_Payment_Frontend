@@ -1,4 +1,5 @@
 import { Avatar } from 'antd'
+import { FiLogOut } from 'react-icons/fi'
 import { IoNotificationsOutline } from 'react-icons/io5'
 import { RiMenuUnfoldLine, RiMenuFoldLine } from 'react-icons/ri'
 import { useAuth } from '../../contexts/auth'
@@ -15,7 +16,7 @@ const Header = ({ expanded, toggleExpansion }) => {
                         <RiMenuFoldLine onClick={toggleExpansion} className='w-7 h-7 font-thin text-[#1EAAE7] cursor-pointer' /> :
                         <RiMenuUnfoldLine onClick={toggleExpansion} className='w-7 h-7 font-thin text-[#1EAAE7] cursor-pointer' />
                 }
-                <div className='flex flex-shrink-0 items-center pr-5 space-x-1 lg:space-x-10 text-black'>
+                <div className='flex flex-shrink-0 items-center pr-5 space-x-1 lg:space-x-5 text-black'>
 
                     <div className='hover:bg-white rounded-full p-3 cursor-pointer'>
                         <div className='relative'>
@@ -28,8 +29,6 @@ const Header = ({ expanded, toggleExpansion }) => {
                         </div>
                     </div>
 
-                    <span className=' cursor-pointer text-blue-700' onClick={() => action('signout')}>LOGOUT</span>
-
                     <div className='flex items-center space-x-4 cursor-pointer'>
                         <div className='lg:flex flex-col items-end hidden'>
                             <div className='text-md font-medium'>Hello, Franklin</div>
@@ -37,6 +36,10 @@ const Header = ({ expanded, toggleExpansion }) => {
                         </div>
 
                         <Avatar size={50} src='https://i.pravatar.cc/300' />
+                    </div>
+                    <div onClick={() => action('signout')} className='text-red-400 cursor-pointer'>
+                        <FiLogOut className='h-5 w-5' />
+                        <span className='text-xs uppercase'>Logout</span>
                     </div>
                 </div>
             </div>
