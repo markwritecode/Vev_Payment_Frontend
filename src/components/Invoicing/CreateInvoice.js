@@ -80,6 +80,8 @@ const CreateInvoice = ({ visible, handleCloseDrawer, updateData }) => {
         const data = {
             "description": values.description,
             "additional_note": values.additional_note || '',
+            "due_date": values.due_on,
+            "issue_date": values.issued_on,
             "items": JSON.stringify(invoice.items.map(item => {
                 return { "item": item.item_name, "qty": item.item_quantity, "amount": item.item_price }
             })),
@@ -102,10 +104,10 @@ const CreateInvoice = ({ visible, handleCloseDrawer, updateData }) => {
     return (
         <Drawer
             visible={visible}
-            size='large'
             width={width <= 500 ? '100%' : width <= 700 ? '70%' : width <= 900 ? '60%' : width <= 1100 ? '45%' : width <= 1200 ? '40%' : width <= 1400 ? '35%' : '25%'}
             onClose={handleFullClose}
             closable={false}
+            bodyStyle={{ padding: '15px' }}
             footer={
                 <div className='md:flex items-center justify-between space-y-2'>
                     <p onClick={handleShowPreview} className='text-[#1EAAE7] cursor-pointer'>PREVIEW</p>

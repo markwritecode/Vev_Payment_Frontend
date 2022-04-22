@@ -1,5 +1,5 @@
 import { IoClose } from 'react-icons/io5'
-import { Avatar, Form, Input, Select } from 'antd'
+import { Avatar, DatePicker, Form, Input, Select } from 'antd'
 import { useQueryEmail } from '../../hooks/invoice'
 import { colorList } from '../../utils/helperVariables'
 import InvoiceItemsList from './InvoiceItemsList'
@@ -35,42 +35,44 @@ const InvoiceForm = ({ invoiceForm, handleCloseDrawer, updateData }) => {
             >
                 {
                     !updateData &&
-                    <Form.Item
-                        label="Recipient Email"
-                        name="email"
-                        rules={[{ required: true, message: 'Please select an email!' }]}
-                    >
-                        <Select
-                            showSearch
-                            placeholder='Select Recipient'
-                            size='large'
-                            allowClear
-                            showArrow={false}
-                            loading={isLoading}
-                            notFoundContent={isLoading ? 'Loading emails...' : data?.data?.email_name.length < 1 ? 'Email does not exist' : 'Enter atleast four characters to search'}
-                            onSearch={handleSearch}
-                            style={{ width: '100%' }}
+                    <div className='bg-blue-100 p-2 rounded-md border-[1px] border-gray-200'>
+                        <Form.Item
+                            label="Recipient Email"
+                            name="email"
+                            rules={[{ required: true, message: 'Please select an email!' }]}
                         >
-                            {data?.data?.email_name.map((item, index) => {
-                                const i = index > 9 ? `${index}`[1] : index
-                                return (
-                                    <Select.Option key={item.id} value={item.email}>
-                                        <Avatar
-                                            size={'small'}
-                                            style={{
-                                                backgroundColor: colorList[i],
-                                                opacity: 0.6,
-                                                verticalAlign: 'middle',
-                                            }}
-                                            className='uppercase'>
-                                            {item.email[0]}
-                                        </Avatar>
-                                        <span className='ml-3'>{item.email}</span>
-                                    </Select.Option>
-                                )
-                            })}
-                        </Select>
-                    </Form.Item>
+                            <Select
+                                showSearch
+                                placeholder='Select Recipient'
+                                size='large'
+                                allowClear
+                                showArrow={false}
+                                loading={isLoading}
+                                notFoundContent={isLoading ? 'Loading emails...' : data?.data?.email_name.length < 1 ? 'Email does not exist' : 'Enter atleast four characters to search'}
+                                onSearch={handleSearch}
+                                style={{ width: '100%' }}
+                            >
+                                {data?.data?.email_name.map((item, index) => {
+                                    const i = index > 9 ? `${index}`[1] : index
+                                    return (
+                                        <Select.Option key={item.id} value={item.email}>
+                                            <Avatar
+                                                size={'small'}
+                                                style={{
+                                                    backgroundColor: colorList[i],
+                                                    opacity: 0.6,
+                                                    verticalAlign: 'middle',
+                                                }}
+                                                className='uppercase'>
+                                                {item.email[0]}
+                                            </Avatar>
+                                            <span className='ml-3'>{item.email}</span>
+                                        </Select.Option>
+                                    )
+                                })}
+                            </Select>
+                        </Form.Item>
+                    </div>
                 }
 
                 <Form.Item
@@ -87,6 +89,23 @@ const InvoiceForm = ({ invoiceForm, handleCloseDrawer, updateData }) => {
                 >
                     <Input.TextArea size='large' />
                 </Form.Item>
+
+                <div className='lg:grid lg:grid-cols-2 gap-2'>
+                    <Form.Item
+                        label="Issued on"
+                        name="issued_on"
+                        rules={[{ required: true, message: 'Please select date!' }]}
+                    >
+                        <DatePicker size='large' className='w-full' />
+                    </Form.Item>
+                    <Form.Item
+                        label="Due on"
+                        name="due_on"
+                        rules={[{ required: true, message: 'Please select date!' }]}
+                    >
+                        <DatePicker size='large' className='w-full' />
+                    </Form.Item>
+                </div>
 
                 <InvoiceItemsList />
 
