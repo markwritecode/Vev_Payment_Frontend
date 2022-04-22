@@ -1,23 +1,7 @@
-import axios from 'axios'
 import { useMutation, useQuery } from 'react-query'
-import { queryClient } from '../../App';
-import useHandleNotifications from '../notifications/useHandleNotifications';
-
-export const liveAxios = axios.create({
-    baseURL: 'http://api.getyournin.com/api/',
-});
-
-export const poster = async (url, { data } = { data: {} }) => {
-    liveAxios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('ichor-token-key')}`
-    const response = await liveAxios.post(url, data)
-    return response;
-}
-
-export const getter = async url => {
-    liveAxios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('ichor-token-key')}`
-    const response = await liveAxios.get(url)
-    return response;
-}
+import { getter, poster } from '../../api'
+import { queryClient } from '../../App'
+import useHandleNotifications from '../notifications'
 
 export const useCreateInvoice = callback => {
 
@@ -126,7 +110,7 @@ export const usePullInvoiceById = ref => {
 
     const url = `invoice/showbyid?invoice_ref=${ref}`
 
-    const { isLoading, data } = useQuery(['invoice', 'showbyid'], () => getter(url).then((response) => {
+    const { isLoading, data } = useQuery(['invoice', 'showbyid', ref], () => getter(url).then((response) => {
         return response?.data
     }), {
         refetchOnMount: false,

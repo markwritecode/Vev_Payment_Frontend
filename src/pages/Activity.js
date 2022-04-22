@@ -1,7 +1,7 @@
 import IndividualActivity from '../components/Activity/IndividualActivity'
 import { HiDotsVertical } from 'react-icons/hi'
 import { RiRefreshLine } from 'react-icons/ri'
-import { usePullActivity } from '../hooks/activity/useActivity'
+import { usePullActivity } from '../hooks/activity'
 import Loading from '../components/General/Loading'
 import { createContext, useContext, useState } from 'react'
 import Checkout from '../components/Activity/Checkout'

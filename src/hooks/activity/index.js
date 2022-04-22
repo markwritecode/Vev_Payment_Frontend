@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query'
-import { getter } from '../invoice/useInvoice'
+import { getter } from '../../api'
 
 export const usePullActivity = () => {
 

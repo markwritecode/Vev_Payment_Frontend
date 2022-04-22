@@ -1,5 +1,7 @@
 import { createContext, useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { liveAxios } from '../api'
+import { queryClient } from '../App'
 
 const authContext = createContext()
 
@@ -18,6 +20,8 @@ const AuthProvider = ({ children }) => {
     const signout = () => {
         // localStorage.removeItem('ichor-token-key')
         localStorage.clear()
+        queryClient.clear()
+        delete liveAxios.defaults.headers.common["Authorization"];
         setAuth(false)
         navigate('/')
     }

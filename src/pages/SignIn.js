@@ -1,6 +1,6 @@
 import { Form, Input } from 'antd'
 import { useNavigate } from 'react-router-dom'
-import { useSignIn } from '../hooks/user/useSignUp'
+import { useSignIn } from '../hooks/user'
 import { urls } from '../utils/helperVariables'
 
 const SignIn = () => {

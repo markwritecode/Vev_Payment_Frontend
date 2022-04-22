@@ -5,7 +5,7 @@ import { useState } from 'react'
 import Loading from '../components/General/Loading'
 import CreateInvoice from '../components/Invoicing/CreateInvoice'
 import InvoiceContext from '../contexts/invoice'
-import { useDeleteInvoice, usePullInvoice } from '../hooks/invoice/useInvoice'
+import { useDeleteInvoice, usePullInvoice } from '../hooks/invoice'
 import { currencyFormatter, formatDate, formatDateNum } from '../utils/helperFunctions'
 import { colorList } from '../utils/helperVariables'
 
@@ -147,7 +147,7 @@ const Invoice = () => {
 
     return (
         <InvoiceContext>
-            <div className='h-full w-full pr-10 pl-10 lg:10 py-10 space-y-8' id='Invoice-Page'>
+            <div className='h-full w-full pr-10 pl-10 lg:pl-0 py-5 space-y-8' id='Invoice-Page'>
                 <h3 className='text-4xl font-semibold'>Invoices</h3>
 
                 <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'>

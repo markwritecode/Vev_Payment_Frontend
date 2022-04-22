@@ -1,7 +1,7 @@
 import { useMutation } from 'react-query'
+import { poster } from '../../api'
 import { useAuth } from '../../contexts/auth'
-import { poster } from '../invoice/useInvoice'
-import useHandleNotifications from '../notifications/useHandleNotifications'
+import useHandleNotifications from '../notifications'
 
 export const useCreateUser = callback => {
 

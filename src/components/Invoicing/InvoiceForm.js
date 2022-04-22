@@ -1,6 +1,6 @@
 import { IoClose } from 'react-icons/io5'
 import { Avatar, Form, Input, Select } from 'antd'
-import { useQueryEmail } from '../../hooks/invoice/useInvoice'
+import { useQueryEmail } from '../../hooks/invoice'
 import { colorList } from '../../utils/helperVariables'
 import InvoiceItemsList from './InvoiceItemsList'
 
