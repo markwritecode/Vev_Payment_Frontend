@@ -160,8 +160,8 @@ const Invoice = () => {
 
                 <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
 
-                    <div className='xs:flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8 space-y-4'>
-                        <div className='sm:w-1/2'>
+                    <div className='lg:flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8 space-y-4'>
+                        <div className='lg:w-1/2'>
                             <h5 className='text-gray-400 uppercase'>Total Invoices</h5>
                             <h4 className='text-4xl lg:font-bold'><span className='text-gray-400 text-lg'>$</span>
                                 {currencyFormatter(calculateTotal(_pulledInvoice)[0])}
@@ -172,7 +172,7 @@ const Invoice = () => {
                             </div>
                         </div>
 
-                        <div className='sm:w-1/2 space-y-4'>
+                        <div className='lg:w-1/2 space-y-4'>
                             <div>
                                 <div className={`flex items-center gap-1 text-blue-400`}>
                                     <div className='h-2 w-2 bg-blue-400 rounded-full' /> Pending
