@@ -37,18 +37,18 @@ const Sidebar = ({ expanded }) => {
             </aside>
 
             {/* View for smaller screen */}
-            <aside className={`flex flex-col ${expanded ? 'w-64 px-5' : 'w-0'} h-full text-black transition-all duration-300 bg-[#F9F9F9] border-none py-20 lg:hidden fixed top-20 left-0 z-10`}>
+            <aside className={`flex flex-col ${expanded ? 'w-full px-5' : 'w-0'} h-full text-black transition-all duration-300 bg-[#F9F9F9] border-none py-20 lg:hidden fixed top-20 left-0 z-20`}>
                 <div className='overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow'>
                     <div className='flex flex-col space-y-10'>
                         {
                             navData.map(item => {
                                 return (
                                     <NavLink to={item.to} key={item.name} className={({ isActive }) => `${isActive && 'text-[#1EAAE7]'} flex flex-row items-center text-gray-500 gap-2`}>
-                                        <span className='inline-flex justify-center items-center ml-4'>
+                                        <span className='inline-flex justify-center items-center ml-5'>
                                             {item.icon}
                                         </span>
-                                        <span className='ml-2 text-xs font-normal tracking-wide'>{item.name}</span>
-                                        <FiChevronRight className={`${expanded ? 'block' : 'hidden'} h-5 w-5 font-thin ml-auto`} />
+                                        <span className='ml-2 text-lg font-normal tracking-wide'>{item.name}</span>
+                                        {/* <FiChevronRight className={`${expanded ? 'block' : 'hidden'} h-5 w-5 font-thin ml-auto`} /> */}
                                     </NavLink>
                                 )
                             })
