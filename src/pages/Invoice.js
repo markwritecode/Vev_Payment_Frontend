@@ -162,8 +162,8 @@ const Invoice = () => {
 
                     <div className='lg:flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8 space-y-4'>
                         <div className='lg:w-1/2'>
-                            <h5 className='text-gray-400 uppercase'>Total Invoices</h5>
-                            <h4 className='text-4xl lg:font-bold'><span className='text-gray-400 text-lg'>$</span>
+                            <h5 className='text-gray-400'>Total Paid</h5>
+                            <h4 className='text-lg sm:text-4xl lg:font-bold'><span className='text-gray-400 text-lg'>$</span>
                                 {currencyFormatter(calculateTotal(_pulledInvoice)[0])}
                                 <span className='opacity-60'>.{calculateTotal(_pulledInvoice)[1]}</span>
                             </h4>
@@ -177,7 +177,7 @@ const Invoice = () => {
                                 <div className={`flex items-center gap-1 text-blue-400`}>
                                     <div className='h-2 w-2 bg-blue-400 rounded-full' /> Pending
                                 </div>
-                                <h4 className='text-4xl lg:font-bold'>
+                                <h4 className='text-lg sm:text-4xl lg:font-bold'>
                                     <span className='text-gray-400 text-lg'>$</span>
                                     {currencyFormatter(calculateTotal(_pulledInvoice?.filter(item => item.status === 'pending'))[0])}
                                     <span className='opacity-60'>.{calculateTotal(_pulledInvoice?.filter(item => item.status === 'pending'))[1]}</span>
@@ -188,7 +188,7 @@ const Invoice = () => {
                                 <div className={`flex items-center gap-1 text-yellow-400`}>
                                     <div className='h-2 w-2 bg-yellow-400 rounded-full' /> In drafts
                                 </div>
-                                <h4 className='text-4xl lg:font-bold'>
+                                <h4 className='text-lg sm:text-4xl lg:font-bold'>
                                     <span className='text-gray-400 text-lg'>$</span>
                                     {currencyFormatter(calculateTotal(_pulledInvoice?.filter(item => item.status === 'draft'))[0])}
                                     <span className='opacity-60'>.{calculateTotal(_pulledInvoice?.filter(item => item.status === 'draft'))[1]}</span>
@@ -198,7 +198,7 @@ const Invoice = () => {
                     </div>
 
                     <div className='bg-white rounded-lg flex-grow p-8 space-y-4'>
-                        <div className='sm:flex items-center justify-between space-y-4'>
+                        <div className='md:flex items-center justify-between space-y-4'>
                             <div className='flex items-center gap-4'>
                                 <Avatar shape='circle' size={32} src='https://i.pravatar.cc/600?img=2' />
                                 <h4 className='text-lg text-gray-400 font-medium'>quickpay.to/<span className='text-gray-800'>publicnote</span></h4>
