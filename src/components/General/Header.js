@@ -1,5 +1,6 @@
-import { Avatar } from 'antd'
+import { Avatar, Dropdown, Menu } from 'antd'
 import { FiLogOut } from 'react-icons/fi'
+import { HiDotsVertical } from 'react-icons/hi'
 import { IoNotificationsOutline } from 'react-icons/io5'
 import { RiMenuUnfoldLine, RiMenuFoldLine } from 'react-icons/ri'
 import { useAuth } from '../../contexts/auth'
@@ -7,6 +8,20 @@ import { useAuth } from '../../contexts/auth'
 const Header = ({ expanded, toggleExpansion }) => {
 
     const [, action] = useAuth()
+
+    const menu = () => {
+        return (
+            <Menu className='w-full'>
+                <Menu.Item key='1' onClick={() => action('signout')}>
+                    <div className='flex items-center gap-2'>
+                        <FiLogOut className='h-5 w-5 text-red-400' />
+                        <span>Logout</span>
+                    </div>
+                </Menu.Item>
+
+            </Menu>
+        )
+    }
 
     return (
         <header className='w-full pl-5 space-x-10 sticky top-0 bg-[#F9F9F9]'>
@@ -37,10 +52,9 @@ const Header = ({ expanded, toggleExpansion }) => {
 
                         <Avatar size={50} src='https://i.pravatar.cc/300' />
                     </div>
-                    <div onClick={() => action('signout')} className='text-red-400 cursor-pointer'>
-                        <FiLogOut className='h-5 w-5' />
-                        <span className='text-xs uppercase'>Logout</span>
-                    </div>
+                    <Dropdown overlay={menu} trigger={['click']}>
+                        <HiDotsVertical onClick={e => e.preventDefault()} className='h-6 w-6 cursor-pointer' />
+                    </Dropdown>
                 </div>
             </div>
         </header>

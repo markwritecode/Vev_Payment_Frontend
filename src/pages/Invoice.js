@@ -1,5 +1,4 @@
-import { HiOutlineViewGridAdd, HiDotsHorizontal, HiOutlineClipboardList, HiOutlineCheck } from 'react-icons/hi'
-import { IoMdCheckmarkCircleOutline, IoMdCloseCircleOutline } from 'react-icons/io'
+import { HiOutlineViewGridAdd, HiDotsHorizontal, HiOutlineCheck } from 'react-icons/hi'
 import { Avatar, Dropdown, Menu, Popconfirm, Table } from 'antd'
 import { useState } from 'react'
 import Loading from '../components/General/Loading'
@@ -8,8 +7,7 @@ import InvoiceContext from '../contexts/invoice'
 import { useDeleteInvoice, usePullInvoice } from '../hooks/invoice'
 import { currencyFormatter, formatDate, formatDateNum } from '../utils/helperFunctions'
 import { colorList } from '../utils/helperVariables'
-import { BsPen, BsPencil } from 'react-icons/bs'
-import { FaCopy } from 'react-icons/fa'
+import { BsPencil } from 'react-icons/bs'
 import { RiFileCopyLine } from 'react-icons/ri'
 
 const Invoice = () => {
@@ -148,6 +146,13 @@ const Invoice = () => {
         return { ...item.invoice, items: item.items }
     })
 
+    const calculateTotal = invoices => {
+        const amount = invoices.reduce((curr, val) => {
+            return curr + Number(val.total)
+        }, 0)
+        return Number(amount).toFixed(2).split('.')
+    }
+
     return (
         <InvoiceContext>
             <div className='h-full w-full p-3 lg:pl-0 py-5 space-y-8' id='Invoice-Page'>
@@ -155,34 +160,45 @@ const Invoice = () => {
 
                 <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
 
-                    <div className='flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8'>
-                        <div className='w-1/2'>
+                    <div className='xs:flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8 space-y-4'>
+                        <div className='sm:w-1/2'>
                             <h5 className='text-gray-400 uppercase'>Total Invoices</h5>
-                            <h4 className='text-4xl font-bold'>{_pulledInvoice?.length}</h4>
+                            <h4 className='text-4xl font-bold'><span className='text-gray-400 text-lg'>$</span>
+                                {currencyFormatter(calculateTotal(_pulledInvoice)[0])}
+                                <span className='opacity-60'>.{calculateTotal(_pulledInvoice)[1]}</span>
+                            </h4>
                             <div className={`rounded-full w-fit px-2 flex items-center gap-1 mt-2 text-green-400 bg-green-100`}>
                                 +10% since last month
                             </div>
                         </div>
 
-                        <div className='w-1/2 space-y-4'>
+                        <div className='sm:w-1/2 space-y-4'>
                             <div>
                                 <div className={`flex items-center gap-1 text-blue-400`}>
                                     <div className='h-2 w-2 bg-blue-400 rounded-full' /> Pending
                                 </div>
-                                <h4 className='text-4xl font-bold'>{_pulledInvoice?.filter(item => item.status === 'draft')?.length}</h4>
+                                <h4 className='text-4xl font-bold'>
+                                    <span className='text-gray-400 text-lg'>$</span>
+                                    {currencyFormatter(calculateTotal(_pulledInvoice?.filter(item => item.status === 'pending'))[0])}
+                                    <span className='opacity-60'>.{calculateTotal(_pulledInvoice?.filter(item => item.status === 'pending'))[1]}</span>
+                                </h4>
                             </div>
 
                             <div>
                                 <div className={`flex items-center gap-1 text-yellow-400`}>
                                     <div className='h-2 w-2 bg-yellow-400 rounded-full' /> In drafts
                                 </div>
-                                <h4 className='text-4xl font-bold'>{_pulledInvoice?.filter(item => item.status === 'pending')?.length}</h4>
+                                <h4 className='text-4xl font-bold'>
+                                    <span className='text-gray-400 text-lg'>$</span>
+                                    {currencyFormatter(calculateTotal(_pulledInvoice?.filter(item => item.status === 'draft'))[0])}
+                                    <span className='opacity-60'>.{calculateTotal(_pulledInvoice?.filter(item => item.status === 'draft'))[1]}</span>
+                                </h4>
                             </div>
                         </div>
                     </div>
 
                     <div className='bg-white rounded-lg flex-grow p-8 space-y-4'>
-                        <div className='flex items-center justify-between'>
+                        <div className='sm:flex items-center justify-between space-y-4'>
                             <div className='flex items-center gap-4'>
                                 <Avatar shape='circle' size={32} src='https://i.pravatar.cc/600?img=2' />
                                 <h4 className='text-lg text-gray-400 font-medium'>quickpay.to/<span className='text-gray-800'>publicnote</span></h4>
