@@ -11,8 +11,8 @@ const LeftDashboard = () => {
                         <GiReceiveMoney className='w-8 h-8 text-[#1EAAE7]' />
                     </div>
                     <div className=''>
-                        <h3 className='text-[#F9F9F9] opacity-80 text-lg font-medium'>Available balance (NGN)</h3>
-                        <h5 className='text-4xl text-white'>
+                        <h3 className='text-[#F9F9F9] opacity-80 lg:text-lg font-medium'>Available balance (NGN)</h3>
+                        <h5 className='text-2xl lg:text-4xl text-white'>
                             <span className='opacity-80 text-[#F9F9F9]'>$</span>330<span className='opacity-80 text-[#F9F9F9]'>.16</span>
                         </h5>
                     </div>

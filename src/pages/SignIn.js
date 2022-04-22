@@ -24,24 +24,26 @@ const SignIn = () => {
                 form={signinForm}
                 autoComplete='off'
             >
-                <div className='p-10 border-[1px] border-slate-200 shadow-lg rounded-md flex flex-col items-center space-y-4'>
+                <div className='px-5 py-10 sm:p-10 border-[1px] border-slate-200 shadow-lg rounded-md flex flex-col items-center space-y-4'>
                     <div className='text-center'>
-                        <div className='font-medium text-xl sm:text-3xl text-gray-800'>
+                        <div className='font-medium text-lg sm:text-3xl text-gray-800'>
                             Welcome Back
                         </div>
-                        <div className='mt-2 text-xl sm:text-sm text-gray-600'>
+                        <div className='mt-2 text-sm sm:text-lg text-gray-600'>
                             Please enter your credentials to login
                         </div>
                     </div>
                     <Form.Item
+                        className='w-full'
                         name='email'
                         rules={[{ required: true, message: 'Field cannot be empty' }, { type: 'email', message: 'Enter a valid email' }]}>
-                        <Input className='p-3 border-[1px] border-slate-500 rounded-sm w-80 focus:outline-none focus:border-[#1eabe7e3]' placeholder='Email' />
+                        <Input className='p-3 border-[1px] border-slate-500 rounded-sm sm:w-80 focus:outline-none focus:border-[#1eabe7e3]' placeholder='Email' />
                     </Form.Item>
                     <Form.Item
+                        className='w-full'
                         name='password'
                         rules={[{ required: true, message: 'Field cannot be empty' }]}>
-                        <Input className='p-3 border-[1px] border-slate-500 rounded-sm w-80 focus:outline-none focus:border-[#1eabe7e3]' type='password' placeholder='Password' />
+                        <Input className='p-3 border-[1px] border-slate-500 rounded-sm sm:w-80 focus:outline-none focus:border-[#1eabe7e3]' type='password' placeholder='Password' />
                     </Form.Item>
                     <div className='mr-auto'>
                         <p className='font-bold text-[#1eabe7e3]'>Forgot password?</p>

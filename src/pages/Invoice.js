@@ -147,7 +147,7 @@ const Invoice = () => {
 
     return (
         <InvoiceContext>
-            <div className='h-full w-full py-10 space-y-8' id='Invoice-Page'>
+            <div className='h-full w-full pr-10 pl-10 lg:10 py-10 space-y-8' id='Invoice-Page'>
                 <h3 className='text-4xl font-semibold'>Invoices</h3>
 
                 <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'>
