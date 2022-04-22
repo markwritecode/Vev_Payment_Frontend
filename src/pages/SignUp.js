@@ -37,19 +37,19 @@ const SignUp = () => {
                         className='w-full'
                         name='email'
                         rules={[{ required: true, message: 'Field cannot be empty' }, { type: 'email', message: 'Enter a valid email' }]}>
-                        <Input className='p-3 border-[1px] border-slate-500 rounded-sm sm:w-80 focus:outline-none focus:border-[#1eabe7e3]' placeholder='Email' />
+                        <Input className='p-3 border-[1px] border-slate-500 rounded-sm xs:w-80 focus:outline-none focus:border-[#1eabe7e3]' placeholder='Email' />
                     </Form.Item>
                     <Form.Item
                         className='w-full'
                         name='name'
                         rules={[{ required: true, message: 'Field cannot be empty' }]}>
-                        <Input className='p-3 border-[1px] border-slate-500 rounded-sm sm:w-80 focus:outline-none focus:border-[#1eabe7e3]' placeholder='Full name' />
+                        <Input className='p-3 border-[1px] border-slate-500 rounded-sm xs:w-80 focus:outline-none focus:border-[#1eabe7e3]' placeholder='Full name' />
                     </Form.Item>
                     <Form.Item
                         className='w-full'
                         name='password'
                         rules={[{ required: true, message: 'Field cannot be empty' }]}>
-                        <Input className='p-3 border-[1px] border-slate-500 rounded-sm sm:w-80 focus:outline-none focus:border-[#1eabe7e3]' type='password' placeholder='Password' />
+                        <Input className='p-3 border-[1px] border-slate-500 rounded-sm xs:w-80 focus:outline-none focus:border-[#1eabe7e3]' type='password' placeholder='Password' />
                     </Form.Item>
                     <div className='flex flex-col space-y-5 w-full'>
                         <button

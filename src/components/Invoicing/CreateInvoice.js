@@ -107,7 +107,7 @@ const CreateInvoice = ({ visible, handleCloseDrawer, updateData }) => {
             onClose={handleFullClose}
             closable={false}
             footer={
-                <div className='flex items-center justify-between'>
+                <div className='md:flex items-center justify-between space-y-2'>
                     <p onClick={handleShowPreview} className='text-[#1EAAE7] cursor-pointer'>PREVIEW</p>
                     <div className='space-x-3'>
                         {!updateData &&
