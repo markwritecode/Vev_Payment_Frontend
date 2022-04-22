@@ -156,14 +156,14 @@ const Invoice = () => {
     return (
         <InvoiceContext>
             <div className='h-full w-full p-3 lg:pl-0 py-5 space-y-8' id='Invoice-Page'>
-                <h3 className='text-4xl font-semibold'>Invoices</h3>
+                <h3 className='text-2xl md:text-4xl font-medium md:font-semibold'>Invoices</h3>
 
                 <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
 
                     <div className='lg:flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8 space-y-4'>
                         <div className='lg:w-1/2'>
                             <h5 className='text-gray-400'>Total Paid</h5>
-                            <h4 className='text-lg sm:text-4xl lg:font-bold'><span className='text-gray-400 text-lg'>$</span>
+                            <h4 className='text-lg md:text-3xl xl:text-4xl lg:font-bold'><span className='text-gray-400 text-lg'>$</span>
                                 {currencyFormatter(calculateTotal(_pulledInvoice)[0])}
                                 <span className='opacity-60'>.{calculateTotal(_pulledInvoice)[1]}</span>
                             </h4>
@@ -177,7 +177,7 @@ const Invoice = () => {
                                 <div className={`flex items-center gap-1 text-blue-400`}>
                                     <div className='h-2 w-2 bg-blue-400 rounded-full' /> Pending
                                 </div>
-                                <h4 className='text-lg sm:text-4xl lg:font-bold'>
+                                <h4 className='text-lg md:text-3xl xl:text-4xl lg:font-bold'>
                                     <span className='text-gray-400 text-lg'>$</span>
                                     {currencyFormatter(calculateTotal(_pulledInvoice?.filter(item => item.status === 'pending'))[0])}
                                     <span className='opacity-60'>.{calculateTotal(_pulledInvoice?.filter(item => item.status === 'pending'))[1]}</span>
@@ -188,7 +188,7 @@ const Invoice = () => {
                                 <div className={`flex items-center gap-1 text-yellow-400`}>
                                     <div className='h-2 w-2 bg-yellow-400 rounded-full' /> In drafts
                                 </div>
-                                <h4 className='text-lg sm:text-4xl lg:font-bold'>
+                                <h4 className='text-lg md:text-3xl xl:text-4xl lg:font-bold'>
                                     <span className='text-gray-400 text-lg'>$</span>
                                     {currencyFormatter(calculateTotal(_pulledInvoice?.filter(item => item.status === 'draft'))[0])}
                                     <span className='opacity-60'>.{calculateTotal(_pulledInvoice?.filter(item => item.status === 'draft'))[1]}</span>
