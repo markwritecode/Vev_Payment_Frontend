@@ -8,6 +8,9 @@ import InvoiceContext from '../contexts/invoice'
 import { useDeleteInvoice, usePullInvoice } from '../hooks/invoice'
 import { currencyFormatter, formatDate, formatDateNum } from '../utils/helperFunctions'
 import { colorList } from '../utils/helperVariables'
+import { BsPen, BsPencil } from 'react-icons/bs'
+import { FaCopy } from 'react-icons/fa'
+import { RiFileCopyLine } from 'react-icons/ri'
 
 const Invoice = () => {
 
@@ -150,24 +153,56 @@ const Invoice = () => {
             <div className='h-full w-full p-3 lg:pl-0 py-5 space-y-8' id='Invoice-Page'>
                 <h3 className='text-4xl font-semibold'>Invoices</h3>
 
-                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'>
+                <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
 
                     <div className='flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8'>
-                        <div className='space-y-1'>
+                        <div className='w-1/2'>
+                            <h5 className='text-gray-400 uppercase'>Total Invoices</h5>
                             <h4 className='text-4xl font-bold'>{_pulledInvoice?.length}</h4>
-                            <h5 className='text-gray-400'>Total Invoices</h5>
+                            <div className={`rounded-full w-fit px-2 flex items-center gap-1 mt-2 text-green-400 bg-green-100`}>
+                                +10% since last month
+                            </div>
                         </div>
-                        <HiOutlineClipboardList className='h-10 w-10' />
+
+                        <div className='w-1/2 space-y-4'>
+                            <div>
+                                <div className={`flex items-center gap-1 text-blue-400`}>
+                                    <div className='h-2 w-2 bg-blue-400 rounded-full' /> Pending
+                                </div>
+                                <h4 className='text-4xl font-bold'>{_pulledInvoice?.filter(item => item.status === 'draft')?.length}</h4>
+                            </div>
+
+                            <div>
+                                <div className={`flex items-center gap-1 text-yellow-400`}>
+                                    <div className='h-2 w-2 bg-yellow-400 rounded-full' /> In drafts
+                                </div>
+                                <h4 className='text-4xl font-bold'>{_pulledInvoice?.filter(item => item.status === 'pending')?.length}</h4>
+                            </div>
+                        </div>
                     </div>
 
-                    <div className='flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8'>
-                        <div className='space-y-1'>
+                    <div className='bg-white rounded-lg flex-grow p-8 space-y-4'>
+                        <div className='flex items-center justify-between'>
+                            <div className='flex items-center gap-4'>
+                                <Avatar shape='circle' size={32} src='https://i.pravatar.cc/600?img=2' />
+                                <h4 className='text-lg text-gray-400 font-medium'>quickpay.to/<span className='text-gray-800'>publicnote</span></h4>
+                            </div>
+                            <div className='flex items-center gap-4'>
+                                <BsPencil className='text-blue-400 w-5 h-5' />
+                                <RiFileCopyLine className='text-blue-400 w-5 h-5' />
+                            </div>
+                        </div>
+                        <div className='bg-blue-50 p-3 text-gray-600'>
+                            Quick pay lets you receive payments on the fly. You can generate invoice or share the payment link to the request payment.
+                            <p className='text-blue-500 mt-2 font-medium'>LEARN MORE</p>
+                        </div>
+                        {/* <div className='space-y-1'>
                             <h4 className='text-4xl font-bold'>{_pulledInvoice?.filter(item => item.status === 'paid')?.length}</h4>
                             <h5 className='text-gray-400'>Paid Invoices</h5>
                         </div>
-                        <IoMdCheckmarkCircleOutline className='h-10 w-10 text-green-300' />
+                        <IoMdCheckmarkCircleOutline className='h-10 w-10 text-green-300' /> */}
                     </div>
-                    <div className='flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8'>
+                    {/* <div className='flex items-center justify-between bg-white rounded-lg flex-shrink-0 flex-grow p-8'>
                         <div className='space-y-1'>
                             <h4 className='text-4xl font-bold'>{_pulledInvoice?.filter(item => item.status === 'pending')?.length}</h4>
                             <h5 className='text-gray-400'>Total Unpaid Invoices</h5>
@@ -180,7 +215,7 @@ const Invoice = () => {
                             <h5 className='text-gray-400'>Total Drafted Invoices</h5>
                         </div>
                         <HiOutlineClipboardList className='h-10 w-10' />
-                    </div>
+                    </div> */}
                 </div>
 
                 <div className='flex items-center justify-between pt-8'>
