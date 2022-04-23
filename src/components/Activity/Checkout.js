@@ -1,5 +1,6 @@
 import { Avatar, Form } from 'antd'
 import { useState } from 'react'
+import { BsCheck } from 'react-icons/bs'
 import { FaFileInvoice } from 'react-icons/fa'
 import { IoIosLock } from 'react-icons/io'
 import { IoArrowBackOutline } from 'react-icons/io5'
@@ -66,12 +67,15 @@ const LeftSide = ({ currentItem, setCurrentItem }) => {
                     {
                         activityContext.items.map(item => {
                             return (
-                                <label key={item.id} className={`flex items-start cursor-pointer justify-between w-full bg-gray-200 rounded-md border-2 ${(item.id === currentItem.value) && 'border-2 border-[#1eabe7e3]'} p-4 focus:outline-none`}>
-                                    <div className='flex items-start gap-2'>
-                                        <input type='radio' onChange={() => handleChange(item)} name={'item_list'} value={item.id} checked={currentItem.id === item.id} className='form-radio h-5 w-5 text-[#1eabe7e3]' />
-                                        <div className='space-y-4'>
+                                <label key={item.id} className={`flex items-start cursor-pointer relative justify-between w-full bg-gray-200 rounded-md border-2 ${(item.id === currentItem.value) && 'border-2 border-[#1eabe7e3]'} p-4 focus:outline-none`}>
+                                    <div className='flex items-center gap-2'>
+                                        <input type='radio' onChange={() => handleChange(item)} name={'item_list'} value={item.id} checked={currentItem.id === item.id} className='form-radio sr-only peer h-4 w-4 text-[#1eabe7e3]' />
+                                        <div className='space-y-4 ml-5'>
                                             <p className='text-sm text-gray-800 font-medium text-left capitalize'>{item.item_name}</p>
                                             <p className='text-left text-gray-500'>{item.description} {`${item.item_qty}  x items. ${currencyFormatter(item.item_amount)} for each.`}</p>
+                                        </div>
+                                        <div class="absolute hidden peer-checked:block top-4 left-2">
+                                            <BsCheck className='h-6 w-6 text-green-500' />
                                         </div>
                                     </div>
 
