@@ -101,7 +101,7 @@ const InvoiceComponent = ({ activity, loading, user, items }) => {
                 </div>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
                     <button onClick={handleOpenModal} className='w-full text-[#1EAAE7] bg-white font-semibold py-3 rounded-lg'>Preview</button>
-                    {activity?.status === 'pending' && !isOwner() && <button
+                    {activity?.status === 'pending' && isOwner() && <button
                         onClick={openPaymentPage}
                         className='w-full text-white bg-gradient-to-r from-[#1eabe7e3] to-cyan-300 font-semibold py-3 rounded-lg'>Pay</button>}
                 </div>
@@ -146,7 +146,7 @@ const TransactionComponent = ({ activity, loading }) => {
                     - <span className='opacity-60'>$</span>{currencyFormatter(formattedPrice()[0])}<span className='opacity-60'>.{formattedPrice()[1]} USD</span>
                 </h5>
             </div>
-            <div className='bg-[#F9F9F9] p-3 sm:p-5 space-y-4 rounded-lg'>
+            {/* <div className='bg-[#F9F9F9] p-3 sm:p-5 space-y-4 rounded-lg'>
                 <div className='flex items-center justify-between col-span-7'>
                     <div className='flex items-center gap-3 sm:gap-6'>
                         <Avatar shape='square' src={`https://i.pravatar.cc/600?img=${activity.id}`} size={60} />
@@ -156,11 +156,7 @@ const TransactionComponent = ({ activity, loading }) => {
                         </div>
                     </div>
                 </div>
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
-                    <button className='w-full text-[#1EAAE7] bg-white font-semibold py-3 rounded-lg'>Preview</button>
-                    <button className='w-full text-white bg-gradient-to-r from-[#1eabe7e3] to-cyan-300 font-semibold py-3 rounded-lg'>Pay</button>
-                </div>
-            </div>
+            </div> */}
             <div className='space-y-8'>
                 <div>
                     <h3 className='text-xs font-semibold'>DOCUMENT REFERENCE</h3>
