@@ -15,7 +15,6 @@ const Checkout = () => {
     const [currentItem, setCurrentItem] = useState({
         ...initialItem, vat: (Number(initialItem.subtotal) * 0.2).toFixed(2), total: ((Number(initialItem.subtotal) * 0.2) + (Number(initialItem.subtotal))).toFixed(2)
     })
-    console.log(activityContext)
 
     return (
         <div className='bg-[#F5F5F7] w-full lg:grid lg:grid-cols-2 overflow-y-scroll'>
@@ -30,20 +29,27 @@ export default Checkout
 const LeftSide = ({ currentItem, setCurrentItem }) => {
 
     const [activityContext] = useActivityContext()
+    const navigate = useNavigate()
 
     const handleChange = item => setCurrentItem({ ...item, vat: (Number(item.subtotal) * 0.2).toFixed(2), total: ((Number(item.subtotal) * 0.2) + (Number(item.subtotal))).toFixed(2) })
 
     return (
         <div className='overflow-y-scroll'>
-            <div className='flex items-center gap-2 p-5'>
-                <Avatar shape='circle' src={`https://i.pravatar.cc/600?img=${activityContext.user.id}`} size={40} />
-                <div className=''>
-                    <h3 className='font-medium text-gray-500 text-xs capitalize'>{activityContext.user.name}</h3>
-                    <h5 className='text-gray-400 text-xs font-medium'>{activityContext.user.email}</h5>
+            <div className='sm:flex items-center sm:justify-between space-y-2 p-5'>
+                <div className='flex items-center gap-2'>
+                    <Avatar shape='circle' src={`https://i.pravatar.cc/600?img=${activityContext.user.id}`} size={40} />
+                    <div className=''>
+                        <h3 className='font-medium text-gray-500 text-xs capitalize'>{activityContext.user.name}</h3>
+                        <h5 className='text-gray-400 text-xs font-medium'>{activityContext.user.email}</h5>
+                    </div>
+                </div>
+                <div onClick={() => navigate('/activity')} className='flex items-center opacity-100 lg:opacity-0 sm:justify-end cursor-pointer gap-1'>
+                    <IoArrowBackOutline />
+                    <span>Go back</span>
                 </div>
             </div>
             <div className='flex justify-center items-start py-16'>
-                <div className='lg:w-1/2 space-y-4'>
+                <div className='lg:w-1/2 space-y-4 px-3'>
                     <div className='flex items-center justify-between'>
                         <h3 className='text-lg font-medium'>Invoice Payment</h3>
                         <h5 className='text-base font-light'>${currencyFormatter(currentItem.subtotal)}</h5>
@@ -100,12 +106,12 @@ const RightSide = ({ currentItem }) => {
 
     return (
         <div className='bg-white overflow-y-scroll'>
-            <div onClick={() => navigate('/activity')} className='flex items-center justify-end cursor-pointer gap-1 p-5'>
+            <div onClick={() => navigate('/activity')} className='flex items-center opacity-0 lg:opacity-100 justify-end cursor-pointer gap-1 p-5'>
                 <IoArrowBackOutline />
                 <span>Go back</span>
             </div>
             <div className='flex justify-center items-start py-16'>
-                <div className='space-y-8'>
+                <div className='space-y-8 px-3'>
                     <div>
                         <h3 className='text-lg font-medium'>Payment Details</h3>
                         <h5 className='text-gray-500 text-xs'>Complete your purchase by providing your payment details.</h5>
@@ -125,7 +131,7 @@ const RightSide = ({ currentItem }) => {
                         </Form.Item>
                         <div className='space-y-3'>
                             <label className='block text-sm text-gray-00 font-semibold'>How do you want to pay?</label>
-                            <div className='grid grid-cols-2 gap-2 cursor-pointer'>
+                            <div className='sm:grid grid-cols-2 gap-2 cursor-pointer'>
                                 {
                                     paymentOptions.map(option => {
                                         return (
@@ -207,7 +213,7 @@ const RightSide = ({ currentItem }) => {
                                 {isLoading ? 'Making Payment...' : `Pay $${currencyFormatter(currentItem.total)}`}
                             </button>
                         </div>
-                        <p className='text-gray-300 text-xs flex items-center gap-1 justify-center font-medium'>
+                        <p className='text-gray-300 text-xs flex items-center text-center gap-1 justify-center font-medium'>
                             <IoIosLock className='h-5 w-5' />
                             <span>Payments are secured and encrypted</span>
                         </p>

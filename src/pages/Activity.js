@@ -14,7 +14,6 @@ const activityContext = createContext()
 const Activity = () => {
 
     const [activityData, setActivityData] = useState()
-    console.log(activityData)
     return (
         <activityContext.Provider value={[activityData, setActivityData]}>
             <Routes>
