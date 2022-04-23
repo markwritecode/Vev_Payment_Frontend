@@ -8,8 +8,9 @@ import useHandleScreenWidth from '../../hooks/utilities/useHandleScreenWidth'
 import { currencyFormatter, formatDateAndTime2 } from '../../utils/helperFunctions'
 import PreviewActivity from './PreviewActivity'
 import { useActivityContext } from '../../pages/Activity'
+import { useNavigate } from 'react-router-dom'
 
-const ActivityDetails = ({ visible, closeActivityDetails, activity, setStep }) => {
+const ActivityDetails = ({ visible, closeActivityDetails, activity }) => {
 
     const width = useHandleScreenWidth()
 
@@ -26,7 +27,8 @@ const ActivityDetails = ({ visible, closeActivityDetails, activity, setStep }) =
             visible={visible}
             key={activity.id}
             onClose={closeActivityDetails}
-            closable={false}
+            bodyStyle={{ padding: '10px' }}
+            // closable={false}
             width={width <= 500 ? '100%' : width <= 700 ? '70%' : width <= 900 ? '60%' : width <= 1100 ? '45%' : width <= 1200 ? '40%' : width <= 1400 ? '35%' : '25%'}
             footer={
                 <div className='flex items-center gap-6 p-5 border-t-2 border-dashed'>
@@ -46,7 +48,6 @@ const ActivityDetails = ({ visible, closeActivityDetails, activity, setStep }) =
                     activity={pullActivityDetails?.activity_details}
                     user={pullActivityDetails?.user}
                     items={pullActivityDetails?.items}
-                    setStep={setStep}
                 /> :
                 <TransactionComponent
                     loading={(pullActivityDetailsLoading || isRefetching)}
@@ -58,14 +59,15 @@ const ActivityDetails = ({ visible, closeActivityDetails, activity, setStep }) =
 
 export default ActivityDetails
 
-const InvoiceComponent = ({ activity, loading, user, items, setStep }) => {
+const InvoiceComponent = ({ activity, loading, user, items }) => {
 
     const [visible, setVisible] = useState(false)
     const [, setActivityData] = useActivityContext()
+    const navigate = useNavigate()
 
     const openPaymentPage = () => {
         setActivityData({ activity, user, items })
-        setStep('checkout')
+        navigate('/activity/checkout')
     }
 
     if (loading) return <p>Loading...</p>
@@ -87,13 +89,13 @@ const InvoiceComponent = ({ activity, loading, user, items, setStep }) => {
                 </h5>
             </div>
 
-            <div className='bg-[#F9F9F9] p-5 space-y-4 rounded-lg'>
+            <div className='bg-[#F9F9F9] p-3 sm:p-5 space-y-4 rounded-lg'>
                 <div className='flex items-center justify-between col-span-7'>
-                    <div className='flex items-center gap-6'>
-                        <Avatar shape='square' src={`https://i.pravatar.cc/600?img=${user?.id}`} size={64} />
+                    <div className='flex items-center gap-3 sm:gap-6'>
+                        <Avatar shape='square' src={`https://i.pravatar.cc/600?img=${user?.id}`} size={60} />
                         <div className=''>
                             <h3 className='font-medium text-gray-500 capitalize'>{user?.name}</h3>
-                            <h5 className='text-gray-400 font-medium'>{user?.email}</h5>
+                            <h5 className='text-gray-400 font-medium text-xs sm:text-base'>{user?.email}</h5>
                         </div>
                     </div>
                 </div>
@@ -144,13 +146,13 @@ const TransactionComponent = ({ activity, loading }) => {
                     - <span className='opacity-60'>$</span>{currencyFormatter(formattedPrice()[0])}<span className='opacity-60'>.{formattedPrice()[1]} USD</span>
                 </h5>
             </div>
-            <div className='bg-[#F9F9F9] p-5 space-y-4 rounded-lg'>
+            <div className='bg-[#F9F9F9] p-3 sm:p-5 space-y-4 rounded-lg'>
                 <div className='flex items-center justify-between col-span-7'>
-                    <div className='flex items-center gap-6'>
-                        <Avatar shape='square' src={`https://i.pravatar.cc/600?img=${activity.id}`} size={64} />
+                    <div className='flex items-center gap-3 sm:gap-6'>
+                        <Avatar shape='square' src={`https://i.pravatar.cc/600?img=${activity.id}`} size={60} />
                         <div className=''>
                             <h3 className='font-medium text-gray-500'>{activity.owner}</h3>
-                            <h5 className='text-gray-400 font-medium'>{activity.reference_number}</h5>
+                            <h5 className='text-gray-400 font-medium text-xs sm:text-base'>{activity.reference_number}</h5>
                         </div>
                     </div>
                 </div>

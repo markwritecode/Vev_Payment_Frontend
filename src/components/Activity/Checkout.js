@@ -3,22 +3,24 @@ import { useState } from 'react'
 import { FaFileInvoice } from 'react-icons/fa'
 import { IoIosLock } from 'react-icons/io'
 import { IoArrowBackOutline } from 'react-icons/io5'
+import { useNavigate } from 'react-router-dom'
 import { useCreateTransactions } from '../../hooks/transactions/useCreateTransaction'
 import { useActivityContext } from '../../pages/Activity'
 import { currencyFormatter } from '../../utils/helperFunctions'
 import { paymentOptions } from '../../utils/helperVariables'
 
-const Checkout = ({ setStep }) => {
+const Checkout = () => {
     const [activityContext] = useActivityContext()
     const initialItem = activityContext?.items[0]
     const [currentItem, setCurrentItem] = useState({
         ...initialItem, vat: (Number(initialItem.subtotal) * 0.2).toFixed(2), total: ((Number(initialItem.subtotal) * 0.2) + (Number(initialItem.subtotal))).toFixed(2)
     })
+    console.log(activityContext)
 
     return (
-        <div className='bg-[#F5F5F7] h-screen w-screen fixed top-0 left-0 lg:grid lg:grid-cols-2'>
+        <div className='bg-[#F5F5F7] w-full lg:grid lg:grid-cols-2 overflow-y-scroll'>
             <LeftSide currentItem={currentItem} setCurrentItem={setCurrentItem} />
-            <RightSide currentItem={currentItem} setStep={setStep} />
+            <RightSide currentItem={currentItem} />
         </div>
     )
 }
@@ -32,7 +34,7 @@ const LeftSide = ({ currentItem, setCurrentItem }) => {
     const handleChange = item => setCurrentItem({ ...item, vat: (Number(item.subtotal) * 0.2).toFixed(2), total: ((Number(item.subtotal) * 0.2) + (Number(item.subtotal))).toFixed(2) })
 
     return (
-        <div className='h-full'>
+        <div className='overflow-y-scroll'>
             <div className='flex items-center gap-2 p-5'>
                 <Avatar shape='circle' src={`https://i.pravatar.cc/600?img=${activityContext.user.id}`} size={40} />
                 <div className=''>
@@ -79,11 +81,12 @@ const LeftSide = ({ currentItem, setCurrentItem }) => {
     )
 }
 
-const RightSide = ({ currentItem, setStep }) => {
+const RightSide = ({ currentItem }) => {
 
     const [activityContext] = useActivityContext()
     const [checkoutForm] = Form.useForm()
-    const { mutate, isLoading } = useCreateTransactions(() => setStep('default'))
+    const navigate = useNavigate()
+    const { mutate, isLoading } = useCreateTransactions(() => navigate('/activity'))
 
     const handleFinish = () => {
         checkoutForm.validateFields().then(() => {
@@ -96,9 +99,9 @@ const RightSide = ({ currentItem, setStep }) => {
     }
 
     return (
-        <div className='bg-white h-full'>
-            <div onClick={() => setStep('default')} className='flex items-center justify-end cursor-pointer gap-1 p-5'>
-                <IoArrowBackOutline /> 
+        <div className='bg-white overflow-y-scroll'>
+            <div onClick={() => navigate('/activity')} className='flex items-center justify-end cursor-pointer gap-1 p-5'>
+                <IoArrowBackOutline />
                 <span>Go back</span>
             </div>
             <div className='flex justify-center items-start py-16'>

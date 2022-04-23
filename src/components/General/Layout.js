@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import Header from './Header'
 import Sidebar from './Sidebar'
 
-const Layout = ({ children }) => {
+const Layout = ({ children, showLayout }) => {
 
     const [expanded, setExpanded] = useState(false)
     const location = useLocation()
@@ -17,10 +17,10 @@ const Layout = ({ children }) => {
     return (
         <div className='bg-[#F9F9F9]'>
             <div className='h-screen w-full flex items-center flex-auto'>
-                <Sidebar expanded={expanded} />
+                {showLayout && <Sidebar expanded={expanded} />}
 
                 <div className={`w-full h-full flex flex-col justify-between`}>
-                    <Header expanded={expanded} toggleExpansion={toggleExpansion} />
+                    {showLayout && <Header expanded={expanded} toggleExpansion={toggleExpansion} />}
                     <main className='w-full h-full flex lg:pl-5 overflow-y-scroll'>
                         {children}
                     </main>

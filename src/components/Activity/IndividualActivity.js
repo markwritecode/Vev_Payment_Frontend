@@ -6,7 +6,7 @@ import { FiFeather } from 'react-icons/fi'
 import { formatDateAndTime } from '../../utils/helperFunctions'
 import ActivityDetails from './ActivityDetails'
 
-const IndividualActivity = ({ activity, setStep }) => {
+const IndividualActivity = ({ activity }) => {
 
     const [visible, setVisible] = useState(false)
 
@@ -19,9 +19,9 @@ const IndividualActivity = ({ activity, setStep }) => {
     }
 
     return (
-        <div className='flex items-center gap-6 relative z-10 cursor-pointer hover:bg-gray-50'>
-            <div className='border-l-[1px] h-full absolute left-4 -z-10' />
-            <div className='text-white'>
+        <div className='md:flex pt-3 items-center gap-2 md:gap-6 relative z-10 cursor-pointer hover:bg-gray-50'>
+            <div className='md:border-l-[1px] h-full absolute left-4 -z-10' />
+            <div className='text-white w-fit mt-12 md:mt-0'>
                 {
                     activity.type === 'invoicing' ?
                         <div className='rounded-full p-2 bg-cyan-300'>
@@ -35,15 +35,19 @@ const IndividualActivity = ({ activity, setStep }) => {
                             </div>
                 }
             </div>
-            <div className='py-10'>
+            <div className='py-5 md:py-10 flex items-center gap-2'>
                 <Avatar
                     key={activity.id}
                     shape='circle'
                     src={`https://i.pravatar.cc/600?img=${activity.id}`}
                     size={50} />
+                <div className='md:hidden'>
+                    <h3 className='font-medium'>{activity.owner}</h3>
+                    <h5 className='text-gray-400'>{`#${activity.reference_number}`}</h5>
+                </div>
             </div>
-            <div className='grid grid-cols-5 items-center lg:items-start w-full py-10 border-b-[0.5px] border-gray-200' onClick={openActivityDetails}>
-                <div className='col-span-2'>
+            <div className='md:grid grid-cols-5 items-center lg:items-start w-full pt-5 pb-2 md:py-10 border-b-[0.5px] border-gray-200' onClick={openActivityDetails}>
+                <div className='hidden md:block md:col-span-2'>
                     <h3 className='font-medium'>{activity.owner}</h3>
                     <h5 className='text-gray-400'>{`#${activity.reference_number}`}</h5>
                 </div>
@@ -68,7 +72,7 @@ const IndividualActivity = ({ activity, setStep }) => {
                     <span>{formatDateAndTime(activity.created_at)}</span>
                 </div>
             </div>
-            {visible && <ActivityDetails visible={visible} closeActivityDetails={closeActivityDetails} activity={activity} setStep={setStep} />}
+            {visible && <ActivityDetails visible={visible} closeActivityDetails={closeActivityDetails} activity={activity} />}
         </div>
     )
 }
