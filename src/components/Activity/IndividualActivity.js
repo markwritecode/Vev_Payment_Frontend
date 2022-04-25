@@ -21,7 +21,7 @@ const IndividualActivity = ({ activity }) => {
     }
 
     return (
-        <div className='md:flex pt-3 items-center gap-2 md:gap-6 relative z-10 cursor-pointer hover:bg-gray-50'>
+        <div className='md:flex pt-3 items-center gap-2 md:gap-6 relative z-10 cursor-pointer hover:opacity-60'>
             <div className='md:border-l-[1px] h-full absolute left-4 -z-10' />
             <div className='text-white w-fit mt-12 md:mt-0'>
                 {

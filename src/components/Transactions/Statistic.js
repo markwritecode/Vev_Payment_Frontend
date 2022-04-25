@@ -35,7 +35,7 @@ const Statistic = () => {
                 </div>
             </div>
             <div className='space-y-4'>
-                <h4 className='text-base font-medium'>Funding</h4>
+                {/* <h4 className='text-base font-medium'>Funding</h4> */}
                 <div className='lg:grid lg:grid-cols-2 lg:gap-20 space-y-4 w-full items-center'>
                     <div className='w-full'>
                         <Doughnut data={data} options={options} />
@@ -45,21 +45,21 @@ const Statistic = () => {
                             <div className='h-3 w-3 bg-[#fac450] rounded-full'></div>
                             <div>
                                 <h4 className='font-semibold text-base'>$180</h4>
-                                <h6 className='text-xs text-gray-400'>Shopping</h6>
+                                <h6 className='text-xs text-gray-400'>Pending</h6>
                             </div>
                         </div>
                         <div className='flex items-center gap-4'>
                             <div className='h-3 w-3 bg-[#030302] rounded-full'></div>
                             <div>
                                 <h4 className='font-semibold text-base'>$791</h4>
-                                <h6 className='text-xs text-gray-400'>Food</h6>
+                                <h6 className='text-xs text-gray-400'>Inbound</h6>
                             </div>
                         </div>
                         <div className='flex items-center gap-4'>
                             <div className='h-3 w-3 bg-[#B8D3ED] rounded-full'></div>
                             <div>
                                 <h4 className='font-semibold text-base'>$230</h4>
-                                <h6 className='text-xs text-gray-400'>Living</h6>
+                                <h6 className='text-xs text-gray-400'>Outbound</h6>
                             </div>
                         </div>
                     </div>

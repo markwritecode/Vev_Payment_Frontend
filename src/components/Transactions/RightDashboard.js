@@ -1,7 +1,7 @@
 import { BiSearch, BiShoppingBag } from 'react-icons/bi'
 import { IoNotificationsOutline } from 'react-icons/io5'
 import { MdWifiTetheringErrorRounded } from 'react-icons/md'
-import Investment from './Investment'
+import RecentTransactions from './RecentTransactions'
 import Statistic from './Statistic'
 
 // const data = [
@@ -59,7 +59,7 @@ const RightDashboard = () => {
             </div>
 
             <div className='rounded-lg lg:grid lg:grid-cols-2 lg:gap-16'>
-                <Investment />
+                <RecentTransactions />
                 <Statistic />
             </div>
             {/* <h3 className='text-lg text-gray-700'>Transactions</h3>
