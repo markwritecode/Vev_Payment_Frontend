@@ -1,11 +1,26 @@
-import { FaPaypal } from 'react-icons/fa'
-import { GiReceiveMoney, GiCardRandom } from 'react-icons/gi'
-import { RiVisaLine } from 'react-icons/ri'
+import { IoPaperPlaneOutline } from "react-icons/io5"
+import Transactions from "./Transactions"
 
 const LeftDashboard = () => {
     return (
-        <>
-            <div className='bg-gradient-to-r from-[#1eabe7e3] to-cyan-300 rounded-2xl p-8 space-y-10'>
+        <div className='space-y-8'>
+            <div>
+                <h3 className='text-lg font-semibold'>Card List</h3>
+            </div>
+            <div>
+                <div className='flex flex-col'>
+                    <div className='opacity-30 bg-[#B8D3ED] p-5 rounded-t-2xl h-20'></div>
+                    <div className='flex items-center bg-[#B8D3ED] opacity-60 p-5 rounded-b-2xl justify-between h-20'>
+                        <div>
+                            <h5 className='text-xs text-gray-500 font-medium'>Total balance</h5>
+                            <h3 className='text-lg font-semibold'>$4,672,000</h3>
+                        </div>
+                        <IoPaperPlaneOutline className='w-6 h-6' />
+                    </div>
+                </div>
+            </div>
+            <Transactions />
+            {/* <div className='bg-gradient-to-r from-[#1eabe7e3] to-cyan-300 rounded-2xl p-8 space-y-10'>
                 <div className='flex items-center gap-6'>
                     <div className='p-3 bg-[#F9F9F9] rounded-lg'>
                         <GiReceiveMoney className='w-8 h-8 text-[#1EAAE7]' />
@@ -60,8 +75,8 @@ const LeftDashboard = () => {
                     <button className='w-full text-[#1EAAE7] bg-[#F9F9F9] font-semibold py-3 rounded-lg'>Buy a card</button>
                     <button className='w-full text-white bg-gradient-to-r from-[#1eabe7e3] to-cyan-300 font-semibold py-3 rounded-lg'>Redeem a card</button>
                 </div>
-            </div>
-        </>
+            </div> */}
+        </div>
     )
 }
 
