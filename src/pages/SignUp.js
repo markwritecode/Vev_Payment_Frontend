@@ -1,13 +1,13 @@
 import { Form, Input } from 'antd'
 import { useNavigate } from 'react-router-dom'
-import { useCreateUser } from '../hooks/user'
+import { usePoster } from '../hooks/poster'
 import { urls } from '../utils/helperVariables'
 
 const SignUp = () => {
 
     const [signupForm] = Form.useForm()
     const navigate = useNavigate()
-    const { mutate, isLoading } = useCreateUser(() => navigate(urls.un_auth.LOGIN))
+    const { mutate, isLoading } = usePoster('user/create', 'User created successfully, please sign in.', [], () => navigate(urls.un_auth.LOGIN))
 
     const handleFinish = () => {
         signupForm.validateFields().then(values => {

@@ -1,8 +1,13 @@
-import { dummy_transac } from '../../utils/dummy'
 import { GoSettings } from 'react-icons/go'
 import IndividualTransactions from './IndividualTransactions'
+import { useFetcher } from '../../hooks/fetcher'
 
 const RecentTransactions = () => {
+
+    const { data: pulledTransactions, isLoading: pullTransactionsLoading } = useFetcher('transaction/show')
+    const transactions = pulledTransactions?.transaction
+
+    if (pullTransactionsLoading) return 'Loading...'
 
     return (
         <div className='w-full space-y-10'>
@@ -12,14 +17,14 @@ const RecentTransactions = () => {
             </div>
             <div className='flow-root'>
                 <ul>
-                    {dummy_transac.map(transaction => {
+                    {transactions?.map(transaction => {
                         return (
-                           <IndividualTransactions key={transaction.name} transaction={transaction} />
+                            <IndividualTransactions key={transaction.updated_at} transaction={transaction} />
                         )
                     })}
                 </ul>
             </div>
-            
+
         </div>
     )
 }

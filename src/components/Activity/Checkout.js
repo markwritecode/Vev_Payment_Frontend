@@ -5,7 +5,7 @@ import { FaFileInvoice } from 'react-icons/fa'
 import { IoIosLock } from 'react-icons/io'
 import { IoArrowBackOutline } from 'react-icons/io5'
 import { useNavigate } from 'react-router-dom'
-import { useCreateTransactions } from '../../hooks/transactions/useCreateTransaction'
+import { usePoster } from '../../hooks/poster'
 import { useActivityContext } from '../../pages/Activity'
 import { currencyFormatter } from '../../utils/helperFunctions'
 import { paymentOptions } from '../../utils/helperVariables'
@@ -96,7 +96,7 @@ const RightSide = ({ currentItem }) => {
     const [activityContext] = useActivityContext()
     const [checkoutForm] = Form.useForm()
     const navigate = useNavigate()
-    const { mutate, isLoading } = useCreateTransactions(() => navigate('/activity'))
+    const { mutate, isLoading } = usePoster('transaction/invoice/payment', 'Transaction logged', ['transaction', 'show'], () => navigate('/activity'))
 
     const handleFinish = () => {
         checkoutForm.validateFields().then(() => {

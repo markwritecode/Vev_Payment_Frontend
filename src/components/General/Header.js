@@ -4,7 +4,7 @@ import { HiDotsVertical } from 'react-icons/hi'
 import { IoNotificationsOutline } from 'react-icons/io5'
 import { RiMenuUnfoldLine, RiMenuFoldLine } from 'react-icons/ri'
 import { useAuth } from '../../contexts/auth'
-import { useFetchLocalStorageData } from '../../hooks/user'
+import { useFetchLocalStorageData } from '../../hooks/utilities/useFetchLocalStorage'
 
 const Header = ({ expanded, toggleExpansion }) => {
 

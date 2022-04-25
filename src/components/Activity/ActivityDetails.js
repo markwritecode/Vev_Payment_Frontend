@@ -3,18 +3,18 @@ import { useEffect, useState } from 'react'
 import { FaFirstAid } from 'react-icons/fa'
 import { MdOutlinePendingActions } from 'react-icons/md'
 import { IoMdCheckmarkCircleOutline } from 'react-icons/io'
-import { usePullActivityDetails } from '../../hooks/activity'
 import useHandleScreenWidth from '../../hooks/utilities/useHandleScreenWidth'
 import { currencyFormatter, formatDateAndTime2 } from '../../utils/helperFunctions'
 import PreviewActivity from './PreviewActivity'
 import { useActivityContext } from '../../pages/Activity'
 import { useNavigate } from 'react-router-dom'
+import { useFetcher } from '../../hooks/fetcher'
 
 const ActivityDetails = ({ visible, closeActivityDetails, activity }) => {
 
     const width = useHandleScreenWidth()
 
-    const { pullActivityDetails, pullActivityDetailsLoading, refetch, isRefetching } = usePullActivityDetails(activity.reference_number)
+    const { data:pullActivityDetails, isLoading:pullActivityDetailsLoading, refetch, isRefetching } = useFetcher(`activity/details/${activity.reference_number}`)
 
     useEffect(() => {
         visible && refetch()

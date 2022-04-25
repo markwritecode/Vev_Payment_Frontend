@@ -1,7 +1,7 @@
 import { Button, Drawer, Form, notification } from 'antd'
 import { useEffect, useState } from 'react'
 import { useInvoice } from '../../contexts/invoice'
-import { useCreateInvoice, useUpdateInvoice } from '../../hooks/invoice'
+import { usePoster } from '../../hooks/poster'
 import useHandleScreenWidth from '../../hooks/utilities/useHandleScreenWidth'
 import InvoiceForm from './InvoiceForm'
 import PreviewInvoice from './PreviewInvoice'
@@ -42,8 +42,8 @@ const CreateInvoice = ({ visible, handleCloseDrawer, updateData }) => {
         setLoading({ draft: false, send_save: false })
     }
 
-    const { mutate } = useCreateInvoice(handleFullClose)
-    const { mutate: mutateUpdate, isLoading: updateLoading } = useUpdateInvoice(handleFullClose)
+    const { mutate } = usePoster('invoice/create', 'Invoice created successfully', ['invoice', 'show'], handleFullClose)
+    const { mutate: mutateUpdate, isLoading: updateLoading } = usePoster('invoice/update', 'Invoice updated successfully', ['invoice', 'show'], handleFullClose)
 
     const width = useHandleScreenWidth()
 

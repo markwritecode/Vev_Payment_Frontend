@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { BsClock, BsCode } from 'react-icons/bs'
 import { DiCodepen } from 'react-icons/di'
 import { FiFeather } from 'react-icons/fi'
-import { useFetchLocalStorageData } from '../../hooks/user'
+import { useFetchLocalStorageData } from '../../hooks/utilities/useFetchLocalStorage'
 import { formatDateAndTime } from '../../utils/helperFunctions'
 import ActivityDetails from './ActivityDetails'
 

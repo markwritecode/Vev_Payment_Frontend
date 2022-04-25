@@ -1,12 +1,11 @@
 import { IoClose } from 'react-icons/io5'
 import { Avatar, DatePicker, Form, Input, Select } from 'antd'
-import { useQueryEmail } from '../../hooks/invoice'
-import { colorList } from '../../utils/helperVariables'
 import InvoiceItemsList from './InvoiceItemsList'
+import { usePoster } from '../../hooks/poster'
 
 const InvoiceForm = ({ invoiceForm, handleCloseDrawer, updateData }) => {
 
-    const { mutate, isLoading, data } = useQueryEmail()
+    const { mutate, isLoading, data } = usePoster('user/show')
 
     const handleSearch = value => {
         if (value.length >= 4) {

@@ -14,15 +14,16 @@ const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState(() => token ? true : false)
 
     const signin = (key, data) => {
+        queryClient.clear()
         localStorage.setItem('ichor-token-key', key)
         localStorage.setItem('ichor-user-data', JSON.stringify(data))
         setAuth(true)
     }
     const signout = () => {
         // localStorage.removeItem('ichor-token-key')
-        localStorage.clear()
         queryClient.clear()
-        delete liveAxios.defaults.headers.common["Authorization"];
+        localStorage.clear()
+        delete liveAxios.defaults.headers.common["Authorization"]
         setAuth(false)
         navigate('/')
     }

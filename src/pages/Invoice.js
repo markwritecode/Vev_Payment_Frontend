@@ -4,12 +4,13 @@ import { useState } from 'react'
 import Loading from '../components/General/Loading'
 import CreateInvoice from '../components/Invoicing/CreateInvoice'
 import InvoiceContext from '../contexts/invoice'
-import { useDeleteInvoice, usePullInvoice } from '../hooks/invoice'
 import { currencyFormatter, formatDate, formatDateNum } from '../utils/helperFunctions'
 import { colorList } from '../utils/helperVariables'
 import { BsPencil } from 'react-icons/bs'
 import { RiFileCopyLine } from 'react-icons/ri'
-import { useFetchLocalStorageData } from '../hooks/user'
+import { useFetcher } from '../hooks/fetcher'
+import { useFetchLocalStorageData } from '../hooks/utilities/useFetchLocalStorage'
+import { usePoster } from '../hooks/poster'
 
 const Invoice = () => {
 
@@ -33,8 +34,8 @@ const Invoice = () => {
         clearFields()
     }
 
-    const { pullInvoiceLoading, pulledInvoice } = usePullInvoice()
-    const { mutate: _deleteInvoice } = useDeleteInvoice()
+    const { isLoading: pullInvoiceLoading, data: pulledInvoice } = useFetcher('invoice/show/0/100')
+    const { mutate: _deleteInvoice } = usePoster('invoice/delete', 'Invoice deleted successfully')
 
     const handleDeleteInvoice = invoice_ref => _deleteInvoice({ invoice_ref })
 
@@ -145,7 +146,7 @@ const Invoice = () => {
 
     if (pullInvoiceLoading) return <Loading />
 
-    const _pulledInvoice = pulledInvoice?.map(item => {
+    const _pulledInvoice = pulledInvoice?.invoices?.map(item => {
         return { ...item.invoice, items: item.items }
     })
 

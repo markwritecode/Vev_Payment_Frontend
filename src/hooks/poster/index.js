@@ -1,20 +1,22 @@
 import { useMutation } from 'react-query'
 import { poster } from '../../api'
+import { queryClient } from '../../App'
 import { useAuth } from '../../contexts/auth'
-import useHandleNotifications from '../notifications'
+import useHandleNotifications from '../utilities/useHandleNotifications'
 
-export const useCreateUser = callback => {
+export const usePoster = (url, success, invalidate, callback) => {
 
     const handleNotify = useHandleNotifications()
 
     return useMutation(data =>
-        poster(`user/create`, {
+        poster(url, {
             data
         }), {
         onSuccess: async response => {
             if (response.data?.status === 'ok') {
-                callback()
-                handleNotify('success', 'User created successfully, please sign in.')
+                invalidate && await queryClient.invalidateQueries(invalidate)
+                callback && callback()
+                success && handleNotify('success', success)
             } else {
                 handleNotify('error')
             }
@@ -46,11 +48,4 @@ export const useSignIn = () => {
             handleNotify('error', error.message)
         },
     })
-}
-
-export const useFetchLocalStorageData = () => {
-    const token = localStorage.getItem('ichor-token-key')
-    const user = JSON.parse(localStorage.getItem('ichor-user-data'))
-
-    return { token, user }
 }

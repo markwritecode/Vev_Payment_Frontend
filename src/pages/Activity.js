@@ -1,11 +1,11 @@
 import IndividualActivity from '../components/Activity/IndividualActivity'
 import { HiDotsVertical } from 'react-icons/hi'
 import { RiRefreshLine } from 'react-icons/ri'
-import { usePullActivity } from '../hooks/activity'
 import Loading from '../components/General/Loading'
 import { createContext, useContext, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { lazy } from 'react'
+import { useFetcher } from '../hooks/fetcher'
 
 const Checkout = lazy(() => import('../components/Activity/Checkout'))
 
@@ -35,7 +35,7 @@ const DefaultView = ({ setStep }) => {
 
     const handleSearch = e => setSearch(e.target.value.toLowerCase())
 
-    const { pulledActivity, pullActivityLoading, refetch } = usePullActivity()
+    const { data: pulledActivity, isLoading: pullActivityLoading, refetch } = useFetcher('activity/show')
 
     if (pullActivityLoading) return <Loading />
 
@@ -79,7 +79,7 @@ const DefaultView = ({ setStep }) => {
                 <section className='space-y-6'>
                     <div>
                         {/* <h3 className='font-medium'>Today</h3> */}
-                        {pulledActivity
+                        {pulledActivity?.activity
                             ?.filter(activity => {
                                 return activity.type.toLowerCase().includes(search) || activity.owner.toLowerCase().includes(search) || activity.message.toLowerCase().includes(search)
                             })
