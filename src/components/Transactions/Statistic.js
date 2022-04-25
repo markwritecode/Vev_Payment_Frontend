@@ -24,7 +24,7 @@ const Statistic = () => {
 
 
     return (
-        <div className='w-full space-y-10'>
+        <div className='w-full space-y-10 pb-6'>
             <div className='flex justify-between items-center mb-4'>
                 <div>
                     <h3 className='text-xl font-semibold'>Statistic</h3>
@@ -36,11 +36,11 @@ const Statistic = () => {
             </div>
             <div className='space-y-4'>
                 <h4 className='text-base font-medium'>Funding</h4>
-                <div className='lg:grid lg:grid-cols-2 gap-20 w-full items-center'>
+                <div className='lg:grid lg:grid-cols-2 lg:gap-20 space-y-4 w-full items-center'>
                     <div className='w-full'>
                         <Doughnut data={data} options={options} />
                     </div>
-                    <div className='space-y-6 flex items-center gap-4 lg:block'>
+                    <div className='flex items-center gap-4 lg:block lg:space-y-6'>
                         <div className='flex items-center gap-4'>
                             <div className='h-3 w-3 bg-[#fac450] rounded-full'></div>
                             <div>

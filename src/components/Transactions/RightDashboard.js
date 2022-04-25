@@ -41,7 +41,7 @@ const RightDashboard = () => {
                 </div>
             </div>
 
-            <div className='flex items-center justify-between rounded-lg  bg-gradient-to-r from-[#DECDAE] via-[#DECDAE] to-[#EAEBEC] p-10'>
+            <div className='flex items-center justify-between rounded-lg bg-opacity-50 bg-[#DECDAE] p-10'>
                 <div className='space-y-6'>
                     <div className='flex items-center gap-2'>
                         <MdWifiTetheringErrorRounded className='h-6 w-6' />
