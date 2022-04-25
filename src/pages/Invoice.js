@@ -9,6 +9,7 @@ import { currencyFormatter, formatDate, formatDateNum } from '../utils/helperFun
 import { colorList } from '../utils/helperVariables'
 import { BsPencil } from 'react-icons/bs'
 import { RiFileCopyLine } from 'react-icons/ri'
+import { useFetchLocalStorageData } from '../hooks/user'
 
 const Invoice = () => {
 
@@ -16,6 +17,8 @@ const Invoice = () => {
     const [search, setSearch] = useState('')
     const [updateData, setUpdateData] = useState(null)
     const [updateVisible, setUpdateVisible] = useState(false)
+
+    const { user } = useFetchLocalStorageData()
 
     const handleOpenDrawer = () => setVisible(true)
     const handleCloseDrawer = clearFields => {
@@ -200,7 +203,7 @@ const Invoice = () => {
                     <div className='bg-white rounded-lg flex-grow p-8 space-y-4'>
                         <div className='md:flex items-center justify-between space-y-4'>
                             <div className='flex items-center gap-4'>
-                                <Avatar shape='circle' size={32} src='https://i.pravatar.cc/600?img=2' />
+                                <Avatar shape='circle' size={32} src={`https://i.pravatar.cc/600?img=${user.id}`} />
                                 <h4 className='text-lg text-gray-400 font-medium'>quickpay.to/<span className='text-gray-800'>publicnote</span></h4>
                             </div>
                             <div className='flex items-center gap-4'>

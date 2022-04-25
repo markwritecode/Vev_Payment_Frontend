@@ -3,12 +3,14 @@ import { useState } from 'react'
 import { BsClock, BsCode } from 'react-icons/bs'
 import { DiCodepen } from 'react-icons/di'
 import { FiFeather } from 'react-icons/fi'
+import { useFetchLocalStorageData } from '../../hooks/user'
 import { formatDateAndTime } from '../../utils/helperFunctions'
 import ActivityDetails from './ActivityDetails'
 
 const IndividualActivity = ({ activity }) => {
 
     const [visible, setVisible] = useState(false)
+    const { user } = useFetchLocalStorageData()
 
     const openActivityDetails = () => {
         setVisible(true)
@@ -39,7 +41,7 @@ const IndividualActivity = ({ activity }) => {
                 <Avatar
                     key={activity.id}
                     shape='circle'
-                    src={`https://i.pravatar.cc/600?img=${activity.id}`}
+                    src={`https://i.pravatar.cc/600?img=${user.id}`}
                     size={50} />
                 <div className='md:hidden'>
                     <h3 className='font-medium'>{activity.owner}</h3>

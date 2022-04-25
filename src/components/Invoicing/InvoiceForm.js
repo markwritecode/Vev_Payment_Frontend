@@ -58,14 +58,16 @@ const InvoiceForm = ({ invoiceForm, handleCloseDrawer, updateData }) => {
                                         <Select.Option key={item.id} value={item.email}>
                                             <Avatar
                                                 size={'small'}
-                                                style={{
-                                                    backgroundColor: colorList[i],
-                                                    opacity: 0.6,
-                                                    verticalAlign: 'middle',
-                                                }}
-                                                className='uppercase'>
-                                                {item.email[0]}
-                                            </Avatar>
+                                                src={`https://i.pravatar.cc/600?img=${item?.id}`}
+                                            // style={{
+                                            //     backgroundColor: colorList[i],
+                                            //     opacity: 0.6,
+                                            //     verticalAlign: 'middle',
+                                            // }} 
+                                            />
+                                            {/* // className='uppercase'> */}
+                                            {/* {item} */}
+                                            {/* </Avatar> */}
                                             <span className='ml-3'>{item.email}</span>
                                         </Select.Option>
                                     )
