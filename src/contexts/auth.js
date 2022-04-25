@@ -14,7 +14,6 @@ const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState(() => token ? true : false)
 
     const signin = (key, data) => {
-        queryClient.clear()
         localStorage.setItem('ichor-token-key', key)
         localStorage.setItem('ichor-user-data', JSON.stringify(data))
         setAuth(true)
