@@ -27,7 +27,7 @@ const Statistic = () => {
         <div className='w-full space-y-10 pb-6'>
             <div className='flex justify-between items-center mb-4'>
                 <div>
-                    <h3 className='text-xl font-semibold'>Statistic</h3>
+                    <h3 className='text-xl font-semibold'>Transaction Statistic</h3>
                     <h6 className='opacity-40 font-medium text-xs'>24 Dec 2021 at 3:30 PM</h6>
                 </div>
                 <div className='px-3 py-2 font-medium bg-[#EAEBEC] rounded-lg'>

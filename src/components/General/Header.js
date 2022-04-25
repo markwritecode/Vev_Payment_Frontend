@@ -4,10 +4,12 @@ import { HiDotsVertical } from 'react-icons/hi'
 import { IoNotificationsOutline } from 'react-icons/io5'
 import { RiMenuUnfoldLine, RiMenuFoldLine } from 'react-icons/ri'
 import { useAuth } from '../../contexts/auth'
+import { useFetchLocalStorageData } from '../../hooks/user'
 
 const Header = ({ expanded, toggleExpansion }) => {
 
     const [, action] = useAuth()
+    const { user } = useFetchLocalStorageData()
 
     const menu = () => {
         return (
@@ -46,11 +48,11 @@ const Header = ({ expanded, toggleExpansion }) => {
 
                     <div className='flex items-center space-x-4 cursor-pointer'>
                         <div className='lg:flex flex-col items-end hidden'>
-                            <div className='text-md font-medium'>Hello, Franklin</div>
-                            <div className='text-xs text-gray-500 font-regular'>45834300</div>
+                            <div className='text-md font-medium'>Hello, {user.name}</div>
+                            <div className='text-xs text-gray-500 font-regular'>{user.email}</div>
                         </div>
 
-                        <Avatar size={50} src='https://i.pravatar.cc/300' />
+                        <Avatar size={50} src={`https://i.pravatar.cc/300?img=${user.id}`} />
                     </div>
                     <Dropdown overlay={menu} trigger={['click']}>
                         <HiDotsVertical onClick={e => e.preventDefault()} className='h-6 w-6 cursor-pointer' />

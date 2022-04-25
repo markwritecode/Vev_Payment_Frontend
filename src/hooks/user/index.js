@@ -36,7 +36,7 @@ export const useSignIn = () => {
         }), {
         onSuccess: async response => {
             if (response.data?.status === 'ok') {
-                action('signin', response?.data?.token)
+                action('signin', response?.data?.token, response?.data?.user)
                 handleNotify('success', 'Sign in successful')
             } else {
                 handleNotify('error')
@@ -46,4 +46,11 @@ export const useSignIn = () => {
             handleNotify('error', error.message)
         },
     })
+}
+
+export const useFetchLocalStorageData = () => {
+    const token = localStorage.getItem('ichor-token-key')
+    const user = JSON.parse(localStorage.getItem('ichor-user-data'))
+
+    return { token, user }
 }
