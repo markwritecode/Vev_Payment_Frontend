@@ -23,8 +23,8 @@ const RecentTransactions = () => {
                             <IndividualTransactions key={transaction.updated_at} transaction={transaction} />
                         )
                     })}
-                    {transactions?.length < 1 && <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}
                 </ul>
+                {transactions?.length < 1 && <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}
             </div>
 
         </div>

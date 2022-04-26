@@ -14,7 +14,7 @@ const ActivityDetails = ({ visible, closeActivityDetails, activity }) => {
 
     const width = useHandleScreenWidth()
 
-    const { data:pullActivityDetails, isLoading:pullActivityDetailsLoading, refetch, isRefetching } = useFetcher(`activity/details/${activity.reference_number}`)
+    const { data: pullActivityDetails, isLoading: pullActivityDetailsLoading, refetch, isRefetching } = useFetcher(`activity/details/${activity.reference_number}`)
 
     useEffect(() => {
         visible && refetch()
@@ -52,6 +52,7 @@ const ActivityDetails = ({ visible, closeActivityDetails, activity }) => {
                 <TransactionComponent
                     loading={(pullActivityDetailsLoading || isRefetching)}
                     activity={pullActivityDetails?.activity_details}
+                    user={pullActivityDetails?.user}
                 />}
         </Drawer>
     )
@@ -130,7 +131,7 @@ const InvoiceComponent = ({ activity, loading, user, items }) => {
     )
 }
 
-const TransactionComponent = ({ activity, loading }) => {
+const TransactionComponent = ({ activity, loading, user }) => {
 
     if (loading) return <p>Loading...</p>
 
@@ -146,17 +147,20 @@ const TransactionComponent = ({ activity, loading }) => {
                     - <span className='opacity-60'>$</span>{currencyFormatter(formattedPrice()[0])}<span className='opacity-60'>.{formattedPrice()[1]} USD</span>
                 </h5>
             </div>
-            {/* <div className='bg-[#F9F9F9] p-3 sm:p-5 space-y-4 rounded-lg'>
+
+            <div className='bg-[#F9F9F9] p-3 sm:p-5 space-y-4 rounded-lg'>
                 <div className='flex items-center justify-between col-span-7'>
                     <div className='flex items-center gap-3 sm:gap-6'>
-                        <Avatar shape='square' src={`https://i.pravatar.cc/600?img=${activity.id}`} size={60} />
+                        <Avatar shape='square' src={`https://i.pravatar.cc/600?img=${user?.id}`} size={60} />
                         <div className=''>
-                            <h3 className='font-medium text-gray-500'>{activity.owner}</h3>
-                            <h5 className='text-gray-400 font-medium text-xs sm:text-base'>{activity.reference_number}</h5>
+                            <h3 className='font-medium text-gray-500 capitalize'>{user?.name}</h3>
+                            <h5 className='text-gray-400 font-medium text-xs sm:text-base'>{user?.email}</h5>
                         </div>
                     </div>
                 </div>
-            </div> */}
+            </div>
+
+
             <div className='space-y-8'>
                 <div>
                     <h3 className='text-xs font-semibold'>DOCUMENT REFERENCE</h3>
