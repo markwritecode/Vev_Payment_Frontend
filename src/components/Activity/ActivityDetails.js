@@ -86,7 +86,7 @@ const InvoiceComponent = ({ activity, loading, user, items }) => {
                 {activity?.status === 'pending' && <MdOutlinePendingActions className='h-10 w-10 text-yellow-300 mx-auto' />}
                 <h3 className='font-medium text-base opacity-60'>Total Invoice</h3>
                 <h5 className='text-4xl font-medium'>
-                    {isOwner() ? '+' : '-'} <span className='opacity-60'>$</span>{currencyFormatter(formattedPrice()[0])}<span className='opacity-60'>.{formattedPrice()[1]} USD</span>
+                    <span className='opacity-60'>$</span>{currencyFormatter(formattedPrice()[0])}<span className='opacity-60'>.{formattedPrice()[1]} USD</span>
                 </h5>
             </div>
 
@@ -144,7 +144,7 @@ export const TransactionComponent = ({ activity, loading, user }) => {
                 {activity?.status === 'pending' && <MdOutlinePendingActions className='h-10 w-10 text-yellow-300 mx-auto' />}
                 <h3 className='font-medium text-base opacity-60'>Transaction Total</h3>
                 <h5 className='text-4xl font-medium'>
-                    - <span className='opacity-60'>$</span>{currencyFormatter(formattedPrice()[0])}<span className='opacity-60'>.{formattedPrice()[1]} USD</span>
+                    <span className='opacity-60'>$</span>{currencyFormatter(formattedPrice()[0])}<span className='opacity-60'>.{formattedPrice()[1]} USD</span>
                 </h5>
             </div>
 
