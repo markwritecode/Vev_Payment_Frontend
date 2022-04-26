@@ -1,14 +1,33 @@
 import { Chart as ChartJS, ArcElement } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
+import { useFetcher } from '../../hooks/fetcher'
+import { currencyFormatter } from '../../utils/helperFunctions'
 
 ChartJS.register(ArcElement)
 
 const Statistic = () => {
 
+    const { data: pulledTransactions, isLoading: pullTransactionsLoading } = useFetcher('transaction/show')
+    const transactions = pulledTransactions?.transaction
+
+    if (pullTransactionsLoading) return 'Loading...'
+
+    const outbound = transactions?.filter(item => item.type === 'outbound')?.reduce((curr, val) => {
+        return curr + Number(val.amount)
+    }, 0)
+
+    const inbound = transactions?.filter(item => item.type === 'inbound')?.reduce((curr, val) => {
+        return curr + Number(val.amount)
+    }, 0)
+
+    const pending = transactions?.filter(item => item.status === 'pending')?.reduce((curr, val) => {
+        return curr + Number(val.amount)
+    }, 0)
+
     const data = {
         datasets: [
             {
-                data: [25, 25, 50],
+                data: [pending, inbound, outbound],
                 backgroundColor: [
                     '#fac450',
                     '#030302',
@@ -21,7 +40,6 @@ const Statistic = () => {
     const options = {
         cutout: '80%'
     }
-
 
     return (
         <div className='w-full space-y-10 pb-6'>
@@ -44,21 +62,21 @@ const Statistic = () => {
                         <div className='flex items-center gap-4'>
                             <div className='h-3 w-3 bg-[#fac450] rounded-full'></div>
                             <div>
-                                <h4 className='font-semibold text-base'>$180</h4>
+                                <h4 className='font-semibold text-base'>${currencyFormatter(pending)}</h4>
                                 <h6 className='text-xs text-gray-400'>Pending</h6>
                             </div>
                         </div>
                         <div className='flex items-center gap-4'>
                             <div className='h-3 w-3 bg-[#030302] rounded-full'></div>
                             <div>
-                                <h4 className='font-semibold text-base'>$791</h4>
+                                <h4 className='font-semibold text-base'>${currencyFormatter(inbound)}</h4>
                                 <h6 className='text-xs text-gray-400'>Inbound</h6>
                             </div>
                         </div>
                         <div className='flex items-center gap-4'>
                             <div className='h-3 w-3 bg-[#B8D3ED] rounded-full'></div>
                             <div>
-                                <h4 className='font-semibold text-base'>$230</h4>
+                                <h4 className='font-semibold text-base'>${currencyFormatter(outbound)}</h4>
                                 <h6 className='text-xs text-gray-400'>Outbound</h6>
                             </div>
                         </div>
