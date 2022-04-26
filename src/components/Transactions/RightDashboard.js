@@ -1,5 +1,4 @@
-import { BiSearch, BiShoppingBag } from 'react-icons/bi'
-import { IoNotificationsOutline } from 'react-icons/io5'
+import { BiSearch } from 'react-icons/bi'
 import { MdWifiTetheringErrorRounded } from 'react-icons/md'
 import RecentTransactions from './RecentTransactions'
 import Statistic from './Statistic'
@@ -19,25 +18,19 @@ import Statistic from './Statistic'
 const RightDashboard = () => {
     return (
         <>
-            <div className='flex items-center gap-6 justify-between'>
-                <div className='w-full lg:w-1/3'>
-                    <div className='relative text-gray-600 focus-within:text-gray-400'>
-                        <input
-                            // onChange={handleSearch}
-                            type='search'
-                            className='w-full py-4 text-white rounded-full border-2 border-gray-300 pl-6 focus:outline-none focus:text-gray-900'
-                            placeholder='Search Anything...'
-                        />
-                        <span className='absolute inset-y-0 right-5 flex items-center'>
-                            <button className='p-1 focus:outline-none focus:shadow-outline'>
-                                <BiSearch className='h-6 w-6' />
-                            </button>
-                        </span>
-                    </div>
-                </div>
-                <div className='flex items-center gap-4'>
-                    <BiShoppingBag className='w-6 h-6 text-gray-500' />
-                    <IoNotificationsOutline className='w-6 h-6 text-gray-500' />
+            <div className='w-full lg:w-1/3'>
+                <div className='relative text-gray-600 focus-within:text-gray-400'>
+                    <input
+                        // onChange={handleSearch}
+                        type='search'
+                        className='w-full py-4 text-white rounded-full border-2 border-gray-300 pl-6 focus:outline-none focus:text-gray-900'
+                        placeholder='Search Anything...'
+                    />
+                    <span className='absolute inset-y-0 right-5 flex items-center'>
+                        <button className='p-1 focus:outline-none focus:shadow-outline'>
+                            <BiSearch className='h-6 w-6' />
+                        </button>
+                    </span>
                 </div>
             </div>
 

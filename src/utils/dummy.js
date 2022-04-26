@@ -37,7 +37,7 @@ export const dummy_transac = [
 ]
 
 export const dummy_transac2 = [
-    { name: 'Gaming Items', icon: <RiGamepadFill className='h-7 w-7' />, price: '$-60,000', subtitle: 'Steam' },
+    { name: 'Gaming Items', icon: <RiGamepadFill className='h-7 w-7' />, price: '-$60,000', subtitle: 'Steam' },
     { name: 'Uniqlo T-shirts', icon: <IoBag className='h-7 w-7' />, price: '-$145,000', subtitle: 'Uniqlo Website' },
     { name: 'Online Courses', icon: <IoPricetags className='h-7 w-7' />, price: '-$75,000', subtitle: 'Udemy' },
     { name: 'Assets Photography', icon: <BsCamera2 className='h-7 w-7' />, price: '-$30,000', subtitle: 'Unsplash' }
