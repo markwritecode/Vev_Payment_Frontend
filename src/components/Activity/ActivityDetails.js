@@ -131,7 +131,7 @@ const InvoiceComponent = ({ activity, loading, user, items }) => {
     )
 }
 
-const TransactionComponent = ({ activity, loading, user }) => {
+export const TransactionComponent = ({ activity, loading, user }) => {
 
     if (loading) return <p>Loading...</p>
 

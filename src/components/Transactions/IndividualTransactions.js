@@ -3,7 +3,7 @@ import { BiMessageSquareDots } from 'react-icons/bi'
 import { currencyFormatter } from '../../utils/helperFunctions'
 import TransactionDetails from './TransactionDetails'
 
-const IndividualTransactions = ({ transaction }) => {
+const IndividualTransactions = ({ transaction, user }) => {
 
     const [visible, setVisible] = useState(false)
 
@@ -27,7 +27,7 @@ const IndividualTransactions = ({ transaction }) => {
                 </div>
                 <div className='inline-flex items-center font-medium'>${currencyFormatter(transaction.amount)}</div>
             </div>
-            {visible && <TransactionDetails visible={visible} transaction={transaction} closeTransactionDetails={closeTransactionDetails} />}
+            {visible && <TransactionDetails visible={visible} user={user} transaction={transaction} closeTransactionDetails={closeTransactionDetails} />}
         </li>
     )
 }

@@ -7,6 +7,7 @@ const RecentTransactions = () => {
 
     const { data: pulledTransactions, isLoading: pullTransactionsLoading } = useFetcher('transaction/show')
     const transactions = pulledTransactions?.transaction
+    const user = pulledTransactions?.user
 
     if (pullTransactionsLoading) return 'Loading...'
 
@@ -20,7 +21,7 @@ const RecentTransactions = () => {
                 <ul>
                     {transactions?.map(transaction => {
                         return (
-                            <IndividualTransactions key={transaction.updated_at} transaction={transaction} />
+                            <IndividualTransactions key={transaction.updated_at} user={user} transaction={transaction} />
                         )
                     })}
                 </ul>
