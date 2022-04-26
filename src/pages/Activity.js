@@ -6,6 +6,7 @@ import { createContext, useContext, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { lazy } from 'react'
 import { useFetcher } from '../hooks/fetcher'
+import { Empty } from 'antd'
 
 const Checkout = lazy(() => import('../components/Activity/Checkout'))
 
@@ -86,6 +87,7 @@ const DefaultView = ({ setStep }) => {
                             ?.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
                             ?.map(activity => <IndividualActivity activity={activity} key={activity.id} setStep={setStep} />)}
                     </div>
+                    {pulledActivity?.activity?.length < 1 && <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}
                 </section>
             </div>
         </div>
