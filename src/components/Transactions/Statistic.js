@@ -3,12 +3,13 @@ import { Chart as ChartJS, ArcElement } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
 import { useFetcher } from '../../hooks/fetcher'
 import { currencyFormatter } from '../../utils/helperFunctions'
+import { endpoints } from '../../utils/helperVariables'
 
 ChartJS.register(ArcElement)
 
 const Statistic = () => {
 
-    const { data: pulledTransactions, isLoading: pullTransactionsLoading } = useFetcher('transaction/report')
+    const { data: pulledTransactions, isLoading: pullTransactionsLoading } = useFetcher(endpoints.TRANSACTION_REPORTS)
     const transactions = pulledTransactions?.transaction
 
     if (pullTransactionsLoading) return ''

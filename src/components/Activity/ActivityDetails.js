@@ -9,12 +9,13 @@ import PreviewActivity from './PreviewActivity'
 import { useActivityContext } from '../../pages/Activity'
 import { useNavigate } from 'react-router-dom'
 import { useFetcher } from '../../hooks/fetcher'
+import { endpoints } from '../../utils/helperVariables'
 
 const ActivityDetails = ({ visible, closeActivityDetails, activity }) => {
 
     const width = useHandleScreenWidth()
 
-    const { data: pullActivityDetails, isLoading: pullActivityDetailsLoading, refetch, isRefetching } = useFetcher(`activity/details/${activity.reference_number}`)
+    const { data: pullActivityDetails, isLoading: pullActivityDetailsLoading, refetch, isRefetching } = useFetcher(`${endpoints.ACTIVITY_DETAILS}${activity.reference_number}`)
 
     useEffect(() => {
         visible && refetch()

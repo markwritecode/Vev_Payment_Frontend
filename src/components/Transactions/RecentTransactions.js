@@ -2,10 +2,11 @@ import { GoSettings } from 'react-icons/go'
 import IndividualTransactions from './IndividualTransactions'
 import { useFetcher } from '../../hooks/fetcher'
 import { Empty } from 'antd'
+import { endpoints } from '../../utils/helperVariables'
 
 const RecentTransactions = () => {
 
-    const { data: pulledTransactions, isLoading: pullTransactionsLoading } = useFetcher('transaction/report')
+    const { data: pulledTransactions, isLoading: pullTransactionsLoading } = useFetcher(endpoints.TRANSACTION_REPORTS)
     const transactions = pulledTransactions?.transaction
     const user = pulledTransactions?.user
 

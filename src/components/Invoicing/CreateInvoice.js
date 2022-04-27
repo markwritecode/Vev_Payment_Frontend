@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useInvoice } from '../../contexts/invoice'
 import { usePoster } from '../../hooks/poster'
 import useHandleScreenWidth from '../../hooks/utilities/useHandleScreenWidth'
+import { endpoints } from '../../utils/helperVariables'
 import InvoiceForm from './InvoiceForm'
 import PreviewInvoice from './PreviewInvoice'
 
@@ -42,8 +43,8 @@ const CreateInvoice = ({ visible, handleCloseDrawer, updateData }) => {
         setLoading({ draft: false, send_save: false })
     }
 
-    const { mutate } = usePoster('invoice/create', 'Invoice created successfully', ['invoice', 'show'], handleFullClose)
-    const { mutate: mutateUpdate, isLoading: updateLoading } = usePoster('invoice/update', 'Invoice updated successfully', ['invoice', 'show'], handleFullClose)
+    const { mutate } = usePoster(endpoints.INVOICE_CREATE, 'Invoice created successfully', ['invoice', 'show'], handleFullClose)
+    const { mutate: mutateUpdate, isLoading: updateLoading } = usePoster(endpoints.INVOICE_UPDATE, 'Invoice updated successfully', ['invoice', 'show'], handleFullClose)
 
     const width = useHandleScreenWidth()
 

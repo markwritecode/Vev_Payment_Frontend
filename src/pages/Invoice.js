@@ -5,7 +5,7 @@ import Loading from '../components/General/Loading'
 import CreateInvoice from '../components/Invoicing/CreateInvoice'
 import InvoiceContext from '../contexts/invoice'
 import { currencyFormatter, formatDate, formatDateNum } from '../utils/helperFunctions'
-import { colorList } from '../utils/helperVariables'
+import { colorList, endpoints } from '../utils/helperVariables'
 import { BsPencil } from 'react-icons/bs'
 import { RiFileCopyLine } from 'react-icons/ri'
 import { useFetcher } from '../hooks/fetcher'
@@ -34,8 +34,8 @@ const Invoice = () => {
         clearFields()
     }
 
-    const { isLoading: pullInvoiceLoading, data: pulledInvoice } = useFetcher('invoice/show/0/100')
-    const { mutate: _deleteInvoice } = usePoster('invoice/delete', 'Invoice deleted successfully')
+    const { isLoading: pullInvoiceLoading, data: pulledInvoice } = useFetcher(endpoints.INVOICE_SHOW)
+    const { mutate: _deleteInvoice } = usePoster(endpoints.INVOICE_DELETE, 'Invoice deleted successfully')
 
     const handleDeleteInvoice = invoice_ref => _deleteInvoice({ invoice_ref })
 

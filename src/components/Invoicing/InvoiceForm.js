@@ -2,10 +2,11 @@ import { IoClose } from 'react-icons/io5'
 import { Avatar, DatePicker, Form, Input, Select } from 'antd'
 import InvoiceItemsList from './InvoiceItemsList'
 import { usePoster } from '../../hooks/poster'
+import { endpoints } from '../../utils/helperVariables'
 
 const InvoiceForm = ({ invoiceForm, handleCloseDrawer, updateData }) => {
 
-    const { mutate, isLoading, data } = usePoster('user/show')
+    const { mutate, isLoading, data } = usePoster(endpoints.USER_SHOW)
 
     const handleSearch = value => {
         if (value.length >= 4) {

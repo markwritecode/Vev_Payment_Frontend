@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { usePoster } from '../../hooks/poster'
 import { useActivityContext } from '../../pages/Activity'
 import { currencyFormatter } from '../../utils/helperFunctions'
-import { paymentOptions } from '../../utils/helperVariables'
+import { endpoints, paymentOptions } from '../../utils/helperVariables'
 
 const Checkout = () => {
     const [activityContext] = useActivityContext()
@@ -96,7 +96,7 @@ const RightSide = ({ currentItem }) => {
     const [activityContext] = useActivityContext()
     const [checkoutForm] = Form.useForm()
     const navigate = useNavigate()
-    const { mutate, isLoading } = usePoster('transaction/invoice/payment', 'Transaction logged', ['transaction', 'show'], () => navigate('/activity'))
+    const { mutate, isLoading } = usePoster(endpoints.TRANSACTION_INVOICE_PAYMENT, 'Transaction logged', ['transaction', 'show'], () => navigate('/activity'))
 
     const handleFinish = () => {
         checkoutForm.validateFields().then(() => {

@@ -2,6 +2,7 @@ import { useMutation } from 'react-query'
 import { poster } from '../../api'
 import { queryClient } from '../../App'
 import { useAuth } from '../../contexts/auth'
+import { endpoints } from '../../utils/helperVariables'
 import useHandleNotifications from '../utilities/useHandleNotifications'
 
 export const usePoster = (url, success, invalidate, callback) => {
@@ -33,7 +34,7 @@ export const useSignIn = () => {
     const [, action] = useAuth()
 
     return useMutation(data =>
-        poster(`user/login`, {
+        poster(endpoints.USER_LOGIN, {
             data
         }), {
         onSuccess: async response => {

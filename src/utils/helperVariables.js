@@ -18,3 +18,17 @@ export const urls = {
         SIGN_UP: 'signup'
     }
 }
+
+export const endpoints = {
+    TRANSACTION_INVOICE_PAYMENT: 'transaction/invoice/payment',
+    TRANSACTION_REPORTS: 'transaction/report/',
+    ACTIVITY_SHOW: 'activity/show',
+    ACTIVITY_DETAILS: 'activity/details/',
+    INVOICE_CREATE: 'invoice/create',
+    INVOICE_UPDATE: 'invoice/update',
+    INVOICE_SHOW: 'invoice/show/0/100',
+    INVOICE_DELETE: 'invoice/delete',
+    USER_CREATE: 'user/create',
+    USER_SHOW: 'user/show',
+    USER_LOGIN: `user/login`
+}

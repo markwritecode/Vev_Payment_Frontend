@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router-dom'
 import { lazy } from 'react'
 import { useFetcher } from '../hooks/fetcher'
 import { Empty } from 'antd'
+import { endpoints } from '../utils/helperVariables'
 
 const Checkout = lazy(() => import('../components/Activity/Checkout'))
 
@@ -36,7 +37,7 @@ const DefaultView = ({ setStep }) => {
 
     const handleSearch = e => setSearch(e.target.value.toLowerCase())
 
-    const { data: pulledActivity, isLoading: pullActivityLoading, refetch } = useFetcher('activity/show')
+    const { data: pulledActivity, isLoading: pullActivityLoading, refetch } = useFetcher(endpoints.ACTIVITY_SHOW)
 
     if (pullActivityLoading) return <Loading />
 
