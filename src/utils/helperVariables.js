@@ -21,7 +21,7 @@ export const urls = {
 
 export const endpoints = {
     TRANSACTION_INVOICE_PAYMENT: 'transaction/invoice/payment',
-    TRANSACTION_REPORTS: 'transaction/report/',
+    TRANSACTION_REPORTS: 'transaction/report',
     ACTIVITY_SHOW: 'activity/show',
     ACTIVITY_DETAILS: 'activity/details/',
     INVOICE_CREATE: 'invoice/create',

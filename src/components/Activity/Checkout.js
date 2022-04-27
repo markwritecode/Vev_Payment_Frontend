@@ -1,4 +1,4 @@
-import { Avatar, Form } from 'antd'
+import { Avatar, Form, Modal } from 'antd'
 import { useState } from 'react'
 import { BsCheck } from 'react-icons/bs'
 import { FaFileInvoice } from 'react-icons/fa'
@@ -6,6 +6,7 @@ import { IoIosLock } from 'react-icons/io'
 import { IoArrowBackOutline } from 'react-icons/io5'
 import { useNavigate } from 'react-router-dom'
 import { usePoster } from '../../hooks/poster'
+import { useFetchLocalStorageData } from '../../hooks/utilities/useFetchLocalStorage'
 import { useActivityContext } from '../../pages/Activity'
 import { currencyFormatter } from '../../utils/helperFunctions'
 import { endpoints, paymentOptions } from '../../utils/helperVariables'
@@ -74,7 +75,7 @@ const LeftSide = ({ currentItem, setCurrentItem }) => {
                                             <p className='text-sm text-gray-800 font-medium text-left capitalize'>{item.item_name}</p>
                                             <p className='text-left text-gray-500'>{item.description} {`${item.item_qty}  x items. ${currencyFormatter(item.item_amount)} for each.`}</p>
                                         </div>
-                                        <div class="absolute hidden peer-checked:block top-4 left-2">
+                                        <div className='absolute hidden peer-checked:block top-4 left-2'>
                                             <BsCheck className='h-6 w-6 text-green-500' />
                                         </div>
                                     </div>
@@ -96,7 +97,8 @@ const RightSide = ({ currentItem }) => {
     const [activityContext] = useActivityContext()
     const [checkoutForm] = Form.useForm()
     const navigate = useNavigate()
-    const { mutate, isLoading } = usePoster(endpoints.TRANSACTION_INVOICE_PAYMENT, 'Transaction logged', ['transaction', 'show'], () => navigate('/activity'))
+    const { mutate, isLoading } = usePoster(endpoints.TRANSACTION_INVOICE_PAYMENT, 'Transaction logged', ['transaction', 'show'], showConfirmation)
+    const { user } = useFetchLocalStorageData()
 
     const handleFinish = () => {
         checkoutForm.validateFields().then(() => {
@@ -105,6 +107,15 @@ const RightSide = ({ currentItem }) => {
                 reference: activityContext.activity.ref_number
             }
             mutate(payload)
+        })
+    }
+
+    function showConfirmation() {
+        Modal.confirm({
+            okText: 'Yes',
+            cancelText: 'No',
+            onOk: () => navigate('/activity'),
+            content: 'Do you confirm this transaction?'
         })
     }
 
@@ -124,13 +135,14 @@ const RightSide = ({ currentItem }) => {
                         className='space-y-6'
                         form={checkoutForm}
                         autoComplete='off'
+                        initialValues={{ email: user.email }}
                     >
                         <Form.Item
                             name='email'
                             rules={[{ required: true, message: 'Field cannot be empty' }, { type: 'email', message: 'Enter a valid email' }]}>
                             <div className='space-y-3'>
                                 <label className='block text-sm text-gray-00 font-semibold'>Email address</label>
-                                <input className='w-full p-3 text-gray-700 border-[1px] border-gray-300 rounded-md focus:outline-none focus:border-2 focus:border-[#1eabe7e3]' />
+                                <input value={user.email} disabled className='w-full p-3 text-gray-700 border-[1px] border-gray-300 rounded-md focus:outline-none focus:border-2 focus:border-[#1eabe7e3]' />
                             </div>
                         </Form.Item>
                         <div className='space-y-3'>
@@ -150,7 +162,7 @@ const RightSide = ({ currentItem }) => {
                                 }
                             </div>
                         </div>
-                        <div>
+                        {/* <div>
                             <label className='block text-sm text-gray-00 font-semibold'>Billing address</label>
                             <div className='mt-2 flex-col'>
                                 <Form.Item
@@ -177,15 +189,15 @@ const RightSide = ({ currentItem }) => {
                                     </Form.Item>
                                 </div>
                             </div>
-                        </div>
-                        <Form.Item
+                        </div> */}
+                        {/* <Form.Item
                             name='vat_number'
                             rules={[{ required: true, message: 'Field cannot be empty' }]}>
                             <div className='space-y-3'>
                                 <label className='block text-sm text-gray-00 font-semibold'>VAT Number</label>
                                 <input className='w-full p-3 text-gray-700 border-[1px] border-gray-300 rounded-md focus:outline-none focus:border-2 focus:border-[#1eabe7e3]' type='number' />
                             </div>
-                        </Form.Item>
+                        </Form.Item> */}
                         <div>
                             <div className='w-full flex mb-3 items-center'>
                                 <div className='flex-grow'>
