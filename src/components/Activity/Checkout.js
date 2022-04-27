@@ -111,11 +111,11 @@ const RightSide = ({ currentItem }) => {
         })
     }
 
-    function showConfirmation() {
+    function showConfirmation(response) {
         Modal.confirm({
             okText: 'Yes',
             cancelText: 'No',
-            onOk: () => confirmTransaction({ transaction_reference: activityContext.activity.ref_number }),
+            onOk: () => confirmTransaction({ transaction_reference: `${response.transaction_reference}` }),
             content: 'Do you confirm this transaction?'
         })
     }

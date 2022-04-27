@@ -16,7 +16,7 @@ export const usePoster = (url, success, invalidate, callback) => {
         onSuccess: async response => {
             if (response.data?.status === 'ok') {
                 invalidate && await queryClient.invalidateQueries(invalidate)
-                callback && callback()
+                callback && callback(response?.data)
                 success && handleNotify('success', success)
             } else {
                 handleNotify('error')
