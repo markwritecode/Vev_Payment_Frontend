@@ -99,6 +99,7 @@ const RightSide = ({ currentItem }) => {
     const navigate = useNavigate()
     const { mutate, isLoading } = usePoster(endpoints.TRANSACTION_INVOICE_PAYMENT, 'Transaction logged', ['transaction', 'show'], showConfirmation)
     const { user } = useFetchLocalStorageData()
+    const { mutate: confirmTransaction } = usePoster(endpoints.TRANSACTION_CONFIRMATION, 'Transaction confirmed', [], () => navigate('/activity'))
 
     const handleFinish = () => {
         checkoutForm.validateFields().then(() => {
@@ -114,7 +115,7 @@ const RightSide = ({ currentItem }) => {
         Modal.confirm({
             okText: 'Yes',
             cancelText: 'No',
-            onOk: () => navigate('/activity'),
+            onOk: () => confirmTransaction({ transaction_reference: activityContext.activity.ref_number }),
             content: 'Do you confirm this transaction?'
         })
     }

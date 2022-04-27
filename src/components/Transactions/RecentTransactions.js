@@ -18,7 +18,7 @@ const RecentTransactions = () => {
                 <h3 className='text-xl font-semibold'>Transaction</h3>
                 <GoSettings className='w-6 h-6 rotate-90' />
             </div>
-            <div className='space-y-4'>
+            <div className='space-y-4 h-72 overflow-y-scroll'>
                 <ul>
                     {transactions?.map(transaction => {
                         return (
