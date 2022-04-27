@@ -1,7 +1,15 @@
 import RightDashboard from '../components/Transactions/RightDashboard'
 import LeftDashboard from '../components/Transactions/LeftDashboard'
+import Loading from '../components/General/Loading'
+import { endpoints } from '../utils/helperVariables'
+import { useFetcher } from '../hooks/fetcher'
 
 const Transactions = () => {
+
+    const { isLoading: pullTransactionsLoading } = useFetcher(endpoints.TRANSACTION_REPORTS)
+
+    if (pullTransactionsLoading) return <Loading />
+
     return (
         <div className='h-full w-full space-y-8 pr-10 pl-10 lg:pl-0 bg-white' id='Invoice-Page'>
             <div className='grid grid-cols-1 lg:grid-cols-4 lg:gap-10 space-y-6 h-full'>

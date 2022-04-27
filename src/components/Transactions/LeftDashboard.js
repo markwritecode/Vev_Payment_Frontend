@@ -7,10 +7,8 @@ import Transactions from './Transactions'
 
 const LeftDashboard = () => {
 
-    const { data: pulledTransactions, isLoading: pullTransactionsLoading } = useFetcher(endpoints.TRANSACTION_REPORTS)
+    const { data: pulledTransactions } = useFetcher(endpoints.TRANSACTION_REPORTS)
     const payments = pulledTransactions?.payments
-
-    if (pullTransactionsLoading) return 'Loading...'
 
     const confirmed = payments?.filter(item => item.status === 'confirmed')?.reduce((curr, val) => {
         return curr + Number(val.amount)

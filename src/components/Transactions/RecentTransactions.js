@@ -7,11 +7,9 @@ import { BiSearch } from 'react-icons/bi'
 
 const RecentTransactions = () => {
 
-    const { data: pulledTransactions, isLoading: pullTransactionsLoading } = useFetcher(endpoints.TRANSACTION_REPORTS)
+    const { data: pulledTransactions } = useFetcher(endpoints.TRANSACTION_REPORTS)
     const transactions = pulledTransactions?.transaction
     const user = pulledTransactions?.user
-
-    if (pullTransactionsLoading) return 'Loading...'
 
     return (
         <div className='w-full space-y-10'>
@@ -20,18 +18,18 @@ const RecentTransactions = () => {
                 <GoSettings className='w-6 h-6 rotate-90' />
             </div>
             <div className='relative text-gray-600 focus-within:text-gray-400'>
-                    <input
-                        // onChange={handleSearch}
-                        type='search'
-                        className='w-full py-4 text-white rounded-full border-2 border-gray-300 pl-6 focus:outline-none focus:text-gray-900'
-                        placeholder='Search Anything...'
-                    />
-                    <span className='absolute inset-y-0 right-5 flex items-center'>
-                        <button className='p-1 focus:outline-none focus:shadow-outline'>
-                            <BiSearch className='h-6 w-6' />
-                        </button>
-                    </span>
-                </div>
+                <input
+                    // onChange={handleSearch}
+                    type='search'
+                    className='w-full py-4 text-white rounded-full border-2 border-gray-300 pl-6 focus:outline-none focus:text-gray-900'
+                    placeholder='Search Anything...'
+                />
+                <span className='absolute inset-y-0 right-5 flex items-center'>
+                    <button className='p-1 focus:outline-none focus:shadow-outline'>
+                        <BiSearch className='h-6 w-6' />
+                    </button>
+                </span>
+            </div>
             <div className='space-y-4 h-72 overflow-y-scroll'>
                 <ul>
                     {transactions?.map(transaction => {

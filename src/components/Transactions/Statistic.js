@@ -9,10 +9,8 @@ ChartJS.register(ArcElement)
 
 const Statistic = () => {
 
-    const { data: pulledTransactions, isLoading: pullTransactionsLoading } = useFetcher(endpoints.TRANSACTION_REPORTS)
+    const { data: pulledTransactions } = useFetcher(endpoints.TRANSACTION_REPORTS)
     const transactions = pulledTransactions?.transaction
-
-    if (pullTransactionsLoading) return ''
 
     const outbound = transactions?.filter(item => item.type === 'outbound')?.reduce((curr, val) => {
         return curr + Number(val.amount)
