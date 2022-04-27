@@ -5,7 +5,7 @@ import { Empty } from 'antd'
 
 const RecentTransactions = () => {
 
-    const { data: pulledTransactions, isLoading: pullTransactionsLoading } = useFetcher('transaction/show')
+    const { data: pulledTransactions, isLoading: pullTransactionsLoading } = useFetcher('transaction/report')
     const transactions = pulledTransactions?.transaction
     const user = pulledTransactions?.user
 

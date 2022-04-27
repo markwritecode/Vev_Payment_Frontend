@@ -8,7 +8,7 @@ ChartJS.register(ArcElement)
 
 const Statistic = () => {
 
-    const { data: pulledTransactions, isLoading: pullTransactionsLoading } = useFetcher('transaction/show')
+    const { data: pulledTransactions, isLoading: pullTransactionsLoading } = useFetcher('transaction/report')
     const transactions = pulledTransactions?.transaction
 
     if (pullTransactionsLoading) return ''
