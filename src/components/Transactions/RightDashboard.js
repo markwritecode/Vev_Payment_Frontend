@@ -1,4 +1,3 @@
-import { BiSearch } from 'react-icons/bi'
 import { MdWifiTetheringErrorRounded } from 'react-icons/md'
 import RecentTransactions from './RecentTransactions'
 import Statistic from './Statistic'
