@@ -1,3 +1,4 @@
+import { Empty } from 'antd'
 import { IoIosArrowForward } from 'react-icons/io'
 import { IoPricetags } from 'react-icons/io5'
 import { currencyFormatter } from '../../utils/helperFunctions'
@@ -31,6 +32,7 @@ const Transactions = ({ payments }) => {
                         )
                     })}
                 </ul>
+                {payments?.length < 1 && <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}
             </div>
         </div>
     )
