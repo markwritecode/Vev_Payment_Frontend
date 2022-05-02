@@ -100,6 +100,7 @@ const RightSide = ({ currentItem }) => {
     const { mutate, isLoading } = usePoster(endpoints.TRANSACTION_INVOICE_PAYMENT, 'Transaction logged', ['transaction', 'show'], showConfirmation)
     const { user } = useFetchLocalStorageData()
     const { mutate: confirmTransaction } = usePoster(endpoints.TRANSACTION_CONFIRMATION, 'Transaction confirmed', [], () => navigate('/activity'))
+    const [active, setActive] = useState('credit_card')
 
     const handleFinish = () => {
         checkoutForm.validateFields().then(() => {
@@ -152,7 +153,7 @@ const RightSide = ({ currentItem }) => {
                                 {
                                     paymentOptions.map(option => {
                                         return (
-                                            <div key={option.name} className={`flex mb-3 items-center rounded-sm p-3 cursor-pointer ${option.active ? 'border-2 border-[#1eabe7e3]' : 'border-[1px] border-gray-300 '}`}>
+                                            <div key={option.name} onClick={() => setActive(option.slug)} className={`flex mb-3 items-center rounded-sm p-3 border-2 cursor-pointer ${option.slug === active ? 'border-[#1eabe7e3]' : 'border-gray-300 '}`}>
                                                 <div className='flex-grow'>
                                                     <span className='font-medium'>{option.name}</span>
                                                 </div>
