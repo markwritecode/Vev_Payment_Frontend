@@ -3,7 +3,7 @@ import TopDashboard from './TopDashboard'
 
 const LeftDashboard = () => {
     return (
-        <div className='h-full bg-white'>
+        <div className='bg-white pt-10 px-5'>
             <TopDashboard />
             <Summary />
         </div>

@@ -1,13 +1,15 @@
-import { BiTrendingUp } from 'react-icons/bi'
-import { RiMastercardFill, RiVisaLine } from 'react-icons/ri'
+import { BiShoppingBag } from 'react-icons/bi'
+import { FiGrid } from 'react-icons/fi'
+import { HiOutlineTrendingDown, HiOutlineTrendingUp } from 'react-icons/hi'
+import { RiVisaLine } from 'react-icons/ri'
 
 const TopDashboard = () => {
     return (
-        <div className='grid grid-cols-5 gap-6 items-center p-10'>
+        <div className='grid grid-cols-5 gap-6 items-center py-20'>
             <div className='space-y-20 col-span-1'>
                 <div className='flex items-center gap-5'>
                     <div className='p-3 rounded-lg bg-green-200'>
-                        <BiTrendingUp className='w-7 h-7' />
+                        <HiOutlineTrendingUp className='w-7 h-7' />
                     </div>
                     <div>
                         <h4 className='text-xs text-gray-400'>Total earnings</h4>
@@ -16,7 +18,7 @@ const TopDashboard = () => {
                 </div>
                 <div className='flex items-center gap-5'>
                     <div className='p-3 rounded-lg bg-amber-200'>
-                        <BiTrendingUp className='w-7 h-7' />
+                        <FiGrid className='w-7 h-7' />
                     </div>
                     <div>
                         <h4 className='text-xs text-gray-400'>Goal for this month</h4>
@@ -49,7 +51,7 @@ const TopDashboard = () => {
             <div className='space-y-20 col-span-1'>
                 <div className='flex items-center gap-5'>
                     <div className='p-3 rounded-lg bg-red-200'>
-                        <BiTrendingUp className='w-7 h-7' />
+                        <HiOutlineTrendingDown className='w-7 h-7' />
                     </div>
                     <div>
                         <h4 className='text-xs text-gray-400'>Total spendings</h4>
@@ -58,7 +60,7 @@ const TopDashboard = () => {
                 </div>
                 <div className='flex items-center gap-5'>
                     <div className='p-3 rounded-lg bg-blue-200'>
-                        <BiTrendingUp className='w-7 h-7' />
+                        <BiShoppingBag className='w-7 h-7' />
                     </div>
                     <div>
                         <h4 className='text-xs text-gray-400'>Spending Goal</h4>

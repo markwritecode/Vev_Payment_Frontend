@@ -15,7 +15,7 @@ const Transactions = ({ payments }) => {
             </div>
             <div className='flow-root'>
                 <ul>
-                    {payments.map(item => {
+                    {payments?.map(item => {
                         return (
                             <li className='py-3 sm:py-6' key={item.id}>
                                 <div className='flex items-center gap-6'>
