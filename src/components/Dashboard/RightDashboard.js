@@ -1,30 +1,32 @@
 import { BiBell, BiHorizontalCenter, BiSearch } from 'react-icons/bi'
-import { FaChartBar } from 'react-icons/fa'
+import { SiEthereum } from 'react-icons/si'
+import { MdBarChart } from 'react-icons/md'
+import { GrBitcoin } from 'react-icons/gr'
 
 const RightDashboard = () => {
     return (
-        <div className='pt-10 pr-10'>
+        <div className='pt-5 pr-5'>
             <div className='flex items-center justify-between'>
                 <div>
-                    <h4 className='text-lg font-medium'>Orizon Crypto</h4>
-                    <h6 className='text-gray-500'>Increase your profit</h6>
+                    <h4 className='text-sm font-medium'>Orizon Crypto</h4>
+                    <h6 className='text-gray-500 text-xs'>Increase your profit</h6>
                 </div>
-                <div className='flex items-center gap-4'>
+                <div className='flex items-center gap-3'>
                     <div className='rounded-full bg-white p-2'>
-                        <BiSearch className='w-6 h-6' />
+                        <BiSearch className='w-5 h-5' />
                     </div>
                     <div className='rounded-full bg-white p-2'>
-                        <BiBell className='w-6 h-6' />
+                        <BiBell className='w-5 h-5' />
                     </div>
                 </div>
             </div>
 
-            <div className='mt-16'>
-                <div className='bg-blue-600 p-5 rounded-lg space-y-4 relative'>
+            <div className='mt-10'>
+                <div className='bg-gradient-to-r from-[#2b01d3] to-[#2425da] p-5 rounded-lg space-y-4 relative'>
                     <div className='flex items-center justify-between'>
-                        <h3 className='text-white font-medium text-base'>My Portfolio</h3>
-                        <div className='border-[1px] rounded-md p-1'>
-                            <FaChartBar className='text-white h-5 w-5' />
+                        <h3 className='text-white font-medium text-sm'>My Portfolio</h3>
+                        <div className='border-[1px] rounded-sm'>
+                            <MdBarChart className='text-white h-6 w-6' />
                         </div>
                     </div>
                     <div className='flex items-end justify-between pb-10'>
@@ -41,13 +43,13 @@ const RightDashboard = () => {
             <div className='mt-14'>
                 <div className='flex items-center justify-between'>
                     <h4 className='font-semibold text-base'>Favorites</h4>
-                    <h6 className='font-semibold text-lg text-blue-600'>See All</h6>
+                    <h6 className='font-semibold text-xs text-blue-600'>See All</h6>
                 </div>
-                <div className='grid grid-cols-2 gap-4 mt-10'>
+                <div className='grid grid-cols-2 gap-4 mt-5'>
                     <div className='rounded-lg bg-white p-3'>
                         <div className='flex items-center gap-3'>
                             <div className='rounded-full p-2 bg-black'>
-                                <BiHorizontalCenter className='h-5 w-5 text-white' />
+                                <GrBitcoin className='h-5 w-5 bg-black text-white' />
                             </div>
                             <div>
                                 <h4 className='font-medium'>Binance</h4>
@@ -62,7 +64,7 @@ const RightDashboard = () => {
                     <div className='rounded-lg bg-white p-3'>
                         <div className='flex items-center gap-3'>
                             <div className='rounded-full p-2 bg-black'>
-                                <BiHorizontalCenter className='h-5 w-5 text-white' />
+                                <SiEthereum className='h-5 w-5 text-white' />
                             </div>
                             <div>
                                 <h4 className='font-medium'>Binance</h4>
@@ -79,7 +81,7 @@ const RightDashboard = () => {
 
             <div className='mt-16'>
                 <h4 className='font-medium text-base'>Live Prices</h4>
-                <div className='mt-10'>
+                <div className='mt-5'>
                     <div className='flex items-center justify-between'>
                         <div className='flex items-center gap-4'>
                             <div className='rounded-full p-2 bg-black'>
