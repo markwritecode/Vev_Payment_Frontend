@@ -5,8 +5,9 @@ import { endpoints } from '../utils/helperVariables'
 
 const Dashboard = () => {
 
-  const { data } = useFetcher(endpoints.PAYMENT_REPORT)
-  console.log(data)
+  const { isLoading } = useFetcher(endpoints.PAYMENT_REPORT)
+
+  if (isLoading) return 'Loading...'
 
   return (
     <div className='w-full overflow-auto'>

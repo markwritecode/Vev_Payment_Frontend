@@ -3,11 +3,11 @@ import { IoIosArrowForward } from 'react-icons/io'
 import { IoPricetags } from 'react-icons/io5'
 import { currencyFormatter } from '../../utils/helperFunctions'
 
-const Transactions = ({ payments }) => {
+const Transactions = ({ payments, title }) => {
     return (
         <div>
             <div className='flex items-center justify-between'>
-                <h3 className='text-lg font-semibold'>Payments</h3>
+                <h3 className='text-lg font-semibold'>{title}</h3>
                 <div className='flex items-center gap-1'>
                     <span className='opacity-50'>View all</span>
                     <IoIosArrowForward className='opacity-50' />

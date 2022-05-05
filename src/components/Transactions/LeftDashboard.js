@@ -45,7 +45,7 @@ const LeftDashboard = () => {
                     </div>
                 </div>
             </div>
-            <Transactions payments={payments} />
+            <Transactions payments={payments} title='Payments' />
         </div>
     )
 }

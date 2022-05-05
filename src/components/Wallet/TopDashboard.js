@@ -2,8 +2,15 @@ import { CgShoppingBag } from 'react-icons/cg'
 import { IoIosTrendingDown, IoIosTrendingUp } from 'react-icons/io'
 import { MdOutlineDashboard } from 'react-icons/md'
 import { RiVisaLine } from 'react-icons/ri'
+import { useFetcher } from '../../hooks/fetcher'
+import { currencyFormatter } from '../../utils/helperFunctions'
+import { endpoints } from '../../utils/helperVariables'
 
 const TopDashboard = () => {
+
+    const { data } = useFetcher(endpoints.PAYMENT_REPORT)
+    const paymentStatus = data?.payment_status
+
     return (
         <div className='grid grid-cols-1 sm:grid-cols-4 gap-6 items-center py-10'>
             <div className='space-y-20 col-span-1'>
@@ -12,8 +19,8 @@ const TopDashboard = () => {
                         <IoIosTrendingUp className='w-5 h-5 font-extralight' />
                     </div>
                     <div>
-                        <h4 className='text-xs text-gray-400'>Total earnings</h4>
-                        <h5 className='text-base font-medium'>$12,594.10</h5>
+                        <h4 className='text-xs text-gray-400'>Inbound Payments</h4>
+                        <h5 className='text-base font-medium'>${currencyFormatter(paymentStatus?.inbound_payment)}</h5>
                     </div>
                 </div>
                 <div className='flex items-center gap-5'>
@@ -21,8 +28,8 @@ const TopDashboard = () => {
                         <MdOutlineDashboard className='w-5 h-5' />
                     </div>
                     <div>
-                        <h4 className='text-xs text-gray-400'>Goal for this month</h4>
-                        <h5 className='text-base font-medium'>$16,196.80</h5>
+                        <h4 className='text-xs text-gray-400'>Inbound Pending Payments</h4>
+                        <h5 className='text-base font-medium'>${currencyFormatter(paymentStatus?.inbound_pending_payment)}</h5>
                     </div>
                 </div>
             </div>
@@ -54,8 +61,8 @@ const TopDashboard = () => {
                         <IoIosTrendingDown className='w-5 h-5' />
                     </div>
                     <div>
-                        <h4 className='text-xs text-gray-400'>Total spendings</h4>
-                        <h5 className='text-base font-medium'>$12,594.10</h5>
+                        <h4 className='text-xs text-gray-400'>Outbound Payments</h4>
+                        <h5 className='text-base font-medium'>${currencyFormatter(paymentStatus?.outbound_payment)}</h5>
                     </div>
                 </div>
                 <div className='flex items-center gap-5'>
@@ -63,8 +70,8 @@ const TopDashboard = () => {
                         <CgShoppingBag className='w-5 h-5' />
                     </div>
                     <div>
-                        <h4 className='text-xs text-gray-400'>Spending Goal</h4>
-                        <h5 className='text-base font-medium'>$16,196.80</h5>
+                        <h4 className='text-xs text-gray-400'>Outbound Pending Payments</h4>
+                        <h5 className='text-base font-medium'>${currencyFormatter(paymentStatus?.outbound_pending_payment)}</h5>
                     </div>
                 </div>
             </div>

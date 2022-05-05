@@ -1,9 +1,13 @@
-import { BiBell, BiHorizontalCenter, BiSearch } from 'react-icons/bi'
-import { SiEthereum } from 'react-icons/si'
+import { BiBell, BiSearch } from 'react-icons/bi'
 import { MdBarChart } from 'react-icons/md'
-import { GrBitcoin } from 'react-icons/gr'
+import Transactions from '../Transactions/Transactions'
+import { useFetcher } from '../../hooks/fetcher'
+import { endpoints } from '../../utils/helperVariables'
 
 const RightDashboard = () => {
+
+    const { data } = useFetcher(endpoints.PAYMENT_REPORT)
+
     return (
         <div className='pt-5 pr-5 pl-5 lg:pl-0'>
             <div className='flex items-center justify-between'>
@@ -40,7 +44,7 @@ const RightDashboard = () => {
                 </div>
             </div>
 
-            <div className='mt-14'>
+            {/* <div className='mt-14'>
                 <div className='flex items-center justify-between'>
                     <h4 className='font-semibold text-base'>Favorites</h4>
                     <h6 className='font-semibold text-xs text-blue-600'>See All</h6>
@@ -77,9 +81,9 @@ const RightDashboard = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
-            <div className='mt-16'>
+            {/* <div className='mt-16'>
                 <h4 className='font-medium text-base'>Live Prices</h4>
                 <div className='mt-5'>
                     <div className='flex items-center justify-between'>
@@ -103,7 +107,12 @@ const RightDashboard = () => {
                         </div>
                     </div>
                 </div>
+            </div> */}
+
+            <div className='mt-14'>
+                <Transactions payments={data?.transactions} title='Transactions' />
             </div>
+
         </div>
     )
 }
