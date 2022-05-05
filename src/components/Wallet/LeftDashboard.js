@@ -4,9 +4,9 @@ import TopDashboard from './TopDashboard'
 
 const LeftDashboard = () => {
     return (
-        <div className='bg-white pt-5 px-5'>
+        <div className='bg-white pt-5 px-5 divide-y-[1px]'>
             <TopDashboard />
-            <Summary />
+            {/* <Summary /> */}
             {/* <div className='grid grid-cols-1 md:grid-cols-4'> */}
                 {/* <div className='col-span-1 border-r-[1px] border-gray-300'> */}
                     {/* <ActivtySummary /> */}

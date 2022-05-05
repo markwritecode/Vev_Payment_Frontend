@@ -10,7 +10,7 @@ const RightDashboard = () => {
 
     return (
         <div className='pt-5 pr-5 pl-5 lg:pl-0'>
-            <div className='flex items-center justify-between'>
+            {/* <div className='flex items-center justify-between'>
                 <div>
                     <h4 className='text-sm font-medium'>Orizon Crypto</h4>
                     <h6 className='text-gray-500 text-xs'>Increase your profit</h6>
@@ -23,9 +23,9 @@ const RightDashboard = () => {
                         <BiBell className='w-5 h-5' />
                     </div>
                 </div>
-            </div>
+            </div> */}
 
-            <div className='mt-10'>
+            {/* <div>
                 <div className='bg-gradient-to-r from-[#2b01d3] to-[#2425da] p-5 rounded-lg space-y-4 relative'>
                     <div className='flex items-center justify-between'>
                         <h3 className='text-white font-medium text-sm'>My Portfolio</h3>
@@ -42,7 +42,7 @@ const RightDashboard = () => {
                         <div className='bg-white w-full p-3 mx-auto rounded-lg'>Withdraw</div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             {/* <div className='mt-14'>
                 <div className='flex items-center justify-between'>
