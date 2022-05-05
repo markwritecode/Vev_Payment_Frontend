@@ -14,7 +14,7 @@ const TopCards = () => {
                     <FiSettings />
                 </div>
             </div>
-            <div className='grid grid-cols-3 gap-8 mt-8'>
+            <div className='grid grid-cols-1 md:grid-cols-3 gap-8 mt-8'>
                 <div className='bg-green-50 rounded-3xl p-8'>
                     <div className='flex items-start justify-between'>
                         <div className='rounded-3xl p-3 bg-black'>

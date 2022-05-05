@@ -5,7 +5,7 @@ import { RiVisaLine } from 'react-icons/ri'
 
 const TopDashboard = () => {
     return (
-        <div className='grid grid-cols-4 gap-6 items-center py-10'>
+        <div className='grid grid-cols-1 sm:grid-cols-4 gap-6 items-center py-10'>
             <div className='space-y-20 col-span-1'>
                 <div className='flex items-center gap-5'>
                     <div className='p-3 rounded-lg bg-[#9bcfa6]'>

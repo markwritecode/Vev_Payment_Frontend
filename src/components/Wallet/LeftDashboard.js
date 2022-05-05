@@ -8,7 +8,7 @@ const LeftDashboard = () => {
         <div className='bg-white pt-5 px-5'>
             <TopDashboard />
             <Summary />
-            <div className='grid grid-cols-4'>
+            <div className='grid grid-cols-1 md:grid-cols-4'>
                 <div className='col-span-1 border-r-[1px] border-gray-300'>
                     <ActivtySummary />
                 </div>

@@ -30,11 +30,13 @@ const History = () => {
                 </div>
             </div>
             {/* <h5 className='text-gray-400 text-xs font-medium'>13 Sep, 2020</h5> */}
-            {
-                _history.map(item => {
-                    return <IndividualList key={item} item={item} />
-                })
-            }
+            <div className='overflow-auto'>
+                {
+                    _history.map(item => {
+                        return <IndividualList key={item} item={item} />
+                    })
+                }
+            </div>
         </div>
     )
 }
@@ -43,7 +45,7 @@ export default History
 
 const IndividualList = ({ item }) => {
     return (
-        <div className='grid grid-cols-3 items-center my-8'>
+        <div className='grid grid-cols-3 items-center my-8 min-w-[40rem]'>
             <div className='flex items-center gap-4'>
                 {item.icon}
                 <div>

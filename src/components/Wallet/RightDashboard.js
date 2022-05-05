@@ -5,7 +5,7 @@ import { GrBitcoin } from 'react-icons/gr'
 
 const RightDashboard = () => {
     return (
-        <div className='pt-5 pr-5'>
+        <div className='pt-5 pr-5 pl-5 lg:pl-0'>
             <div className='flex items-center justify-between'>
                 <div>
                     <h4 className='text-sm font-medium'>Orizon Crypto</h4>
@@ -33,7 +33,7 @@ const RightDashboard = () => {
                         <h3 className='text-white font-bold text-3xl'>$ 34,010.00</h3>
                         <h6 className='text-white'>+2.5%</h6>
                     </div>
-                    <div className='absolute -bottom-5 left-0 flex items-center text-center gap-4 px-10 w-full'>
+                    <div className='absolute -bottom-16 sm:-bottom-5 left-0 block sm:flex items-center text-center space-y-4 sm:space-y-0 gap-4 px-10 w-full'>
                         <div className='bg-white w-full p-3 mx-auto rounded-lg'>Deposit</div>
                         <div className='bg-white w-full p-3 mx-auto rounded-lg'>Withdraw</div>
                     </div>
@@ -45,7 +45,7 @@ const RightDashboard = () => {
                     <h4 className='font-semibold text-base'>Favorites</h4>
                     <h6 className='font-semibold text-xs text-blue-600'>See All</h6>
                 </div>
-                <div className='grid grid-cols-2 gap-4 mt-5'>
+                <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5'>
                     <div className='rounded-lg bg-white p-3'>
                         <div className='flex items-center gap-3'>
                             <div className='rounded-full p-2 bg-black'>
