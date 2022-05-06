@@ -3,8 +3,14 @@ import { BsThreeDotsVertical } from 'react-icons/bs'
 import { FaEthereum } from 'react-icons/fa'
 import { FiSettings } from 'react-icons/fi'
 import { RiNetflixFill } from 'react-icons/ri'
+import { useFetcher } from '../../hooks/fetcher'
+import { currencyFormatter } from '../../utils/helperFunctions'
+import { endpoints } from '../../utils/helperVariables'
 
 const TopCards = () => {
+
+    const { data } = useFetcher(endpoints.DASHBOARD_REPORT)
+
     return (
         <div>
             <div className='flex items-center justify-between'>
@@ -22,8 +28,8 @@ const TopCards = () => {
                         </div>
                         <BsThreeDotsVertical className='h-5 w-5' />
                     </div>
-                    <h4 className='text-4xl font-extrabold mt-6'>$1200</h4>
-                    <h6 className='text-gray-500 mt-3'><span className='font-semibold'>45%</span> This week</h6>
+                    <h4 className='text-4xl font-extrabold mt-6'>${currencyFormatter(data?.totalTransaction)}</h4>
+                    <h6 className='text-gray-500 mt-3'><span className='font-semibold'>45%</span> Total Transaction</h6>
                 </div>
 
                 <div className='bg-blue-50 rounded-3xl p-8'>
@@ -33,8 +39,8 @@ const TopCards = () => {
                         </div>
                         <BsThreeDotsVertical className='h-5 w-5' />
                     </div>
-                    <h4 className='text-4xl font-extrabold mt-6'>$232,40</h4>
-                    <h6 className='text-gray-500 mt-3'><span className='font-semibold'>45%</span> This week</h6>
+                    <h4 className='text-4xl font-extrabold mt-6'>${currencyFormatter(data?.totalPayment)}</h4>
+                    <h6 className='text-gray-500 mt-3'><span className='font-semibold'>45%</span> Total Payment</h6>
                 </div>
 
                 <div className='bg-red-50 rounded-3xl p-8'>
@@ -44,8 +50,8 @@ const TopCards = () => {
                         </div>
                         <BsThreeDotsVertical className='h-5 w-5' />
                     </div>
-                    <h4 className='text-4xl font-extrabold mt-6'>$600</h4>
-                    <h6 className='text-gray-500 mt-3'><span className='font-semibold'>45%</span> This week</h6>
+                    <h4 className='text-4xl font-extrabold mt-6'>${currencyFormatter(data?.totalInvoice)}</h4>
+                    <h6 className='text-gray-500 mt-3'><span className='font-semibold'>45%</span> Total Invoice</h6>
                 </div>
             </div>
         </div>

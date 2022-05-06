@@ -2,8 +2,16 @@ import MarketOverview from '../components/Dashboard/MarketOverview'
 import RecentActivities from '../components/Dashboard/RecentActivities'
 import SellOrder from '../components/Dashboard/SellOrder'
 import TopCards from '../components/Dashboard/TopCards'
+import Loading from '../components/General/Loading'
+import { useFetcher } from '../hooks/fetcher'
+import { endpoints } from '../utils/helperVariables'
 
-const Wallet = () => {
+const Dashboard = () => {
+
+    const { isLoading } = useFetcher(endpoints.DASHBOARD_REPORT)
+
+    if (isLoading) return <Loading />
+
     return (
         <div className='bg-white w-full space-y-8 p-10 overflow-auto'>
             <TopCards />
@@ -20,4 +28,4 @@ const Wallet = () => {
     )
 }
 
-export default Wallet
+export default Dashboard

@@ -20,6 +20,7 @@ export const urls = {
 }
 
 export const endpoints = {
+    DASHBOARD_REPORT: 'dashboard/report',
     TRANSACTION_CONFIRMATION: 'transaction/confirm',
     TRANSACTION_INVOICE_PAYMENT: 'transaction/invoice/payment',
     TRANSACTION_REPORTS: 'transaction/report',

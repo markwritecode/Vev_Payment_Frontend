@@ -1,13 +1,14 @@
+import Loading from '../components/General/Loading'
 import LeftDashboard from '../components/Wallet/LeftDashboard'
 import RightDashboard from '../components/Wallet/RightDashboard'
 import { useFetcher } from '../hooks/fetcher'
 import { endpoints } from '../utils/helperVariables'
 
-const Dashboard = () => {
+const Wallet = () => {
 
   const { isLoading } = useFetcher(endpoints.PAYMENT_REPORT)
 
-  if (isLoading) return 'Loading...'
+  if (isLoading) return <Loading />
 
   return (
     <div className='w-full overflow-auto'>
@@ -25,4 +26,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default Wallet
