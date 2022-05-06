@@ -28,7 +28,7 @@ const TopCards = () => {
                         </div>
                         <BsThreeDotsVertical className='h-5 w-5' />
                     </div>
-                    <h4 className='text-4xl font-extrabold mt-6'>${currencyFormatter(data?.totalTransaction)}</h4>
+                    <h4 className='text-4xl font-extrabold mt-6'>{currencyFormatter(data?.totalTransaction)}</h4>
                     <h6 className='text-gray-500 mt-3'><span className='font-semibold'>45%</span> Total Transaction</h6>
                 </div>
 
@@ -39,7 +39,7 @@ const TopCards = () => {
                         </div>
                         <BsThreeDotsVertical className='h-5 w-5' />
                     </div>
-                    <h4 className='text-4xl font-extrabold mt-6'>${currencyFormatter(data?.totalPayment)}</h4>
+                    <h4 className='text-4xl font-extrabold mt-6'>{currencyFormatter(data?.totalPayment)}</h4>
                     <h6 className='text-gray-500 mt-3'><span className='font-semibold'>45%</span> Total Payment</h6>
                 </div>
 
@@ -50,7 +50,7 @@ const TopCards = () => {
                         </div>
                         <BsThreeDotsVertical className='h-5 w-5' />
                     </div>
-                    <h4 className='text-4xl font-extrabold mt-6'>${currencyFormatter(data?.totalInvoice)}</h4>
+                    <h4 className='text-4xl font-extrabold mt-6'>{currencyFormatter(data?.totalInvoice)}</h4>
                     <h6 className='text-gray-500 mt-3'><span className='font-semibold'>45%</span> Total Invoice</h6>
                 </div>
             </div>
