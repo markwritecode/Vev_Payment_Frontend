@@ -21,8 +21,8 @@ const History = () => {
     const { data } = useFetcher(endpoints.PAYMENT_REPORT)
 
     return (
-        <div className='px-5'>
-            <div className='flex items-center justify-between gap-4'>
+        <div className='px-5 pt-5'>
+            <div className='md:flex items-center justify-between gap-4'>
                 <div className='flex items-center gap-10'>
                     <h4 className='text-[#6e52e3] border-b-2 border-[#6e52e3] pb-2'>Payments</h4>
                     {/* <h4 className='pb-2'>Upcoming</h4> */}
@@ -35,7 +35,7 @@ const History = () => {
                         <BiPlus className='text-white' />
                     </div>
                 </div> */}
-                <div className='relative text-gray-600 focus-within:text-gray-400 my-6 w-1/3'>
+                <div className='relative text-gray-600 focus-within:text-gray-400 my-6 lg:w-1/3'>
                     <input
                         // onChange={handleSearch}
                         type='search'
