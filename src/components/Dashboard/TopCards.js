@@ -1,8 +1,8 @@
-import { BiBitcoin } from 'react-icons/bi'
+import { BiWallet } from 'react-icons/bi'
 import { BsThreeDotsVertical } from 'react-icons/bs'
-import { FaEthereum } from 'react-icons/fa'
+import { FaFileInvoice } from 'react-icons/fa'
 import { FiSettings } from 'react-icons/fi'
-import { RiNetflixFill } from 'react-icons/ri'
+import { GiMoneyStack } from 'react-icons/gi'
 import { useFetcher } from '../../hooks/fetcher'
 import { currencyFormatter } from '../../utils/helperFunctions'
 import { endpoints } from '../../utils/helperVariables'
@@ -24,7 +24,7 @@ const TopCards = () => {
                 <div className='bg-green-50 rounded-3xl p-8'>
                     <div className='flex items-start justify-between'>
                         <div className='rounded-3xl p-3 bg-black'>
-                            <BiBitcoin className='w-10 h-10 text-white' />
+                            <GiMoneyStack className='w-10 h-10 text-white' />
                         </div>
                         <BsThreeDotsVertical className='h-5 w-5' />
                     </div>
@@ -35,7 +35,7 @@ const TopCards = () => {
                 <div className='bg-blue-50 rounded-3xl p-8'>
                     <div className='flex items-start justify-between'>
                         <div className='rounded-3xl p-3 bg-black'>
-                            <FaEthereum className='w-10 h-10 text-white' />
+                            <BiWallet className='w-10 h-10 text-white' />
                         </div>
                         <BsThreeDotsVertical className='h-5 w-5' />
                     </div>
@@ -46,7 +46,7 @@ const TopCards = () => {
                 <div className='bg-red-50 rounded-3xl p-8'>
                     <div className='flex items-start justify-between'>
                         <div className='rounded-3xl p-3 bg-black'>
-                            <RiNetflixFill className='w-10 h-10 text-white' />
+                            <FaFileInvoice className='w-10 h-10 text-white' />
                         </div>
                         <BsThreeDotsVertical className='h-5 w-5' />
                     </div>
