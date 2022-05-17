@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 import { GiMoneyStack } from 'react-icons/gi'
 import { RiDashboardFill } from 'react-icons/ri'
 import { FaFileInvoice } from 'react-icons/fa'
-import { FiActivity, FiChevronRight } from 'react-icons/fi'
+import { FiActivity, FiChevronRight, FiUser } from 'react-icons/fi'
 import { BiWallet } from 'react-icons/bi'
 
 const navData = [
@@ -10,7 +10,8 @@ const navData = [
     { to: '/invoice', icon: <FaFileInvoice className='h-6 w-6' />, name: 'Invoice' },
     { to: '/transactions', icon: <GiMoneyStack className='h-6 w-6' />, name: 'Transactions' },
     { to: '/activity', icon: <FiActivity className='h-6 w-6' />, name: 'Activity' },
-    { to: '/wallet', icon: <BiWallet className='h-6 w-6' />, name: 'Wallet' }
+    { to: '/wallet', icon: <BiWallet className='h-6 w-6' />, name: 'Wallet' },
+    { to: '/profile', icon: <FiUser className='h-6 w-6' />, name: 'Profile' }
 ]
 
 const Sidebar = ({ expanded }) => {
