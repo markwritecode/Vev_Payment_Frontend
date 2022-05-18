@@ -43,3 +43,30 @@
     border-right-width: 1px;
     outline: 0;
 }
+
+.ant-upload.ant-upload-select-picture-card {
+    width: 0 !important;
+    height: 0 !important;
+    position: absolute;
+    bottom: 15px;
+    left: 85px;
+}
+
+.ant-upload-list-picture-card .ant-upload-list-item-info:before, .ant-upload-list-picture-card .ant-upload-list-item-actions {
+    display: none !important;
+}
+
+.ant-upload-list-picture-card .ant-upload-list-item {
+    border: none !important;
+    padding: 0 !important;
+}
+
+.ant-upload-list-picture-card .ant-upload-list-item-thumbnail,
+.ant-upload-list-picture-card .ant-upload-list-item-thumbnail img {
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.ant-upload-list.ant-upload-list-picture-card {
+    position: relative !important;
+}

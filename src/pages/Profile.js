@@ -1,5 +1,6 @@
 import { Form, Upload } from 'antd'
-import { FaUpload } from 'react-icons/fa'
+import { useState } from 'react'
+import { IoPencilSharp } from 'react-icons/io5'
 import CustomInput from '../components/General/CustomInput'
 import { useFetchLocalStorageData } from '../hooks/utilities/useFetchLocalStorage'
 
@@ -7,38 +8,37 @@ const Profile = () => {
 
     const { user } = useFetchLocalStorageData()
     const [profileForm] = Form.useForm()
+    const [fileList, setFileList] = useState([{
+        url: `https://i.pravatar.cc/300?img=${user.id}`,
+        uid: '1',
+        name: 'image.png',
+        status: 'done'
+    }])
 
-    const onChange = (newFile) => {
-
-        const data = newFile.file
-
-        const payload = new FormData()
-
-        payload.append('pic', data)
-    }
+    const props = {
+        onRemove: () => {
+            setFileList([])
+        },
+        beforeUpload: file => {
+            setFileList(() => {
+                return ([file])
+            })
+            return false
+        },
+        fileList,
+        maxCount: 1,
+        listType: 'picture-card'
+    };
 
     return (
         <div className='bg-white h-full w-full p-5 md:px-10 overflow-auto'>
-            <div className='w-1/2'>
-                <h3>Edit Profile</h3>
+            <div className='lg:w-1/2'>
+                <h3 className='font-medium text-lg'>Edit Profile</h3>
                 <div className='mt-8'>
-                    {/* <img className='rounded-full h-28 w-28 object-cover object-center mx-auto' src={`https://i.pravatar.cc/300?img=${user.id}`} alt='' /> */}
-                    <Upload
-                        listType='picture-card'
-                        fileList={[{
-                            url: `https://i.pravatar.cc/300?img=${user.id}`,
-                            uid: '1',
-                            name: 'image.png',
-                            status: 'done'
-                        }]}
-                        // accept={FILE_TYPES.img}
-                        onChange={onChange}
-                        maxCount={1}
-                        beforeUpload={() => {
-                            return false
-                        }}
-                    >
-                        Edit
+                    <Upload {...props}>
+                        <div className='bg-blue-500 rounded-full p-2'>
+                            <IoPencilSharp className='text-white h-4 w-4' />
+                        </div>
                     </Upload>
                 </div>
                 <Form
