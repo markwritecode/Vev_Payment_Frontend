@@ -7,6 +7,9 @@ import { Menu } from 'antd'
 import { BsFillBellFill, BsShieldLockFill } from 'react-icons/bs'
 import { MdModeEditOutline } from 'react-icons/md'
 import { FaNetworkWired } from 'react-icons/fa'
+import { useFetcher } from '../hooks/fetcher'
+import { endpoints } from '../utils/helperVariables'
+import Loading from '../components/General/Loading'
 
 const Profile = () => {
 
@@ -18,6 +21,10 @@ const Profile = () => {
         name: 'image.png',
         status: 'done'
     }])
+    const { data, isLoading } = useFetcher(endpoints.USER_PROFILE)
+    const profile = data?.profile[0]
+
+    if (isLoading) return <Loading />
 
     const props = {
         onRemove: () => {
@@ -32,7 +39,7 @@ const Profile = () => {
         fileList,
         maxCount: 1,
         listType: 'picture-card'
-    };
+    }
 
     return (
         <div className='w-full flex items-center flex-auto'>
@@ -52,19 +59,17 @@ const Profile = () => {
                     </div>
                     <Form
                         className='mt-8'
-                        form={profileForm}
-                        initialValues={{
-                        }}>
+                        form={profileForm}>
                         <div className='grid grid-cols-2 gap-8'>
-                            <CustomInput item={{ name: 'first_name', label: 'First Name', disabled: true, value: 'Timilehin' }} />
-                            <CustomInput item={{ name: 'last_name', label: 'Last Name', disabled: true, value: 'Timmy' }} />
+                            <CustomInput item={{ name: 'first_name', label: 'First Name', disabled: true, value: profile?.first_name }} />
+                            <CustomInput item={{ name: 'last_name', label: 'Last Name', disabled: true, value: profile?.last_name }} />
                         </div>
-                        <CustomInput item={{ name: 'email', label: 'Email', disabled: true, value: 'timilehin@yahoo.com' }} />
-                        <CustomInput item={{ name: 'contacts_number', label: 'Contacts Number', disabled: true, value: '234-900-232' }} />
-                        <CustomInput item={{ name: 'address', label: 'Address', disabled: true, value: 'Garki 7, behind Ekiti.' }} />
+                        <CustomInput item={{ name: 'email', label: 'Email', disabled: true, value: profile?.email || '-' }} />
+                        <CustomInput item={{ name: 'contacts_number', label: 'Contacts Number', disabled: true, value: profile?.phone_number || '-' }} />
+                        <CustomInput item={{ name: 'address', label: 'Address', disabled: true, value: profile?.address || '-' }} />
                         <div className='grid grid-cols-2 gap-8'>
                             <CustomInput item={{ name: 'city', label: 'City', disabled: true, value: 'Abuja' }} />
-                            <CustomInput item={{ name: 'state', label: 'State', disabled: true, value: 'FCT' }} />
+                            <CustomInput item={{ name: 'state', label: 'State', disabled: true, value: profile?.state || '-' }} />
                         </div>
                         <div className='grid grid-cols-2 gap-8'>
                             <CustomInput item={{ name: 'zip', label: 'Zip Code', disabled: true, value: '90001' }} />

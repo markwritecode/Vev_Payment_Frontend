@@ -32,6 +32,8 @@ export const endpoints = {
     INVOICE_DELETE: 'invoice/delete',
     PAYMENT_REPORT: 'payment/report',
     USER_CREATE: 'user/create',
+    USER_PROFILE: 'user/profile/show',
     USER_SHOW: 'user/show',
-    USER_LOGIN: `user/login`
+    USER_LOGIN: 'user/login',
+    USER_VERIFY: 'user/verify_email'
 }
