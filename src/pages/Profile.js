@@ -10,6 +10,8 @@ import { FaNetworkWired } from 'react-icons/fa'
 import { useFetcher } from '../hooks/fetcher'
 import { endpoints } from '../utils/helperVariables'
 import Loading from '../components/General/Loading'
+import { usePoster } from '../hooks/poster'
+import useHandleScreenWidth from '../hooks/utilities/useHandleScreenWidth'
 
 const Profile = () => {
 
@@ -22,6 +24,7 @@ const Profile = () => {
         status: 'done'
     }])
     const { data, isLoading } = useFetcher(endpoints.USER_PROFILE)
+    const { mutate, isLoading: isLoading2 } = usePoster(endpoints.USER_UPDATE)
     const profile = data?.profile[0]
 
     if (isLoading) return <Loading />
@@ -39,6 +42,18 @@ const Profile = () => {
         fileList,
         maxCount: 1,
         listType: 'picture-card'
+    }
+
+    const submitProfileEdit = () => {
+        profileForm.validateFields().then(values => {
+            const payload = {
+                address: values.address,
+                phone_number: values.phone_number,
+                country: values.country,
+                state: values.state
+            }
+            mutate(payload)
+        })
     }
 
     return (
@@ -59,24 +74,33 @@ const Profile = () => {
                     </div>
                     <Form
                         className='mt-8'
-                        form={profileForm}>
-                        <div className='grid grid-cols-2 gap-8'>
+                        form={profileForm}
+                        initialValues={{
+                            phone_number: profile?.phone_number,
+                            address: profile?.address,
+                            state: profile?.state,
+                            country: profile?.country
+                        }}
+                    >
+                        <div className='grid grid-cols-1 sm:grid-cols-2 sm:gap-8'>
                             <CustomInput item={{ name: 'first_name', label: 'First Name', disabled: true, value: profile?.first_name }} />
                             <CustomInput item={{ name: 'last_name', label: 'Last Name', disabled: true, value: profile?.last_name }} />
                         </div>
                         <CustomInput item={{ name: 'email', label: 'Email', disabled: true, value: profile?.email || '-' }} />
-                        <CustomInput item={{ name: 'contacts_number', label: 'Contacts Number', disabled: true, value: profile?.phone_number || '-' }} />
-                        <CustomInput item={{ name: 'address', label: 'Address', disabled: true, value: profile?.address || '-' }} />
-                        <div className='grid grid-cols-2 gap-8'>
+                        <CustomInput item={{ name: 'phone_number', label: 'Contacts Number', required: true, value: profile?.phone_number || '-' }} />
+                        <CustomInput item={{ name: 'address', label: 'Address', required: true, value: profile?.address || '-' }} />
+                        <div className='grid grid-cols-1 sm:grid-cols-2 sm:gap-8'>
                             <CustomInput item={{ name: 'city', label: 'City', disabled: true, value: 'Abuja' }} />
-                            <CustomInput item={{ name: 'state', label: 'State', disabled: true, value: profile?.state || '-' }} />
+                            <CustomInput item={{ name: 'state', label: 'State', required: true, value: profile?.state || '-' }} />
                         </div>
-                        <div className='grid grid-cols-2 gap-8'>
+                        <div className='grid grid-cols-1 sm:grid-cols-2 sm:gap-8'>
                             <CustomInput item={{ name: 'zip', label: 'Zip Code', disabled: true, value: '90001' }} />
-                            <CustomInput item={{ name: 'country', label: 'Country', disabled: true, value: 'Nigeria' }} />
+                            <CustomInput item={{ name: 'country', label: 'Country', required: true, value: 'Nigeria' }} />
                         </div>
                         <CustomInput item={{ name: 'password', label: 'Password', disabled: true, value: '********' }} />
-                        <button className='bg-blue-600 px-5 py-1 rounded-md text-white'>Save</button>
+                        <button onClick={submitProfileEdit} className='bg-blue-600 px-5 py-1 rounded-md text-white'>
+                            {isLoading2 ? 'Saving...' : 'Save'}
+                        </button>
                     </Form>
                 </div>
             </div>
@@ -87,6 +111,8 @@ const Profile = () => {
 export default Profile
 
 const ProfileSidebar = () => {
+
+    const width = useHandleScreenWidth()
 
     function getItem(label, key, icon, type) {
         return {
@@ -113,9 +139,9 @@ const ProfileSidebar = () => {
             onClick={onClick}
             style={{
                 height: '100%',
-                width: 256,
+                width: width >= 800 ? 256 : 60,
             }}
-            inlineCollapsed={false}
+            inlineCollapsed={true}
             defaultSelectedKeys={['edit']}
             mode='inline'
             items={items}

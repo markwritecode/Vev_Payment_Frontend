@@ -5,7 +5,7 @@ const CustomInput = ({ item }) => {
         <Form.Item
             name={item.name}
             rules={[
-                { required: true, message: 'Field cannot be empty' },
+                ...item.required ? [{ required: true, message: 'Field cannot be empty' }] : [],
                 ...item.type ? [{ type: item.type, message: 'Enter a valid email' }] : []
             ]}>
             <div className='space-y-3'>
