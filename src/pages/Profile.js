@@ -141,7 +141,7 @@ const ProfileSidebar = () => {
                 height: '100%',
                 width: width >= 800 ? 256 : 60,
             }}
-            inlineCollapsed={true}
+            inlineCollapsed={width < 800}
             defaultSelectedKeys={['edit']}
             mode='inline'
             items={items}
