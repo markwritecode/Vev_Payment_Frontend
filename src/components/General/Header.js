@@ -28,11 +28,14 @@ const Header = ({ expanded, toggleExpansion }) => {
     return (
         <header className='w-full pl-5 space-x-10 sticky top-0 bg-[#F9F9F9]'>
             <div className='flex items-center justify-between w-full py-2 border-b-[1px] border-gray-200'>
-                {
-                    expanded ?
-                        <RiMenuFoldLine onClick={toggleExpansion} className='w-7 h-7 font-thin text-[#1EAAE7] cursor-pointer' /> :
-                        <RiMenuUnfoldLine onClick={toggleExpansion} className='w-7 h-7 font-thin text-[#1EAAE7] cursor-pointer' />
-                }
+                <div className='flex items-center gap-6'>
+                    {
+                        expanded ?
+                            <RiMenuFoldLine onClick={toggleExpansion} className='w-7 h-7 font-thin text-[#1EAAE7] cursor-pointer' /> :
+                            <RiMenuUnfoldLine onClick={toggleExpansion} className='w-7 h-7 font-thin text-[#1EAAE7] cursor-pointer' />
+                    }
+                    <img src='/images/logo1.jpg' className='w-16' alt='vev logo' />
+                </div>
                 <div className='flex flex-shrink-0 items-center pr-5 space-x-1 lg:space-x-5 text-black'>
 
                     <div className='hover:bg-white rounded-full p-3 cursor-pointer'>
