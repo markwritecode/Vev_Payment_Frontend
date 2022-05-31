@@ -3,6 +3,7 @@ import { BsThreeDotsVertical } from 'react-icons/bs'
 import { useFetcher } from '../../hooks/fetcher'
 import { currencyFormatter } from '../../utils/helperFunctions'
 import { endpoints } from '../../utils/helperVariables'
+import EmptyState from '../General/EmptyState'
 
 const SellOrder = () => {
 
@@ -57,7 +58,7 @@ const SellOrder = () => {
                     </tbody>
 
                 </table>
-                {transactions?.length < 1 && <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}
+                {transactions?.length < 1 && <Empty image={<EmptyState color='white' />} description={''} />}
             </div>
         </div>
     )

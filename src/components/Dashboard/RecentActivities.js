@@ -4,6 +4,7 @@ import { RiUserReceived2Line } from 'react-icons/ri'
 import { useFetcher } from '../../hooks/fetcher'
 import { formatDate } from '../../utils/helperFunctions'
 import { endpoints } from '../../utils/helperVariables'
+import EmptyState from '../General/EmptyState'
 
 const RecentActivities = () => {
 
@@ -36,10 +37,9 @@ const RecentActivities = () => {
                                 )
                             })
                         }
-                        {activities?.length < 1 && <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}
                     </tbody>
-
                 </table>
+                {activities?.length < 1 && <Empty image={<EmptyState />} description={''} />}
             </div>
         </div>
     )

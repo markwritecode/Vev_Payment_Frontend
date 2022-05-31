@@ -4,6 +4,7 @@ import { Doughnut } from 'react-chartjs-2'
 import { useFetcher } from '../../hooks/fetcher'
 import { currencyFormatter } from '../../utils/helperFunctions'
 import { endpoints } from '../../utils/helperVariables'
+import EmptyState from '../General/EmptyState'
 
 ChartJS.register(ArcElement)
 
@@ -83,7 +84,7 @@ const Statistic = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div> : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                        </div> : <Empty image={<EmptyState />} description={''} />
                 }
             </div>
         </div>

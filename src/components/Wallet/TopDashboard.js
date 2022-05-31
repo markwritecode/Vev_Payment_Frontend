@@ -11,14 +11,14 @@ const TopDashboard = () => {
     const paymentStatus = data?.payment_status
 
     return (
-        <div className='grid grid-cols-1 sm:grid-cols-4 gap-6 items-center py-10'>
+        <div className='grid grid-cols-1 md:grid-cols-4 gap-6 items-center py-10'>
             <div className='space-y-8 sm:space-y-20 col-span-1'>
                 <div className='flex items-center gap-5'>
                     <div className='p-3 rounded-lg bg-[#9bcfa6]'>
                         <IoIosTrendingUp className='w-5 h-5 font-extralight' />
                     </div>
                     <div>
-                        <h4 className='text-xs text-gray-400'>Inbound Payments</h4>
+                        <h4 className='text-gray-400'>Inbound Payments</h4>
                         <h5 className='text-base font-medium'>${currencyFormatter(paymentStatus?.inbound_payment)}</h5>
                     </div>
                 </div>
@@ -27,12 +27,12 @@ const TopDashboard = () => {
                         <MdOutlineDashboard className='w-5 h-5' />
                     </div>
                     <div>
-                        <h4 className='text-xs text-gray-400'>Inbound Pending Payments</h4>
+                        <h4 className='text-gray-400'>Inbound Pending Payments</h4>
                         <h5 className='text-base font-medium'>${currencyFormatter(paymentStatus?.inbound_pending_payment)}</h5>
                     </div>
                 </div>
             </div>
-            <div className='col-span-2 mx-auto sm:w-4/5'>
+            <div className='col-span-2 mx-auto w-full md:w-4/5'>
                 <div>
                     <div className='bg-gradient-to-r from-[#2b01d3] to-[#2425da] p-8 rounded-lg space-y-4 relative'>
                         <div className='flex items-center justify-between'>
@@ -54,18 +54,18 @@ const TopDashboard = () => {
                 {/* <div className='bg-gradient-to-r from-[#f3ba60] to-[#f7cf6a] rounded-xl space-y-4 p-8'>
                     <div className='flex items-center justify-between'>
                         <div>
-                            <h4 className='text-xs'>Name Card</h4>
+                            <h4 className='>Name Card</h4>
                             <h5 className='text-base font-medium'>AR Shakir</h5>
                         </div>
                         <RiVisaLine className='h-12 w-12' />
                     </div>
                     <h3 className='text-lg text-black font-semibold'>**** ****  **** 1234</h3>
                     <div className='flex items-center gap-8'>
-                        <div className='text-xs font-medium space-y-2'>
+                        <div className='font-medium space-y-2'>
                             <h4 className='opacity-40'>EXP DATE</h4>
                             <h5>12/25</h5>
                         </div>
-                        <div className='text-xs font-medium space-y-2'>
+                        <div className='font-medium space-y-2'>
                             <h4 className='opacity-40'>CVV NUMBER</h4>
                             <h5>123</h5>
                         </div>
@@ -78,7 +78,7 @@ const TopDashboard = () => {
                         <IoIosTrendingDown className='w-5 h-5' />
                     </div>
                     <div>
-                        <h4 className='text-xs text-gray-400'>Outbound Payments</h4>
+                        <h4 className='text-gray-400'>Outbound Payments</h4>
                         <h5 className='text-base font-medium'>${currencyFormatter(paymentStatus?.outbound_payment)}</h5>
                     </div>
                 </div>
@@ -87,7 +87,7 @@ const TopDashboard = () => {
                         <CgShoppingBag className='w-5 h-5' />
                     </div>
                     <div>
-                        <h4 className='text-xs text-gray-400'>Outbound Pending Payments</h4>
+                        <h4 className='text-gray-400'>Outbound Pending Payments</h4>
                         <h5 className='text-base font-medium'>${currencyFormatter(paymentStatus?.outbound_pending_payment)}</h5>
                     </div>
                 </div>

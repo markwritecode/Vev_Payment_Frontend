@@ -4,6 +4,7 @@ import { useFetcher } from '../../hooks/fetcher'
 import { Empty } from 'antd'
 import { endpoints } from '../../utils/helperVariables'
 import { BiSearch } from 'react-icons/bi'
+import EmptyState from '../General/EmptyState'
 
 const RecentTransactions = () => {
 
@@ -38,7 +39,7 @@ const RecentTransactions = () => {
                         )
                     })}
                 </ul>
-                {transactions?.length < 1 && <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}
+                {transactions?.length < 1 && <Empty image={<EmptyState />} description={''} />}
             </div>
 
         </div>
