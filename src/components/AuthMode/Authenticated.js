@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import Layout from '../General/Layout'
+import Loading from '../General/Loading'
 
 const Dashboard = lazy(() => import('../../pages/Dashboard'))
 const Invoice = lazy(() => import('../../pages/Invoice'))
@@ -16,7 +17,7 @@ const Authenticated = () => {
 
     return (
         <Layout showLayout={showLayout} >
-            <Suspense fallback='Loading...'>
+            <Suspense fallback={<Loading />}>
                 <Routes>
                     <Route path='/' element={<Dashboard />} />
                     <Route path='invoice' element={<Invoice />} />

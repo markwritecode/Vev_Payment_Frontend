@@ -10,6 +10,7 @@ import { useActivityContext } from '../../pages/Activity'
 import { useNavigate } from 'react-router-dom'
 import { useFetcher } from '../../hooks/fetcher'
 import { endpoints } from '../../utils/helperVariables'
+import Loading from '../General/Loading'
 
 const ActivityDetails = ({ visible, closeActivityDetails, activity }) => {
 
@@ -72,7 +73,7 @@ const InvoiceComponent = ({ activity, loading, user, items }) => {
         navigate('/activity/checkout')
     }
 
-    if (loading) return <p>Loading...</p>
+    if (loading) return <Loading />
 
     const formattedPrice = () => Number(activity?.total).toFixed(2).split('.')
     const isOwner = () => user?.email === activity?.owner
@@ -134,7 +135,7 @@ const InvoiceComponent = ({ activity, loading, user, items }) => {
 
 export const TransactionComponent = ({ activity, loading, user }) => {
 
-    if (loading) return <p>Loading...</p>
+    if (loading) return <Loading />
 
     const formattedPrice = () => Number(activity?.amount).toFixed(2).split('.')
 

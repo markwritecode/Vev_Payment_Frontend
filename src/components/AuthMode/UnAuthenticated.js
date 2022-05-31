@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
+import Loading from '../General/Loading'
 
 const SignIn = lazy(() => import('../../pages/SignIn'))
 const SignUp = lazy(() => import('../../pages/SignUp'))
@@ -13,7 +14,7 @@ const UnAuthenticated = () => {
                 </div>
                 <div className='flex items-center w-full lg:w-1/2 h-screen'>
                     <div className='w-2/3 mx-auto lg:mx-0 space-y-8'>
-                        <Suspense fallback='Loading...'>
+                        <Suspense fallback={<Loading />}>
                             <Routes>
                                 <Route path='/' element={<SignIn />} />
                                 <Route path='signup' element={<SignUp />} />
