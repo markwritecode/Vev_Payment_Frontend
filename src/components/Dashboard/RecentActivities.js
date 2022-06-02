@@ -18,20 +18,20 @@ const RecentActivities = () => {
                 <table className='items-center bg-transparent w-full border-collapse opacity-70'>
                     <tbody>
                         {
-                            activities?.map(activity => {
+                            activities?.map((activity, index) => {
                                 return (
-                                    <tr key={activity[0].id}>
+                                    <tr key={index}>
                                         <td className='font-normal text-gray-500 text-left p-4'>
-                                            {activity[0].action === 'send' ? <FiSend className='h-5 w-5 text-red-600' /> : <RiUserReceived2Line className='h-5 w-5 text-green-600' />}
+                                            {activity[0]?.action === 'send' ? <FiSend className='h-5 w-5 text-red-600' /> : <RiUserReceived2Line className='h-5 w-5 text-green-600' />}
                                         </td>
                                         <td className='font-normal text-gray-500 text-left p-4'>
-                                            {activity[0].owner}
+                                            {activity[0]?.owner}
                                         </td>
                                         <td className='font-normal text-gray-500 text-left p-4'>
-                                            {formatDate(activity[0].created_at)}
+                                            {formatDate(activity[0]?.created_at)}
                                         </td>
                                         <td className='font-normal text-gray-500 text-left p-4 capitalize'>
-                                            {activity[0].status}
+                                            {activity[0]?.status}
                                         </td>
                                     </tr>
                                 )
