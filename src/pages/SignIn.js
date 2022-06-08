@@ -18,7 +18,7 @@ const SignIn = () => {
     const navigateToSignUp = () => navigate(urls.un_auth.SIGN_UP)
 
     return (
-        <div className='min-h-screen flex justify-center items-center bg-white'>
+        <div className='flex justify-center items-center bg-white'>
             <Form
                 className='space-y-6'
                 form={signinForm}

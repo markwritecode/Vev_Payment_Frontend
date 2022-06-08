@@ -97,7 +97,7 @@ const Profile = () => {
                             <CustomInput item={{ name: 'zip', label: 'Zip Code', disabled: true, value: '90001' }} />
                             <CustomInput item={{ name: 'country', label: 'Country', required: true, value: 'Nigeria' }} />
                         </div>
-                        <CustomInput item={{ name: 'password', label: 'Password', disabled: true, value: '********' }} />
+                        {/* <CustomInput item={{ name: 'password', label: 'Password', disabled: true, value: '********' }} /> */}
                         <button onClick={submitProfileEdit} className='bg-blue-600 px-5 py-1 rounded-md text-white'>
                             {isLoading2 ? 'Saving...' : 'Save'}
                         </button>
@@ -125,9 +125,9 @@ const ProfileSidebar = () => {
 
     const items = [
         getItem('Edit Profile', 'edit', <MdModeEditOutline />),
-        getItem('Notifications', 'notifications', <BsFillBellFill />),
-        getItem('Choose Plan', 'plan', <FaNetworkWired />),
-        getItem('Password & Security', 'security', <BsShieldLockFill />),
+        // getItem('Notifications', 'notifications', <BsFillBellFill />),
+        // getItem('Choose Plan', 'plan', <FaNetworkWired />),
+        // getItem('Password & Security', 'security', <BsShieldLockFill />),
     ]
 
     const onClick = (e) => {

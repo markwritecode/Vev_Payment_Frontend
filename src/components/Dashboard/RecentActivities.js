@@ -22,16 +22,16 @@ const RecentActivities = () => {
                                 return (
                                     <tr key={index}>
                                         <td className='font-normal text-gray-500 text-left p-4'>
-                                            {activity[0]?.action === 'send' ? <FiSend className='h-5 w-5 text-red-600' /> : <RiUserReceived2Line className='h-5 w-5 text-green-600' />}
+                                            {activity.action === 'send' ? <FiSend className='h-5 w-5 text-red-600' /> : <RiUserReceived2Line className='h-5 w-5 text-green-600' />}
                                         </td>
                                         <td className='font-normal text-gray-500 text-left p-4'>
-                                            {activity[0]?.owner}
+                                            {activity.owner}
                                         </td>
                                         <td className='font-normal text-gray-500 text-left p-4'>
-                                            {formatDate(activity[0]?.created_at)}
+                                            {formatDate(activity.created_at)}
                                         </td>
                                         <td className='font-normal text-gray-500 text-left p-4 capitalize'>
-                                            {activity[0]?.status}
+                                            {activity.status}
                                         </td>
                                     </tr>
                                 )

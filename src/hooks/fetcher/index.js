@@ -10,7 +10,7 @@ export const useFetcher = url => {
         getter(url)
             .then((response) => response?.data)
             .catch(error => {
-                error.response.status === Number(401) && action('signout')
+                error?.response?.status === Number(401) && action('signout')
             })
     )
 }

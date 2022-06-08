@@ -16,7 +16,7 @@ const SignUp = () => {
     }
 
     return (
-        <div className='min-h-screen flex justify-center items-center bg-white'>
+        <div className='flex justify-center items-center bg-white'>
             {renderPage()}
         </div>
     )

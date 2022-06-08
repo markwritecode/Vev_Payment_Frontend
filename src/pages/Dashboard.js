@@ -16,8 +16,8 @@ const Dashboard = () => {
         <div className='bg-white w-full space-y-8 p-3 sm:p-10 overflow-auto'>
             <TopCards />
             <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
-                <div className='col-span-2 space-y-6'>
-                    <MarketOverview />
+                <div className='col-span-2 space-y-6 bg-[#F9F9F9] rounded-3xl p-8'>
+                    {/* <MarketOverview /> */}
                     <RecentActivities />
                 </div>
                 <div className='col-span-1'>

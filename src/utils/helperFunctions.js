@@ -1,6 +1,6 @@
 export function currencyFormatter(amt) {
     const Formatter = Intl.NumberFormat()
-    return Formatter.format(amt)
+    return Formatter.format(amt || 0)
 }
 
 export const formatDate = (date) => {

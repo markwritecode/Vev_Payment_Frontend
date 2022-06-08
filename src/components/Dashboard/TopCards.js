@@ -3,6 +3,7 @@ import { BsThreeDotsVertical } from 'react-icons/bs'
 import { FaFileInvoice } from 'react-icons/fa'
 import { FiSettings } from 'react-icons/fi'
 import { GiMoneyStack } from 'react-icons/gi'
+import { Link } from 'react-router-dom'
 import { useFetcher } from '../../hooks/fetcher'
 import { currencyFormatter } from '../../utils/helperFunctions'
 import { endpoints } from '../../utils/helperVariables'
@@ -26,7 +27,7 @@ const TopCards = () => {
                         <div className='rounded-3xl p-3 bg-black'>
                             <GiMoneyStack className='w-10 h-10 text-white' />
                         </div>
-                        <BsThreeDotsVertical className='h-5 w-5' />
+                        <Link to='/transactions'><BsThreeDotsVertical className='h-5 w-5' /></Link>
                     </div>
                     <h4 className='text-4xl font-extrabold mt-6'>{currencyFormatter(data?.totalTransaction)}</h4>
                     <h6 className='text-gray-500 mt-3'><span className='font-semibold'>45%</span> Total Transaction</h6>
@@ -37,7 +38,7 @@ const TopCards = () => {
                         <div className='rounded-3xl p-3 bg-black'>
                             <BiWallet className='w-10 h-10 text-white' />
                         </div>
-                        <BsThreeDotsVertical className='h-5 w-5' />
+                        <Link to='/wallet'><BsThreeDotsVertical className='h-5 w-5' /></Link>
                     </div>
                     <h4 className='text-4xl font-extrabold mt-6'>{currencyFormatter(data?.totalPayment)}</h4>
                     <h6 className='text-gray-500 mt-3'><span className='font-semibold'>45%</span> Total Payment</h6>
@@ -48,7 +49,7 @@ const TopCards = () => {
                         <div className='rounded-3xl p-3 bg-black'>
                             <FaFileInvoice className='w-10 h-10 text-white' />
                         </div>
-                        <BsThreeDotsVertical className='h-5 w-5' />
+                        <Link to='/invoice'><BsThreeDotsVertical className='h-5 w-5' /></Link>
                     </div>
                     <h4 className='text-4xl font-extrabold mt-6'>{currencyFormatter(data?.totalInvoice)}</h4>
                     <h6 className='text-gray-500 mt-3'><span className='font-semibold'>45%</span> Total Invoice</h6>

@@ -151,7 +151,7 @@ const Invoice = () => {
     })
 
     const calculateTotal = invoices => {
-        const amount = invoices.reduce((curr, val) => {
+        const amount = invoices?.reduce((curr, val) => {
             return curr + Number(val.total)
         }, 0)
         return Number(amount).toFixed(2).split('.')
@@ -268,6 +268,7 @@ const Invoice = () => {
                         </div>
                     </div>
                     <Table
+                        className='pb-8'
                         columns={invoice_col}
                         dataSource={_pulledInvoice
                             ?.map((item, index) => {
@@ -277,7 +278,7 @@ const Invoice = () => {
                             ?.sort((a, b) => (new Date(b.created_at)) - (new Date(a.created_at)))
                             .filter(item => item.recipient.includes(search))
                         }
-                        loading={pullInvoiceLoading} size='large' rowKey={'created_at'} bordered={false}
+                        loading={pullInvoiceLoading} size='large' rowKey={'created_at'} bordered={false} pagination={false}
                     />
                 </div>
                 {visible && <CreateInvoice visible={visible} handleCloseDrawer={handleCloseDrawer} />}
