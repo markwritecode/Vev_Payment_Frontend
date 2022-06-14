@@ -1,4 +1,5 @@
 import { IoClose } from 'react-icons/io5'
+import moment from 'moment'
 import { Avatar, DatePicker, Form, Input, Select } from 'antd'
 import InvoiceItemsList from './InvoiceItemsList'
 import { usePoster } from '../../hooks/poster'
@@ -22,6 +23,13 @@ const InvoiceForm = ({ invoiceForm, handleCloseDrawer, updateData }) => {
                 </h4>
                 <IoClose onClick={handleCloseDrawer} className='h-5 w-5 text-gray-500 font-semibold cursor-pointer' />
             </div>
+            {
+                updateData &&
+                <div className='flex items-center space-x-4 cursor-pointer'>
+                    <Avatar size={50} src={`https://i.pravatar.cc/300?img=${updateData?.user_id}`} />
+                    <div className='text-md font-medium'>{updateData?.recipient}</div>
+                </div>
+            }
             <Form
                 layout='vertical'
                 form={invoiceForm}
@@ -30,7 +38,9 @@ const InvoiceForm = ({ invoiceForm, handleCloseDrawer, updateData }) => {
                 initialValues={{
                     email: updateData?.recipient,
                     description: updateData?.description,
-                    additional_note: updateData?.additional_note
+                    additional_note: updateData?.additional_note,
+                    issued_on: moment(updateData?.issue_date, 'DD-MM-YYYY'),
+                    due_on: moment(updateData?.due_date, 'DD-MM-YYYY')
                 }}
             >
                 {
@@ -98,14 +108,14 @@ const InvoiceForm = ({ invoiceForm, handleCloseDrawer, updateData }) => {
                         name="issued_on"
                         rules={[{ required: true, message: 'Please select date!' }]}
                     >
-                        <DatePicker size='large' className='w-full' />
+                        <DatePicker size='large' format={'DD-MM-YYYY'} className='w-full' />
                     </Form.Item>
                     <Form.Item
                         label="Due on"
                         name="due_on"
                         rules={[{ required: true, message: 'Please select date!' }]}
                     >
-                        <DatePicker size='large' className='w-full' />
+                        <DatePicker size='large' format={'DD-MM-YYYY'} className='w-full' />
                     </Form.Item>
                 </div>
 

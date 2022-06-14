@@ -1,17 +1,34 @@
 import { Button, Form, Input, InputNumber, Modal } from 'antd'
 import { useInvoice } from '../../contexts/invoice'
 
-const AddInvoiceItem = ({ visible, handleCloseModal }) => {
+const AddInvoiceItem = ({ visible, handleCloseModal, modalData }) => {
+
+    const isEdit = Object.keys(modalData).length > 0
 
     const [, setInvoice] = useInvoice()
 
     const [itemsForm] = Form.useForm()
 
-    const handleFinish = values => {
-        setInvoice(prev => {
-            return { ...prev, items: [...prev.items, { ...values, "item_total": values.item_quantity * values.item_price, id: Math.random() }] }
-        })
-        handleCloseModal(itemsForm.resetFields())
+    const handleFinish = () => {
+        itemsForm.validateFields().then(values => {
+            if (isEdit) {
+                setInvoice(prev => {
+                    return {
+                        ...prev, items: prev.items.map(item => {
+                            if (item.id === modalData.id) {
+                                return { ...item, ...values, 'item_total': values.item_quantity * values.item_price }
+                            } else {
+                                return item
+                            }
+                        })
+                    }
+                })
+            } else {
+                setInvoice(prev => {
+                    return { ...prev, items: [...prev.items, { ...values, "item_total": values.item_quantity * values.item_price, id: Math.random() }] }
+                })
+            }
+        }).then(() => handleCloseModal())
     }
 
     return (
@@ -27,6 +44,7 @@ const AddInvoiceItem = ({ visible, handleCloseModal }) => {
                 form={itemsForm}
                 autoComplete="off"
                 className='space-y-1'
+                initialValues={{ ...modalData }}
             >
                 <Form.Item
                     label="Item"
