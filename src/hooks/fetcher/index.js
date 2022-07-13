@@ -4,7 +4,7 @@ import { useAuth } from '../../contexts/auth'
 
 export const useFetcher = url => {
 
-    const [, action] = useAuth()
+    const { action } = useAuth()
 
     return useQuery(url.split('/'), () =>
         getter(url)

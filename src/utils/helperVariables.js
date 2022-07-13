@@ -34,7 +34,8 @@ export const endpoints = {
     USER_CREATE: 'user/create',
     USER_PROFILE: 'user/profile/show',
     USER_SHOW: 'user/show',
-    USER_LOGIN: 'user/login',
+    USER_LOGIN: 'user/signin',
     USER_UPDATE: 'user/profile/update',
-    USER_VERIFY: 'user/verify_email'
+    USER_VERIFY: 'user/verify_email',
+    SIGNUP: 'user/signup'
 }

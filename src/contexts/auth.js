@@ -12,11 +12,14 @@ const AuthProvider = ({ children }) => {
     const token = localStorage.getItem('ichor-token-key')
 
     const [auth, setAuth] = useState(() => token ? true : false)
+    const [signup, setSignUp] = useState(false)
 
-    const signin = (key, data) => {
+    const signin = (key, data, signup) => {
         localStorage.setItem('ichor-token-key', key)
         localStorage.setItem('ichor-user-data', JSON.stringify(data))
         setAuth(true)
+        signup && setSignUp(true)
+        navigate('/')
     }
     const signout = () => {
         // localStorage.removeItem('ichor-token-key')
@@ -27,13 +30,13 @@ const AuthProvider = ({ children }) => {
         navigate('/')
     }
 
-    const action = (type, key, data) => {
-        if (type === 'signin') signin(key, data)
+    const action = (type, key, data, signup) => {
+        if (type === 'signin') signin(key, data, signup)
         else if (type === 'signout') signout()
     }
 
     return (
-        <authContext.Provider value={[auth, action]}>
+        <authContext.Provider value={{ auth, signup, action }}>
             {children}
         </authContext.Provider>
     )

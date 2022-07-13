@@ -21,7 +21,9 @@ const Activity = () => {
         <activityContext.Provider value={[activityData, setActivityData]}>
             <Routes>
                 <Route path='/' element={<DefaultView />} />
-                {typeof activityData !== 'undefined' && <Route path='checkout' element={<Checkout />} />}
+                {/* {typeof activityData !== 'undefined' &&  */}
+                <Route path='checkout' element={<Checkout />} />
+                {/* // } */}
                 <Route path='*' element={'Page not found'} />
             </Routes>
         </activityContext.Provider>

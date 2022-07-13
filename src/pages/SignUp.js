@@ -16,9 +16,9 @@ const SignUp = () => {
     }
 
     return (
-        <div className='flex justify-center items-center bg-white'>
+        <>
             {renderPage()}
-        </div>
+        </>
     )
 }
 

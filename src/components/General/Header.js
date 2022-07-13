@@ -8,7 +8,7 @@ import { useFetchLocalStorageData } from '../../hooks/utilities/useFetchLocalSto
 
 const Header = ({ expanded, toggleExpansion }) => {
 
-    const [, action] = useAuth()
+    const { action } = useAuth()
     const { user } = useFetchLocalStorageData()
 
     const menu = () => {

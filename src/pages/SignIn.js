@@ -1,4 +1,6 @@
 import { Form, Input } from 'antd'
+import { BsApple } from 'react-icons/bs'
+import { FcGoogle } from 'react-icons/fc'
 import { useNavigate } from 'react-router-dom'
 import { useSignIn } from '../hooks/poster'
 import { urls } from '../utils/helperVariables'
@@ -17,49 +19,47 @@ const SignIn = () => {
 
     const navigateToSignUp = () => navigate(urls.un_auth.SIGN_UP)
 
+    const inputProps = {
+        className: 'w-full p-3 xl:p-4 text-[#000000] text-opacity-50 text-xs xl:text-base border-[1px] border-[#6E7072] rounded-md hover:border-[#F5896C] focus:outline-0 focus:border focus:border-[#F5896C]'
+    }
+
     return (
-        <div className='flex justify-center items-center bg-white'>
-            <Form
-                className='space-y-6'
-                form={signinForm}
-                autoComplete='off'
-            >
-                <div className='px-5 py-10 sm:p-10 border-[1px] border-slate-200 shadow-lg rounded-md flex flex-col items-center space-y-4'>
-                    <div className='text-center'>
-                        <div className='font-medium text-lg sm:text-3xl text-gray-800'>
-                            Welcome Back
-                        </div>
-                        <div className='mt-2 text-sm sm:text-lg text-gray-600'>
-                            Please enter your credentials to login
-                        </div>
+        <Form className='space-y-6' form={signinForm} autoComplete='off'>
+            <div className='py-8 xl:py-14 shadow-2xl bg-white'>
+                <div className='w-2/3 mx-auto space-y-4 xl:space-y-7'>
+                    <div className='text-center space-y-1 xl:space-y-3'>
+                        <div className='font-bold text-2xl xl:text-4xl text-[#000000]'>Payment Secured</div>
                     </div>
                     <Form.Item
-                        className='w-full'
                         name='email'
                         rules={[{ required: true, message: 'Field cannot be empty' }, { type: 'email', message: 'Enter a valid email' }]}>
-                        <Input className='p-3 border-[1px] border-slate-500 rounded-sm xs:w-80 focus:outline-none focus:border-[#1eabe7e3]' placeholder='Email' />
+                        <Input {...inputProps} placeholder='Email:' />
                     </Form.Item>
                     <Form.Item
-                        className='w-full'
                         name='password'
                         rules={[{ required: true, message: 'Field cannot be empty' }]}>
-                        <Input className='p-3 border-[1px] border-slate-500 rounded-sm xs:w-80 focus:outline-none focus:border-[#1eabe7e3]' type='password' placeholder='Password' />
+                        <Input {...inputProps} type='password' placeholder='Password:' />
                     </Form.Item>
-                    <div className='mr-auto'>
-                        <p className='font-bold text-[#1eabe7e3]'>Forgot password?</p>
+                    <div className='text-right'>
+                        <span className='text-[#000000] text-opacity-50 text-xs xl:text-sm'>Create an account?</span>
+                        <span onClick={navigateToSignUp} className='text-[#F3724F] cursor-pointer text-xs xl:text-sm'> Sign Up</span>
                     </div>
-                    <div className='flex flex-col space-y-5 w-full'>
-                        <button disabled={isLoading} onClick={handleFinish} className='w-full bg-gradient-to-r from-[#1eabe7e3] to-cyan-300 rounded-3xl p-3 text-white font-bold transition duration-200'>
+                    <div className='w-4/5 mx-auto'>
+                        <button
+                            disabled={isLoading}
+                            onClick={handleFinish}
+                            className='w-full bg-[#F3724F] rounded-lg p-3 text-white font-bold transition duration-200'>
                             {isLoading ? 'Signing In...' : 'Sign In'}
                         </button>
-                        <div className='flex items-center justify-center border-t-[1px] border-t-slate-300 w-full relative'>
-                            <div className='-mt-1 font-bod bg-white px-5 absolute'>Or</div>
-                        </div>
-                        <button onClick={navigateToSignUp} className='w-full border-[#1eabe7e3] hover:border-[#1eabe7e3] border-2 rounded-3xl p-3 text-[#1eabe7e3] font-bold transition duration-200'>Sign Up</button>
+                    </div>
+                    <div className='flex items-center justify-center gap-2 mx-auto w-full'>
+                        <p className='text-[#000000] text-opacity-50 text-xs xl:text-sm'>Login with</p>
+                        <BsApple className='h-5 w-5' />
+                        <FcGoogle className='h-5 w-5' />
                     </div>
                 </div>
-            </Form>
-        </div>
+            </div>
+        </Form>
     )
 }
 

@@ -1,17 +1,25 @@
-import { Form, Input } from 'antd'
+import { Checkbox, Form, Input } from 'antd'
 import { useNavigate } from 'react-router-dom'
-import { usePoster } from '../../hooks/poster'
+import { usePoster, useSignUp } from '../../hooks/poster'
 import { endpoints, urls } from '../../utils/helperVariables'
+import { FcGoogle } from 'react-icons/fc'
+import { BsApple } from 'react-icons/bs'
 
 const StepOne = ({ incrementStep, setResponseData }) => {
 
     const [verifyForm] = Form.useForm()
     const navigate = useNavigate()
-    const { mutate, isLoading } = usePoster(endpoints.USER_VERIFY, 'Verification sent, check your email', [], callback)
+    const { mutate, isLoading } = useSignUp()
 
     const handleFinish = () => {
         verifyForm.validateFields().then(values => {
-            mutate(values)
+            const payload = {
+                email: values.email,
+                first_name: values.first_name,
+                last_name: values.last_name,
+                password: values.password
+            }
+            mutate(payload)
         })
     }
 
@@ -22,60 +30,81 @@ const StepOne = ({ incrementStep, setResponseData }) => {
 
     const navigateToSignIn = () => navigate(urls.un_auth.LOGIN)
 
+    const inputProps = {
+        className: 'w-full p-3 xl:p-4 text-[#000000] text-opacity-50 text-xs xl:text-base border-[1px] border-[#6E7072] rounded-md hover:border-[#F5896C] focus:outline-0 focus:border focus:border-[#F5896C]'
+    }
+
     return (
-        <Form
-            className='space-y-6'
-            form={verifyForm}
-            autoComplete='off'
-        >
-            <div className='px-5 py-10 sm:p-10 border-[1px] border-slate-200 shadow-lg rounded-md flex flex-col items-center space-y-4'>
-                <div className='text-center'>
-                    <div className='font-medium text-lg sm:text-3xl text-gray-800'>
-                        Registration
+        <Form className='space-y-4 xl:space-y-6' form={verifyForm} autoComplete='off'>
+            <div className='py-8 xl:py-14 shadow-2xl bg-white'>
+                <div className='w-2/3 mx-auto space-y-4 xl:space-y-7'>
+                    <div className='text-left space-y-1 xl:space-y-3'>
+                        <div className='font-bold text-2xl xl:text-4xl text-[#000000] flex items-center'>
+                            <span>Welcome to </span>
+                            <img src='/images/logo.png' className='ml-2 h-4 xl:h-8' alt='' />
+                        </div>
+                        <div className='text-sm xl:text-lg text-[#000000] text-opacity-50'>
+                            Register your account
+                        </div>
                     </div>
-                    <div className='mt-2 text-sm sm:text-lg text-gray-600'>
-                        Create a new account with us
+                    <Form.Item
+                        name='email'
+                        rules={[{ required: true, message: 'Field cannot be empty' }, { type: 'email', message: 'Enter a valid email' }]}>
+                        <Input {...inputProps} placeholder='Email:' />
+                    </Form.Item>
+                    <Form.Item
+                        name='first_name'
+                        rules={[{ required: true, message: 'Field cannot be empty' }]}>
+                        <Input {...inputProps} placeholder='First name:' />
+                    </Form.Item>
+                    <Form.Item
+                        name='last_name'
+                        rules={[{ required: true, message: 'Field cannot be empty' }]}>
+                        <Input {...inputProps} placeholder='Last name:' />
+                    </Form.Item>
+                    <Form.Item
+                        name='password'
+                        rules={[{ required: true, message: 'Field cannot be empty' }]}>
+                        <Input {...inputProps} type='password' placeholder='Create password:' />
+                    </Form.Item>
+                    <Form.Item
+                        name='confirm_password'
+                        rules={[
+                            { required: true, message: 'Field cannot be empty' },
+                            ({ getFieldValue }) => ({
+                                validator(_, value) {
+                                    if (!value || getFieldValue('password') === value) {
+                                        return Promise.resolve()
+                                    }
+                                    return Promise.reject(new Error('The two passwords that you entered do not match!'))
+                                }
+                            })
+                        ]}>
+                        <Input {...inputProps} type='password' placeholder='Confirm password:' />
+                    </Form.Item>
+                    <div className='text-right text-xs xl:text-sm'>
+                        <span className='text-[#000000] text-opacity-50'>Already Sign Up?</span>
+                        <span onClick={navigateToSignIn} className='text-[#F3724F] cursor-pointer'> Login</span>
                     </div>
-                </div>
-                <Form.Item
-                    className='w-full'
-                    name='email'
-                    rules={[{ required: true, message: 'Field cannot be empty' }, { type: 'email', message: 'Enter a valid email' }]}>
-                    <Input className='p-3 border-[1px] border-slate-500 rounded-sm xs:w-80 focus:outline-none focus:border-[#1eabe7e3]' placeholder='Email' />
-                </Form.Item>
-                <Form.Item
-                    className='w-full'
-                    name='first_name'
-                    rules={[{ required: true, message: 'Field cannot be empty' }]}>
-                    <Input className='p-3 border-[1px] border-slate-500 rounded-sm xs:w-80 focus:outline-none focus:border-[#1eabe7e3]' placeholder='First name' />
-                </Form.Item>
-                <Form.Item
-                    className='w-full'
-                    name='last_name'
-                    rules={[{ required: true, message: 'Field cannot be empty' }]}>
-                    <Input className='p-3 border-[1px] border-slate-500 rounded-sm xs:w-80 focus:outline-none focus:border-[#1eabe7e3]' placeholder='Last name' />
-                </Form.Item>
-                <Form.Item
-                    className='w-full'
-                    name='password'
-                    rules={[{ required: true, message: 'Field cannot be empty' }]}>
-                    <Input className='p-3 border-[1px] border-slate-500 rounded-sm xs:w-80 focus:outline-none focus:border-[#1eabe7e3]' type='password' placeholder='Password' />
-                </Form.Item>
-                <div className='flex flex-col space-y-5 w-full'>
-                    <button
-                        disabled={isLoading}
-                        onClick={handleFinish}
-                        className='w-full bg-gradient-to-r from-[#1eabe7e3] to-cyan-300 rounded-3xl p-3 text-white font-bold transition duration-200'>
-                        {isLoading ? 'Signing Up...' : 'Sign Up'}
-                    </button>
-                    <div className='flex items-center justify-center border-t-[1px] border-t-slate-300 w-full relative'>
-                        <div className='-mt-1 font-bod bg-white px-5 absolute'>Or</div>
+                    <Form.Item name='agree' valuePropName='checked' rules={[{ required: true, message: 'Please agree before you proceed' }]}>
+                        <Checkbox>
+                            <span className='text-[#000000] text-opacity-50 text-xs xl:text-sm'>I agree to the</span>
+                            <span className='text-[#F3724F] cursor-pointer text-xs xl:text-sm'> Terms privacy policy</span>
+                        </Checkbox>
+                    </Form.Item>
+                    <div className='w-4/5 mx-auto'>
+                        <button
+                            disabled={isLoading}
+                            onClick={handleFinish}
+                            className='w-full bg-[#F3724F] rounded-lg p-3 text-white font-bold transition duration-200'>
+                            {isLoading ? 'Signing Up...' : 'Sign Up'}
+                        </button>
                     </div>
-                    <button
-                        onClick={navigateToSignIn}
-                        className='w-full border-[#1eabe7e3] hover:border-[#1eabe7e3] border-2 rounded-3xl p-3 text-[#1eabe7e3] font-bold transition duration-200'>
-                        Sign In
-                    </button>
+                    <div className='flex items-center justify-center gap-2 mx-auto w-full'>
+                        <p className='text-[#000000] text-opacity-50 text-xs xl:text-sm'>Create account with</p>
+                        <BsApple className='h-5 w-5' />
+                        <FcGoogle className='h-5 w-5' />
+                    </div>
                 </div>
             </div>
         </Form>
