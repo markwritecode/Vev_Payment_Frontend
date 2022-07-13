@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import { useAuth } from '../../contexts/auth'
 import Layout from '../General/Layout'
 import Loading from '../General/Loading'
+import SignUpWelcome from '../SignUp/SignUpWelcome'
 
 const Dashboard = lazy(() => import('../../pages/Dashboard'))
 const Invoice = lazy(() => import('../../pages/Invoice'))
@@ -21,12 +22,13 @@ const Authenticated = () => {
         <Layout showLayout={showLayout} >
             <Suspense fallback={<Loading />}>
                 <Routes>
-                    <Route path='/' element={signup ? 'Welcome' : <Dashboard />} />
+                    <Route path='/' element={signup ? <SignUpWelcome /> : <Dashboard />} />
                     <Route path='invoice' element={<Invoice />} />
                     <Route path='transactions' element={<Transactions />} />
                     <Route path='activity/*' element={<Activity />} />
                     <Route path='wallet' element={<Wallet />} />
                     <Route path='profile' element={<Profile />} />
+                    <Route path='welcome' element={<SignUpWelcome />} />
                     <Route path='*' element={'Page not found'} />
                 </Routes>
             </Suspense>
