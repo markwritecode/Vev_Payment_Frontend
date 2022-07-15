@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const liveAxios = axios.create({
-    baseURL: 'http://api.rotamary.org/api/',
+    baseURL: 'http://api.getyournin.com/api/',
 })
 
 export const poster = async (url, { data } = { data: {} }) => {

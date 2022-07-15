@@ -28,7 +28,8 @@ const SignIn = () => {
             <div className='py-8 xl:py-14 shadow-2xl bg-white'>
                 <div className='w-2/3 mx-auto space-y-4 xl:space-y-7'>
                     <div className='text-center space-y-1 xl:space-y-3'>
-                        <div className='font-bold text-2xl xl:text-4xl text-[#000000]'>Payment Secured</div>
+                        <div className='font-bold text-2xl xl:text-4xl text-[#000000] hidden sm:block'>Payment Secured</div>
+                        <img src='/images/vev_logo.png' className='h-10 mx-auto sm:hidden' alt='vev' />
                     </div>
                     <Form.Item
                         name='email'

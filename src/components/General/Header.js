@@ -26,15 +26,15 @@ const Header = ({ expanded, toggleExpansion }) => {
     }
 
     return (
-        <header className='w-full pl-5 space-x-10 sticky top-0 bg-[#F9F9F9]'>
-            <div className='flex items-center justify-between w-full py-2 border-b-[1px] border-gray-200'>
+        <header className='w-full pl-5 space-x-10 sticky top-0 bg-[#E6E6E6]'>
+            <div className='flex items-center justify-between w-full py-2'>
                 <div className='flex items-center gap-6'>
-                    {
+                    {/* {
                         expanded ?
                             <RiMenuFoldLine onClick={toggleExpansion} className='w-7 h-7 font-thin text-[#1EAAE7] cursor-pointer' /> :
                             <RiMenuUnfoldLine onClick={toggleExpansion} className='w-7 h-7 font-thin text-[#1EAAE7] cursor-pointer' />
-                    }
-                    <img src='/images/logo1.jpg' className='w-16' alt='vev logo' />
+                    } */}
+                    <img src='/images/vev_logo.png' className='h-10' alt='vev logo' />
                 </div>
                 <div className='flex flex-shrink-0 items-center pr-5 space-x-1 lg:space-x-5 text-black'>
 
@@ -51,11 +51,11 @@ const Header = ({ expanded, toggleExpansion }) => {
 
                     <div className='flex items-center space-x-4 cursor-pointer'>
                         <div className='lg:flex flex-col items-end hidden'>
-                            <div className='text-md font-medium'>Hello, {user.name}</div>
-                            <div className='text-xs text-gray-500 font-regular'>{user.email}</div>
+                            <div className='text-md font-medium'>Hello, {user?.name}</div>
+                            <div className='text-xs text-gray-500 font-regular'>{user?.email}</div>
                         </div>
 
-                        <Avatar size={50} src={`https://i.pravatar.cc/300?img=${user.id}`} />
+                        <Avatar size={50} src={`https://i.pravatar.cc/300?img=${user?.id}`} />
                     </div>
                     <Dropdown overlay={menu} trigger={['click']}>
                         <HiDotsVertical onClick={e => e.preventDefault()} className='h-6 w-6 cursor-pointer' />

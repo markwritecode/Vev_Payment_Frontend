@@ -23,7 +23,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       {auth ? <Authenticated /> : <UnAuthenticated />}
 
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   )
 }

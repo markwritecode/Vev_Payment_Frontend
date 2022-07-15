@@ -15,13 +15,13 @@ const Layout = ({ children, showLayout }) => {
     }, [location])
 
     return (
-        <div className='bg-[#F9F9F9]'>
+        <div className='bg-[#E6E6E6]'>
+            {showLayout && <Header expanded={expanded} toggleExpansion={toggleExpansion} />}
             <div className='h-screen w-full flex items-center flex-auto'>
                 {showLayout && <Sidebar expanded={expanded} />}
 
                 <div className={`w-full h-full flex flex-col justify-between`}>
-                    {showLayout && <Header expanded={expanded} toggleExpansion={toggleExpansion} />}
-                    <main className='w-full h-full flex lg:pl-5 overflow-y-scroll'>
+                    <main className='w-full h-full flex overflow-y-scroll'>
                         {children}
                     </main>
                 </div>
