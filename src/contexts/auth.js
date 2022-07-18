@@ -30,13 +30,8 @@ const AuthProvider = ({ children }) => {
         navigate('/')
     }
 
-    const action = (type, key, data, signup) => {
-        if (type === 'signin') signin(key, data, signup)
-        else if (type === 'signout') signout()
-    }
-
     return (
-        <authContext.Provider value={{ auth, signup, setSignUp, action }}>
+        <authContext.Provider value={{ auth, signup, setSignUp, signin, signout }}>
             {children}
         </authContext.Provider>
     )

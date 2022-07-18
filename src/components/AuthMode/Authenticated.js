@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { useAuth } from '../../contexts/auth'
 import Layout from '../General/Layout'
 import Loading from '../General/Loading'
@@ -15,11 +15,9 @@ const Profile = lazy(() => import('../../pages/Profile'))
 const Authenticated = () => {
 
     const { signup } = useAuth()
-    const location = useLocation()
-    const showLayout = location.pathname !== '/activity/checkout'
 
     return (
-        <Layout showLayout={showLayout} >
+        <Layout>
             <Suspense fallback={<Loading />}>
                 <Routes>
                     <Route path='/' element={signup ? <SignUpWelcome /> : <Dashboard />} />

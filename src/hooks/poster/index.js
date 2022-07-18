@@ -31,7 +31,7 @@ export const usePoster = (url, success, invalidate, callback) => {
 export const useSignIn = () => {
 
     const handleNotify = useHandleNotifications()
-    const { action } = useAuth()
+    const { signin } = useAuth()
 
     return useMutation(data =>
         poster(endpoints.USER_LOGIN, {
@@ -39,7 +39,7 @@ export const useSignIn = () => {
         }), {
         onSuccess: async response => {
             if (response.data?.status === 'ok') {
-                action('signin', response?.data?.token, response?.data?.user)
+                signin(response?.data?.token, response?.data?.user)
                 handleNotify('success', 'Sign in successful')
             } else {
                 handleNotify('error')
@@ -54,7 +54,7 @@ export const useSignIn = () => {
 export const useSignUp = () => {
 
     const handleNotify = useHandleNotifications()
-    const { action } = useAuth()
+    const { signin } = useAuth()
 
     return useMutation(data =>
         poster(endpoints.SIGNUP, {
@@ -62,7 +62,7 @@ export const useSignUp = () => {
         }), {
         onSuccess: async response => {
             if (response.data?.status === 'ok') {
-                action('signin', response?.data?.token, response?.data?.user, 'signup')
+                signin(response?.data?.token, response?.data?.user, 'signup')
                 // handleNotify('success', 'Sign in successful')
             } else {
                 handleNotify('error')
