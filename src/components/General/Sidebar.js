@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { Home, LogoutCurve, Setting2 } from 'iconsax-react'
+import { CloseCircle, Home, LogoutCurve, Setting2 } from 'iconsax-react'
 import { useAuth } from '../../contexts/auth'
 
 const navData = [
@@ -7,15 +7,18 @@ const navData = [
     { to: '/profile', icon: <Setting2 variant='Bold' className='h-6 w-6' />, name: 'User Setting' },
 ]
 
-const Sidebar = ({ expanded }) => {
+const Sidebar = ({ expanded, toggleExpansion }) => {
 
     const { signout } = useAuth()
 
     return (
-        <aside className={`fixed w-52 xl:w-64 h-screen text-black transition-all duration-300 bg-[#E6E6E6] py-5 hidden lg:flex`}>
+        <aside className={`fixed ${expanded ? 'w-full' : 'w-0 lg:w-52 xl:w-64'} h-screen text-black transition-all duration-300 bg-[#E6E6E6] py-5`}>
             <div className='overflow-y-auto flex flex-col justify-between flex-grow'>
                 <div>
-                    <img src='/images/vev_logo.png' className='w-20 xl:w-32 ml-5' alt='vev logo' />
+                    <div className='flex items-center justify-between'>
+                        <img src='/images/vev_logo.png' className='w-20 xl:w-32 ml-5' alt='vev logo' />
+                        <CloseCircle onClick={toggleExpansion} className='lg:hidden mr-3 text-red-500' variant='Bulk' />
+                    </div>
                     <div className='flex flex-col pt-20'>
                         {
                             navData.map(item => {

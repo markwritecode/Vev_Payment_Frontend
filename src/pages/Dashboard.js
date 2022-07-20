@@ -15,23 +15,24 @@ const Dashboard = () => {
     if (isLoading) return <Loading />
 
     return (
-        <div className='space-y-4'>
-            <h3 className='text-2xl font-bold'>Hello, {user?.first_name}</h3>
-            <div className='bg-[#895CDF] rounded-lg p-8 text-white space-y-5'>
+        <div className='lg:space-y-4'>
+            <h3 className='text-2xl font-bold hidden lg:block'>Hello, {user?.first_name}</h3>
+            <div className='bg-[#895CDF] lg:rounded-lg px-5 py-12 lg:p-8 text-white space-y-3 lg:space-y-5'>
+                <h3 className='text-2xl text-white lg:hidden'>Hello, {user?.first_name}</h3>
                 <h5 className='text-white'>Account Balance</h5>
-                <h6 className='text-white font-bold text-5xl'>${currencyFormatter(1000000)}</h6>
-                <div className='flex items-center gap-8'>
-                    <button className='bg-[#F3724F] flex items-center gap-2 px-5 py-3 rounded-lg'>
-                        <AddSquare variant='Bold' />
-                        <span>Add Money</span>
+                <h6 className='text-white font-bold bg-[#D1C0F3] lg:bg-transparent w-fit p-4 lg:p-0 rounded-lg text-2xl lg:text-5xl'>${currencyFormatter(1000000)}</h6>
+                <div className='flex items-center gap-2 lg:gap-8 pt-6 lg:pt-0'>
+                    <button className='bg-[#F3724F] flex items-center gap-2 px-2 lg:px-5 py-2 lg:py-3 rounded-lg'>
+                        <AddSquare variant='Bold' className='h-5' />
+                        <span className='text-xs lg:text-base'>Add Money</span>
                     </button>
-                    <button className='bg-[#F3724F] flex items-center gap-2 px-5 py-3 rounded-lg'>
-                        <Send2 variant='Bold' />
-                        <span>Withdraw</span>
+                    <button className='bg-[#F3724F] flex items-center gap-2 px-2 lg:px-5 py-2 lg:py-3 rounded-lg'>
+                        <Send2 variant='Bold' className='h-5' />
+                        <span className='text-xs lg:text-base'>Withdraw</span>
                     </button>
                 </div>
             </div>
-            <div className='grid grid-cols-2 gap-10'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-10 mt-10 lg:mt-0'>
                 <TransactionsCard />
                 <BeneficiaryCard />
             </div>

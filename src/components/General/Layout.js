@@ -1,3 +1,4 @@
+import { HambergerMenu } from 'iconsax-react'
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import Header from './Header'
@@ -16,14 +17,15 @@ const Layout = ({ children }) => {
 
     return (
         <div className='bg-[#E6E6E6]'>
-            <Sidebar expanded={expanded} />
-            <div className='h-screen ml-52 xl:ml-64'>
-                <Header expanded={expanded} toggleExpansion={toggleExpansion} />
-                <div className='h-full bg-white pl-3 pt-3'>
-                    <main className='bg-[#E6E6E6] w-full h-full overflow-auto p-10'>
-                        {children}
-                    </main>
-                </div>
+            <Sidebar expanded={expanded} toggleExpansion={toggleExpansion} />
+            <div className={`h-screen ml-0 lg:ml-52 xl:ml-64`}>
+                <Header />
+                <main className='bg-[#E6E6E6] w-full h-full overflow-auto lg:p-10 lg:border-l-8 lg:border-t-8 border-white'>
+                    <div className='fixed top-2 left-5 block lg:hidden'>
+                        {!expanded && <HambergerMenu onClick={toggleExpansion} className='text-white' />}
+                    </div>
+                    {children}
+                </main>
             </div>
         </div>
     )

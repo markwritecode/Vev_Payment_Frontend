@@ -7,7 +7,7 @@ const Header = ({ expanded, toggleExpansion }) => {
     const { user } = useFetchLocalStorageData()
 
     return (
-        <header className='w-full pl-5 space-x-10 sticky top-0 bg-[#E6E6E6]'>
+        <header className='w-full pl-5 space-x-10 sticky top-0 bg-[#E6E6E6] hidden lg:block'>
             <div className='flex items-center justify-between w-full py-4'>
 
                 <div className='relative text-gray-400 focus-within:text-gray-400 w-96'>
