@@ -25,8 +25,8 @@ const SignIn = () => {
 
     return (
         <Form className='space-y-6' form={signinForm} autoComplete='off'>
-            <div className='py-8 xl:py-14 shadow-2xl bg-white'>
-                <div className='w-2/3 mx-auto space-y-4 xl:space-y-7'>
+            <div className='py-8 xl:py-14 lg:shadow-2xl bg-white'>
+                <div className='lg:w-2/3 mx-auto space-y-4 xl:space-y-7 px-5 lg:px-0'>
                     <div className='text-center space-y-1 xl:space-y-3'>
                         <div className='font-bold text-2xl xl:text-4xl text-[#000000] hidden sm:block'>Payment Secured</div>
                         <img src='/images/vev_logo.png' className='h-10 mx-auto sm:hidden' alt='vev' />
@@ -45,7 +45,7 @@ const SignIn = () => {
                         <span className='text-[#000000] text-opacity-50 text-xs xl:text-sm'>Create an account?</span>
                         <span onClick={navigateToSignUp} className='text-[#F3724F] cursor-pointer text-xs xl:text-sm'> Sign Up</span>
                     </div>
-                    <div className='w-4/5 mx-auto'>
+                    <div className='lg:w-4/5 mx-auto'>
                         <button
                             disabled={isLoading}
                             onClick={handleFinish}
