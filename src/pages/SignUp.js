@@ -31,7 +31,7 @@ const SignUp = () => {
 
     return (
         <Form className='space-y-4 xl:space-y-6' form={signUpForm} autoComplete='off'>
-            <div className='py-8 xl:py-14 shadow-2xl bg-white'>
+            <div className='py-8 xl:py-14 md:shadow-2xl bg-white'>
                 <div className='lg:w-2/3 mx-auto space-y-4 xl:space-y-7 px-5 lg:px-0'>
                     <div className='text-left space-y-1 xl:space-y-3 hidden sm:block'>
                         <div className='font-bold text-2xl xl:text-4xl text-[#000000] flex items-center'>

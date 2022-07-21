@@ -25,7 +25,7 @@ const SignIn = () => {
 
     return (
         <Form className='space-y-6' form={signinForm} autoComplete='off'>
-            <div className='py-8 xl:py-14 lg:shadow-2xl bg-white'>
+            <div className='py-8 xl:py-14 md:shadow-2xl bg-white'>
                 <div className='lg:w-2/3 mx-auto space-y-4 xl:space-y-7 px-5 lg:px-0'>
                     <div className='text-center space-y-1 xl:space-y-3'>
                         <div className='font-bold text-2xl xl:text-4xl text-[#000000] hidden sm:block'>Payment Secured</div>
