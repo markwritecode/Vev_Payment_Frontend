@@ -1,20 +1,19 @@
 import { ArrowDown3, ArrowUp3 } from 'iconsax-react'
+import { useFetcher } from '../../hooks/fetcher'
+import { endpoints } from '../../utils/helperVariables'
 
 const TransactionsCard = () => {
 
-    const data = [
-        { name: 'Halari Jackson T', action: 'Receipts of funds', amount: '250.00', type: 'decrease' },
-        { name: 'Emmanuella Buzz', action: 'Receipts of funds', amount: '150.00', type: 'increase' },
-        { name: 'Babalola Joshua', action: 'Receipts of funds', amount: '250.00', type: 'decrease' },
-        { name: 'Bosslady Clothings', action: 'Receipts of funds', amount: '130.00', type: 'increase' }
-    ]
+    const { data } = useFetcher(endpoints.DASHBOARD_REPORT)
+
+    const list = data?.transactions
 
     return (
-        <div className='bg-white rounded-lg p-8'>
-            <h4 className='font-bold text-lg lg:text-2xl'>Transactions</h4>
+        <div className='bg-white rounded-lg p-8 w-full'>
+            <h4 className='font-medium text-lg lg:text-[28px]'>Transactions</h4>
             <div className='mt-8 space-y-5 max-h-[20rem] overflow-y-auto'>
                 {
-                    data.map((item, index) => {
+                    list?.length > 0 ? list?.map((item, index) => {
                         return (
                             <div key={index} className='flex items-start justify-between'>
                                 <div className='flex items-start gap-4'>
@@ -30,7 +29,7 @@ const TransactionsCard = () => {
                                 </div>
                             </div>
                         )
-                    })
+                    }) : 'You currently have no transactions'
                 }
             </div>
         </div>

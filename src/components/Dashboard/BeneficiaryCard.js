@@ -1,20 +1,19 @@
 import { ArrowCircleRight } from 'iconsax-react'
+import { useFetcher } from '../../hooks/fetcher'
+import { endpoints } from '../../utils/helperVariables'
 
 const BeneficiaryCard = () => {
 
-    const data = [
-        { name: 'Halari Jackson T' },
-        { name: 'Emmanuella Buzz' },
-        { name: 'Babalola Joshua' },
-        { name: 'Bosslady Clothings' },
-    ]
+    const { data } = useFetcher(endpoints.DASHBOARD_REPORT)
+
+    const list = data?.beneficiaries
 
     return (
-        <div className='bg-white rounded-lg p-8'>
-            <h4 className='font-bold text-lg lg:text-2xl'>Beneficiary</h4>
+        <div className='bg-white rounded-lg p-8 w-full'>
+            <h4 className='font-medium text-lg lg:text-[28px]'>Beneficiary</h4>
             <div className='mt-8 space-y-5 max-h-[20rem] overflow-y-auto'>
                 {
-                    data.map((item, index) => {
+                    list?.length > 0 ? list.map((item, index) => {
                         return (
                             <div key={index} className='flex items-center justify-between'>
                                 <div className='flex items-center gap-4'>
@@ -29,7 +28,7 @@ const BeneficiaryCard = () => {
                                 </div>
                             </div>
                         )
-                    })
+                    }) : 'You currently have no beneficiaries'
                 }
             </div>
         </div>
