@@ -4,6 +4,7 @@ import { useAuth } from '../../contexts/auth'
 
 const navData = [
     { to: '/', icon: <Home variant='Bold' className='h-6 w-6' />, name: 'Dashboard' },
+    { to: '/transactions', icon: <Setting2 variant='Bold' className='h-6 w-6' />, name: 'My Transaction' },
     { to: '/profile', icon: <Setting2 variant='Bold' className='h-6 w-6' />, name: 'User Setting' },
 ]
 
@@ -12,7 +13,7 @@ const Sidebar = ({ expanded, toggleExpansion }) => {
     const { signout } = useAuth()
 
     return (
-        <aside className={`fixed ${expanded ? 'w-full' : 'w-0 lg:w-52 xl:w-[246px]'} h-screen text-black transition-all duration-300 bg-[#E6E6E6] py-5`}>
+        <aside className={`fixed ${expanded ? 'w-full' : 'w-0 lg:w-[246px]'} h-screen text-black transition-all duration-300 bg-[#E6E6E6] py-5`}>
             <div className='overflow-y-auto flex flex-col justify-between flex-grow'>
                 <div>
                     <div className='flex items-center justify-between'>

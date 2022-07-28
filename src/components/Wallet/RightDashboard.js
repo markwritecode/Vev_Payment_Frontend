@@ -1,6 +1,3 @@
-import { BiBell, BiSearch } from 'react-icons/bi'
-import { MdBarChart } from 'react-icons/md'
-import Transactions from '../Transactions/Transactions'
 import { useFetcher } from '../../hooks/fetcher'
 import { endpoints } from '../../utils/helperVariables'
 
@@ -108,10 +105,6 @@ const RightDashboard = () => {
                     </div>
                 </div>
             </div> */}
-
-            <div className='mt-14'>
-                <Transactions payments={data?.transactions} title='Transactions' />
-            </div>
 
         </div>
     )
