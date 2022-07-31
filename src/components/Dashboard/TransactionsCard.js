@@ -19,12 +19,12 @@ const TransactionsCard = () => {
                                 <div className='flex items-start gap-4'>
                                     <img className='h-20' src={`/images/avatar${index + 1}.png`} alt='vev' />
                                     <div>
-                                        <p className='font-semibold text-sm lg:text-base'>{item.name}</p>
-                                        <p>{item.action}</p>
+                                        <p className='font-semibold text-sm lg:text-base'>{item.owner}</p>
+                                        <p className='truncate'>{item.description}</p>
                                     </div>
                                 </div>
                                 <div className='items-center gap-2 hidden lg:flex'>
-                                    {item.type === 'decrease' ? <ArrowDown3 variant='Bold' className='text-[#E51F33]' /> : <ArrowUp3 variant='Bold' className='text-[#36964E]' />}
+                                    {item.type === 'inbound' ? <ArrowDown3 variant='Bold' className='text-[#E51F33]' /> : <ArrowUp3 variant='Bold' className='text-[#36964E]' />}
                                     <p className='font-semibold text-base'>${item.amount}</p>
                                 </div>
                             </div>

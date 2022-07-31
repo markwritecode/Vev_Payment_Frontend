@@ -1,7 +1,7 @@
 import { Form, Upload } from 'antd'
 import { useState } from 'react'
 import { IoPencilSharp } from 'react-icons/io5'
-import CustomInput from '../components/General/CustomInput'
+// import CustomInput from '../components/General/CustomInput'
 import { useFetchLocalStorageData } from '../hooks/utilities/useFetchLocalStorage'
 import { Menu } from 'antd'
 import { BsFillBellFill, BsShieldLockFill } from 'react-icons/bs'
@@ -82,7 +82,7 @@ const Profile = () => {
                             country: profile?.country
                         }}
                     >
-                        <div className='grid grid-cols-1 sm:grid-cols-2 sm:gap-8'>
+                        {/* <div className='grid grid-cols-1 sm:grid-cols-2 sm:gap-8'>
                             <CustomInput item={{ name: 'first_name', label: 'First Name', disabled: true, value: profile?.first_name }} />
                             <CustomInput item={{ name: 'last_name', label: 'Last Name', disabled: true, value: profile?.last_name }} />
                         </div>
@@ -96,7 +96,7 @@ const Profile = () => {
                         <div className='grid grid-cols-1 sm:grid-cols-2 sm:gap-8'>
                             <CustomInput item={{ name: 'zip', label: 'Zip Code', disabled: true, value: '90001' }} />
                             <CustomInput item={{ name: 'country', label: 'Country', required: true, value: 'Nigeria' }} />
-                        </div>
+                        </div> */}
                         {/* <CustomInput item={{ name: 'password', label: 'Password', disabled: true, value: '********' }} /> */}
                         <button onClick={submitProfileEdit} className='bg-blue-600 px-5 py-1 rounded-md text-white'>
                             {isLoading2 ? 'Saving...' : 'Save'}

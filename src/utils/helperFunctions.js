@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 export function currencyFormatter(amt) {
     const Formatter = Intl.NumberFormat()
     return Formatter.format(amt || 0)
@@ -21,4 +23,9 @@ export const formatDateAndTime = (date) => {
 export const formatDateAndTime2 = (date) => {
     const options = { month: 'long', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' }
     return new Date(date).toLocaleDateString(undefined, options)
+}
+
+export const dateFormatter = date => {
+    const _date = moment(new Date(date)).format(`Do MMMM, YYYY`)
+    return _date.toLowerCase() === 'invalid date' ? '-------' : _date
 }

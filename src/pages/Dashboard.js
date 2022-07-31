@@ -33,7 +33,7 @@ const Dashboard = () => {
                 </div>
             </div>
             <div className='overflow-scroll mt-5 sm:mt-0 px-5 sm:px-0'>
-                <div className='flex items-center gap-5 w-[540px] sm:w-full'>
+                <div className='flex items-start gap-5 w-[540px] sm:w-full'>
                     <TransactionsCard />
                     <BeneficiaryCard />
                 </div>

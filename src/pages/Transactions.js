@@ -6,10 +6,9 @@ import TransactionHistory from '../components/Transactions/TransactionHistory'
 
 const Transactions = () => {
 
-    const { data, isLoading: pullTransactionsLoading } = useFetcher(endpoints.TRANSACTION_REPORTS)
+    const { isLoading: pullTransactionsLoading } = useFetcher(endpoints.TRANSACTION_REPORTS)
 
     if (pullTransactionsLoading) return <Loading />
-    console.log(data)
 
     return (
         <div>
