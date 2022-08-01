@@ -14,10 +14,11 @@ const TransactionsCard = () => {
             <div className='mt-8 space-y-5 max-h-[20rem] overflow-y-auto'>
                 {
                     list?.length > 0 ? list?.map((item, index) => {
+                        const i = index > 3 ? index % 3 : index
                         return (
                             <div key={index} className='flex items-start justify-between'>
                                 <div className='flex items-start gap-4'>
-                                    <img className='h-20' src={`/images/avatar${index + 1}.png`} alt='vev' />
+                                    <img className='h-20' src={`/images/avatar${i + 1}.png`} alt='vev' />
                                     <div>
                                         <p className='font-semibold text-sm lg:text-base'>{item.owner}</p>
                                         <p className='truncate'>{item.description}</p>

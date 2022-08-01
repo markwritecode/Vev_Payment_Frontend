@@ -36,10 +36,11 @@ const TransactionHistory = () => {
                     {
                         data?.transactions?.map((item, index) => {
                             const color = item.status === 'received' ? 'bg-[#318947] text-[#318947]' : item.status === 'debited' ? 'bg-[#E51F33] text-[#E51F33]' : 'bg-[#D07D1C] text-[#D07D1C]'
+                            const i = index > 3 ? index%3 : index
                             return (
                                 <div key={index} className='flex items-center justify-between py-[15px] pl-[20px] pr-[53px]'>
                                     <div className='flex items-center gap-[12px]'>
-                                        <img src={`/images/avatar${index + 1}.png`} className='h-[50px] w-[50px] rounded-full' alt='vev' />
+                                        <img src={`/images/avatar${i + 1}.png`} className='h-[50px] w-[50px] rounded-full' alt='vev' />
                                         <div>
                                             <h4 className='font-semibold text-base text-black opacity-60'>{item.owner}</h4>
                                             <h5 className='text-sm text-black opacity-60'>{dateFormatter(item.created_at)}</h5>
