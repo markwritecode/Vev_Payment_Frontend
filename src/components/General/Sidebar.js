@@ -13,11 +13,13 @@ const Sidebar = ({ expanded, toggleExpansion }) => {
     const { signout } = useAuth()
 
     return (
-        <aside className={`fixed ${expanded ? 'w-full' : 'w-0 lg:w-[246px]'} h-screen text-black transition-all duration-300 bg-[#E6E6E6] py-5`}>
+        <aside className={`fixed ${expanded ? 'w-full' : 'w-0 lg:w-[246px]'} h-screen text-black transition-all duration-300 bg-[#E6E6E6] py-5 z-30`}>
             <div className='overflow-y-auto flex flex-col justify-between flex-grow'>
                 <div>
                     <div className='flex items-center justify-between'>
-                        <img src='/images/vev_logo.png' className='w-20 xl:w-32 ml-5' alt='vev logo' />
+                        <NavLink to='/'>
+                            <img src='/images/vev_logo.png' className='w-20 xl:w-32 ml-5' alt='vev logo' />
+                        </NavLink>
                         <CloseCircle onClick={toggleExpansion} className='lg:hidden mr-3 text-red-500' variant='Bulk' />
                     </div>
                     <div className='flex flex-col pt-20'>
