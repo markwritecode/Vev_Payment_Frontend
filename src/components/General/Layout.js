@@ -21,8 +21,8 @@ const Layout = ({ children }) => {
             <div className={`h-screen ml-0 lg:ml-[246px]`}>
                 <Header />
                 <main className='bg-[#E6E6E6] w-full h-full overflow-auto lg:border-l-8 lg:border-t-8 border-white'>
-                    <div className='fixed top-2 left-5 block lg:hidden'>
-                        {!expanded && <HambergerMenu onClick={toggleExpansion} className='text-white' />}
+                    <div className='fixed top-0 left-0 lg:hidden bg-white h-10 w-full flex items-center'>
+                        {!expanded && <HambergerMenu onClick={toggleExpansion} className='text-black opacity-50 ml-[27px]' />}
                     </div>
                     {children}
                 </main>

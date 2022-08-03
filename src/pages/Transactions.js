@@ -12,8 +12,8 @@ const Transactions = () => {
 
     return (
         <div>
-            <div className='h-[45px] lg:h-[75px] bg-[#E6E6E6]' style={{ boxShadow: '0px 4px 9px rgba(0, 0, 0, 0.25)' }}></div>
-            <div className='px-[20px] md:px-[50px] py-[35px]'>
+            <div className='md:h-[45px] lg:h-[75px] bg-[#E6E6E6]' style={{ boxShadow: '0px 4px 9px rgba(0, 0, 0, 0.25)' }}></div>
+            <div className='md:px-[50px] md:py-[35px]'>
                 <BeneficiariesCard />
                 <TransactionHistory />
             </div>
