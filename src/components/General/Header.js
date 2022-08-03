@@ -12,7 +12,7 @@ const Header = ({ expanded, toggleExpansion }) => {
     const list = data?.beneficiaries
 
     return (
-        <header className='w-full pl-5 space-x-10 sticky top-0 bg-[#E6E6E6] hidden lg:block'>
+        <header className='w-full pl-5 space-x-10 sticky top-0 bg-[#E6E6E6] hidden lg:block lg:border-b-8 border-white'>
             <div className='flex items-center justify-between w-full py-4'>
 
                 <div>

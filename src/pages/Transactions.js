@@ -11,12 +11,9 @@ const Transactions = () => {
     if (pullTransactionsLoading) return <Loading />
 
     return (
-        <div>
-            <div className='md:h-[45px] lg:h-[75px] bg-[#E6E6E6]' style={{ boxShadow: '0px 4px 9px rgba(0, 0, 0, 0.25)' }}></div>
-            <div className='md:px-[50px] md:py-[35px]'>
-                <BeneficiariesCard />
-                <TransactionHistory />
-            </div>
+        <div className='md:px-[50px] md:py-[35px]'>
+            <BeneficiariesCard />
+            <TransactionHistory />
         </div>
     )
 }

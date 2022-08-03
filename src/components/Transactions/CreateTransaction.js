@@ -46,6 +46,7 @@ const CreateTransaction = ({ visible, onClose }) => {
             {
                 step === 'description' ?
                     <Form form={createTransaction}>
+                        <h4 className='font-medium text-black text-2xl pb-[39px]'>Transaction Info</h4>
                         <CustomInput item={{ name: 'amount', label: 'Amount', type: 'number', required: true }} />
                         <CustomTextarea name='description' label='Description' valMessage='Field cannot be empty' />
                         <button onClick={submitTransaction} disabled={isLoading} className='bg-[#F3724F] rounded text-white px-[32px] py-[16px] font-semibold text-base w-fit mx-auto block'>

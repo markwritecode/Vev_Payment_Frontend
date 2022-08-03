@@ -1,11 +1,13 @@
 import { NavLink } from 'react-router-dom'
-import { CloseCircle, Home, LogoutCurve, Setting2 } from 'iconsax-react'
+import { ArrowRight, CloseCircle, Home, LogoutCurve, Notification, Setting2, ShieldTick } from 'iconsax-react'
 import { useAuth } from '../../contexts/auth'
 
 const navData = [
     { to: '/', icon: <Home variant='Bold' className='h-6 w-6' />, name: 'Dashboard' },
-    { to: '/transactions', icon: <Setting2 variant='Bold' className='h-6 w-6' />, name: 'My Transaction' },
-    { to: '/profile', icon: <Setting2 variant='Bold' className='h-6 w-6' />, name: 'User Setting' },
+    { to: '/transactions', icon: <ArrowRight variant='Broken' className='h-6 w-6' />, name: 'My Transaction' },
+    { to: '/notification', icon: <Notification variant='Bold' className='h-6 w-6' />, name: 'Notification' },
+    { to: '/approve_money', icon: <ShieldTick variant='Bold' className='h-6 w-6' />, name: 'Approve Money' },
+    { to: '/settings', icon: <Setting2 variant='Bold' className='h-6 w-6' />, name: 'Setting' },
 ]
 
 const Sidebar = ({ expanded, toggleExpansion }) => {
@@ -14,7 +16,7 @@ const Sidebar = ({ expanded, toggleExpansion }) => {
 
     return (
         <aside className={`fixed ${expanded ? 'w-full' : 'w-0 lg:w-[246px]'} h-screen text-black transition-all duration-300 bg-[#E6E6E6] py-5 z-30`}>
-            <div className='overflow-y-auto flex flex-col justify-between flex-grow'>
+            <div className='overflow-y-auto flex flex-col justify-between flex-grow h-full'>
                 <div>
                     <div className='flex items-center justify-between'>
                         <NavLink to='/'>

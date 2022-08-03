@@ -11,9 +11,9 @@ const BeneficiariesCard = () => {
     const toggleCreateTransaction = () => setVisible(prev => !prev)
 
     return (
-        <div className='bg-white md:bg-[#F0EBFB] md:shadow-md pt-[60px] pb-10 md:pb-0'>
+        <div className='bg-white md:bg-[#F0EBFB] md:shadow-md pt-[60px] md:pt-0 pb-10 md:pb-0'>
             <h4 className='text-[24px] font-bold text-[#000000] md:text-opacity-50 pl-[27px] md:p-[18px]'>Beneficiaries</h4>
-            <div className='pl-[36px] md:pl-[64px] pt-[18px] pb-[46px] flex items-start gap-10 overflow-auto'>
+            <div className='pl-[36px] pt-[18px] pb-[46px] flex items-start gap-10 overflow-auto'>
                 {/* <div className='bg-white rounded-full p-[26px] flex items-center justify-center mx-auto cursor-pointer' style={{ filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))' }}>
                     <Add className='h-[48px] w-[48px] text-[#49454E]' />
                 </div> */}
