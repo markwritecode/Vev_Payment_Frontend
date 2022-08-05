@@ -22,14 +22,12 @@ const TransactionHistory = () => {
                     <Add variant='Bold' className='h-[18px] md:h-[28px' />
                 </button>
             </div>
-            <div className='mt-[26px] bg-white pt-[22px]'>
-                <div
-                    className='hidden md:block relative text-gray-400 focus-within:text-gray-400 w-full md:w-96 mx-auto px-3 md:px-0'
-                    style={{ filter: 'drop-shadow(0px -4px 10px rgba(0, 0, 0, 0.25)) drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25))' }}>
+            <div className='mt-[26px] bg-white'>
+                <div className='hidden md:block relative text-gray-400 focus-within:text-gray-400 w-full px-3 md:px-0' style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)' }}>
                     <span className='absolute inset-y-0 md:left-5 flex items-center pl-2 md:pl-0'>
                         <SearchNormal1 className='h-4 w-4' />
                     </span>
-                    <input className='w-full h-[38px] px-3 bg-white rounded-md pl-8 md:pl-12 focus:outline-none focus:text-gray-900' placeholder='Search for beneficiary' />
+                    <input className='w-full h-[50px] px-3 bg-white pl-8 md:pl-12 focus:outline-none focus:text-gray-900' placeholder='Search for beneficiary' />
                 </div>
 
                 <div className='mt-[23px] divide-y divide-black divide-opacity-30 overflow-x-auto'>
