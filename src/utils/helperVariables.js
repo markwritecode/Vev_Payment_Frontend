@@ -26,6 +26,7 @@ export const endpoints = {
     TRANSACTION_CONFIRMATION: 'transaction/confirm',
     TRANSACTION_INVOICE_PAYMENT: 'transaction/invoice/payment',
     TRANSACTION_REPORTS: 'transaction/report',
+    TRANSACTION_SHOW: 'transaction/show',
     ACTIVITY_SHOW: 'activity/show',
     ACTIVITY_DETAILS: 'activity/details/',
     INVOICE_CREATE: 'invoice/create',
@@ -39,5 +40,6 @@ export const endpoints = {
     USER_LOGIN: 'user/signin',
     USER_UPDATE: 'user/profile/update',
     USER_VERIFY: 'user/verify_email',
+    USER_SEARCH: 'user/search',
     SIGNUP: 'user/signup'
 }

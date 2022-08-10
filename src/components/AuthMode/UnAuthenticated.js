@@ -4,6 +4,7 @@ import Loading from '../General/Loading'
 
 const SignIn = lazy(() => import('../../pages/SignIn'))
 const SignUp = lazy(() => import('../../pages/SignUp'))
+const Checkout = lazy(() => import('../../pages/Checkout'))
 
 const UnAuthenticated = () => {
     return (
@@ -14,6 +15,7 @@ const UnAuthenticated = () => {
                     <Routes>
                         <Route path='/' element={<SignIn />} />
                         <Route path='signup' element={<SignUp />} />
+                        <Route path='checkout/:id' element={<Checkout />} />
                         <Route path='*' element={'Page not found'} />
                     </Routes>
                 </Suspense>

@@ -6,10 +6,8 @@ import Loading from '../General/Loading'
 import SignUpWelcome from '../SignUp/SignUpWelcome'
 
 const Dashboard = lazy(() => import('../../pages/Dashboard'))
-const Invoice = lazy(() => import('../../pages/Invoice'))
 const Transactions = lazy(() => import('../../pages/Transactions'))
-const Activity = lazy(() => import('../../pages/Activity'))
-const Wallet = lazy(() => import('../../pages/Wallet'))
+const Checkout = lazy(() => import('../../pages/Checkout'))
 const Profile = lazy(() => import('../../pages/Profile'))
 
 const Authenticated = () => {
@@ -21,12 +19,9 @@ const Authenticated = () => {
             <Suspense fallback={<Loading />}>
                 <Routes>
                     <Route path='/' element={signup ? <SignUpWelcome /> : <Dashboard />} />
-                    <Route path='invoice' element={<Invoice />} />
                     <Route path='transactions' element={<Transactions />} />
-                    <Route path='activity/*' element={<Activity />} />
-                    <Route path='wallet' element={<Wallet />} />
                     <Route path='profile' element={<Profile />} />
-                    <Route path='welcome' element={<SignUpWelcome />} />
+                    <Route path='checkout/:id' element={<Checkout />} />
                     <Route path='*' element={'Page not found'} />
                 </Routes>
             </Suspense>

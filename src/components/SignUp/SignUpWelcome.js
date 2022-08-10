@@ -5,7 +5,7 @@ const SignUpWelcome = () => {
     const { setSignUp } = useAuth()
 
     return (
-        <div className='fixed top-0 left-0 h-screen w-full bg-[#F3F3F3]'>
+        <div className='fixed top-0 left-0 h-screen w-full bg-[#F3F3F3] z-30'>
             <div className='flex items-center justify-center h-full relative'>
                 <img src='/images/vev_logo.png' className='absolute top-20 left-20 h-10 hidden lg:block' alt='vev' />
                 <div className='w-full md:w-[50%]'>

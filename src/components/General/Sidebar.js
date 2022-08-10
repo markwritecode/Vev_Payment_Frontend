@@ -7,7 +7,7 @@ const navData = [
     { to: '/transactions', icon: <ArrowRight variant='Broken' className='h-6 w-6' />, name: 'My Transaction' },
     { to: '/notification', icon: <Notification variant='Bold' className='h-6 w-6' />, name: 'Notification' },
     { to: '/approve_money', icon: <ShieldTick variant='Bold' className='h-6 w-6' />, name: 'Approve Money' },
-    { to: '/settings', icon: <Setting2 variant='Bold' className='h-6 w-6' />, name: 'Setting' },
+    { to: '/profile', icon: <Setting2 variant='Bold' className='h-6 w-6' />, name: 'Setting' },
 ]
 
 const Sidebar = ({ expanded, toggleExpansion }) => {

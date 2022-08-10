@@ -6,24 +6,28 @@ import { usePoster } from '../../hooks/poster'
 import { endpoints } from '../../utils/helperVariables'
 import CustomTextarea from '../General/CustomTextarea'
 import { useState } from 'react'
+import { useFetcher } from '../../hooks/fetcher'
 
 const CreateTransaction = ({ visible, onClose }) => {
 
     const [step, setStep] = useState('description')
     const [emails, setEmails] = useState([])
+    const [email, setEmail] = useState('')
+    const [transactionId, setTransactionId] = useState('')
 
     const { mutate, isLoading } = usePoster(endpoints.CREATE_TRANSACTION, 'Transaction created successfully', [], continueProcess)
     const { mutate: mutate2, isLoading: isLoading2 } = usePoster(endpoints.SEND_TRANSACTION_LINK, 'Transaction successfully', [], onClose)
     const [createTransaction] = Form.useForm()
+    const { data, isLoading: isLoadingUsers } = useFetcher(`${endpoints.USER_SEARCH}/${email}`)
 
-    const submitTransaction = (email) => {
+    const submitTransaction = () => {
         createTransaction.validateFields().then(values => {
-            step === 'description' ? mutate(values) : mutate2({ email, transaction_link: '/transactions' })
+            step === 'description' ? mutate(values) : mutate2({ email, transaction_link: `https://vev.getyournin.com/checkout/${transactionId}` })
         })
     }
 
     function continueProcess(data) {
-        // console.log(data)
+        setTransactionId(data?.transaction?.reference_number)
         setStep('final')
     }
 
@@ -34,6 +38,8 @@ const CreateTransaction = ({ visible, onClose }) => {
     const props = step !== 'description' ? {
         bodyStyle: { background: '#E6E6E6', paddingLeft: '0', paddingRight: '0' }
     } : {}
+
+    console.log(data)
 
     return (
         <Modal
@@ -77,9 +83,16 @@ const CreateTransaction = ({ visible, onClose }) => {
                             <div className='w-full'>
                                 <div className='relative flex items-center gap-2'>
                                     <input
-                                        onChange={e => handleEmailSearch({ email: 'helarijackson@gmail.com', full_name: 'Helari Jackson T.' })}
-                                        className=' bg-transparent border-black border-opacity-30 border rounded-[4px] w-full px-3 py-4 text-xs focus:outline-none focus:border-[1px] focus:border-black focus:border-opacity-30 focus:border-opacity-30 placeholder:text-[#C9C8C6]'
-                                        placeholder='Enter recipient email' />
+                                        value={email}
+                                        type='email'
+                                        required
+                                        onChange={e => {
+                                            setEmail(e.target.value)
+                                            handleEmailSearch({ email: 'helari@gmail.com', full_name: 'Helari Jackson T.' })
+                                        }}
+                                        className=' bg-transparent border-black border-opacity-30 border rounded-[4px] w-full px-3 py-4 text-xs focus:outline-none focus:border-[1px] focus:border-black focus:border-opacity-30 placeholder:text-[#C9C8C6]'
+                                        placeholder='Enter recipient email'
+                                    />
                                     {
                                         emails?.length > 0 &&
                                         <div className='absolute top-16 bg-white w-full px-3 py-4 rounded-md flex items-center justify-between'>
@@ -90,7 +103,7 @@ const CreateTransaction = ({ visible, onClose }) => {
                                                     <h5 className='text-sm text-black opacity-60'>{emails[0]?.email}</h5>
                                                 </div>
                                             </div>
-                                            <button onClick={() => submitTransaction(emails[0]?.email)} disabled={isLoading2} className='bg-[#F3724F] rounded text-white px-[30px] py-[15px] text-base'>
+                                            <button onClick={submitTransaction} disabled={isLoading2} className='bg-[#F3724F] rounded text-white px-[30px] py-[15px] text-base'>
                                                 {
                                                     isLoading2 ?
                                                         <div className='flex items-center gap-2'>
@@ -109,13 +122,13 @@ const CreateTransaction = ({ visible, onClose }) => {
                                             </button>
                                         </div>
                                     }
-                                    {isLoading && <Spin indicator={<LoadingOutlined style={{ color: '#D71E0E', fontSize: 24 }} spin />} />}
+                                    {isLoadingUsers && <Spin indicator={<LoadingOutlined style={{ color: '#D71E0E', fontSize: 24 }} spin />} />}
                                 </div>
                             </div>
 
                         </div>
                         <div className='absolute w-full bottom-0 border-t border-black border-opacity-20 pt-5'>
-                            <div className='flex items-center justify-center'>
+                            <div className='sm:flex items-center justify-center'>
                                 <button className='bg-[#F3724F] rounded text-white px-[32px] py-[16px] text-base'>
                                     Share link
                                 </button>

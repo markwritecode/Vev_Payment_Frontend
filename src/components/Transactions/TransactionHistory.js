@@ -40,17 +40,19 @@ const TransactionHistory = () => {
                                     <div className='flex items-center gap-[12px]'>
                                         <img src={`/images/avatar${i + 1}.png`} className='h-[40px] w-[40px] md:h-[50px] md:w-[50px] rounded-full' alt='vev' />
                                         <div>
-                                            <h4 className='md:font-semibold text-xs md:text-base text-black opacity-60'>{item.owner}</h4>
+                                            <h4 className='md:font-semibold text-xs md:text-base text-black opacity-60 truncate'>{item.owner}</h4>
                                             <h5 className='text-[8px] md:text-sm text-black opacity-60'>{dateFormatter(item.created_at)}</h5>
                                         </div>
                                     </div>
-                                    <div className={`items-center gap-2 hidden md:flex bg-opacity-30 ${color} rounded-[5px] py-[5px] px-[8px]`}>
-                                        <ArrowCircleUp2 variant='Bold' className={`rotate-${item.type === 'inbound' ? '[225deg]' : '45'}`} />
-                                        <span className='font-medium text-sm capitalize'>{item.status}</span>
-                                    </div>
-                                    <div>
-                                        <div className='md:font-semibold text-xs md:text-base text-black text-opacity-50 pl-2 md:pl-0'>${currencyFormatter(item.amount)}</div>
-                                        <div className={`font-medium text-[8px] ml-auto capitalize block md:hidden bg-opacity-30 ${color} rounded-[2px] w-fit p-1`}>{item.status}</div>
+                                    <div className='md:w-1/2 md:flex items-center justify-between'>
+                                        <div className={`items-center gap-2 hidden md:flex bg-opacity-30 ${color} rounded-[5px] py-[5px] px-[8px]`}>
+                                            <ArrowCircleUp2 variant='Bold' className={`rotate-${item.type === 'inbound' ? '[225deg]' : '45'}`} />
+                                            <span className='font-medium text-sm capitalize'>{item.status}</span>
+                                        </div>
+                                        <div>
+                                            <div className='md:font-semibold text-xs md:text-base text-black text-opacity-50 pl-2 md:pl-0'>${currencyFormatter(item.amount)}</div>
+                                            <div className={`font-medium text-[8px] ml-auto capitalize block md:hidden bg-opacity-30 ${color} rounded-[2px] w-fit p-1`}>{item.status}</div>
+                                        </div>
                                     </div>
                                 </div>
                             )
