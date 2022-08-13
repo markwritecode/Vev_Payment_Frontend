@@ -7,7 +7,7 @@ export const useFetcher = url => {
     const { signout } = useAuth()
 
     return useQuery(url.split('/'), () =>
-        getter(url)
+        url && getter(url)
             .then((response) => response?.data)
             .catch(error => {
                 error?.response?.status === Number(401) && signout()

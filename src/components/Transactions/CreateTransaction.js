@@ -11,19 +11,24 @@ import { useFetcher } from '../../hooks/fetcher'
 const CreateTransaction = ({ visible, onClose }) => {
 
     const [step, setStep] = useState('description')
-    const [emails, setEmails] = useState([])
-    const [email, setEmail] = useState('')
+    const [search, setSearch] = useState('')
     const [transactionId, setTransactionId] = useState('')
 
     const { mutate, isLoading } = usePoster(endpoints.CREATE_TRANSACTION, 'Transaction created successfully', [], continueProcess)
-    const { mutate: mutate2, isLoading: isLoading2 } = usePoster(endpoints.SEND_TRANSACTION_LINK, 'Transaction successfully', [], onClose)
+    const { mutate: mutate2, isLoading: isLoading2 } = usePoster(endpoints.SEND_TRANSACTION, 'Transaction successfully', [], onClose)
     const [createTransaction] = Form.useForm()
-    const { data, isLoading: isLoadingUsers } = useFetcher(`${endpoints.USER_SEARCH}/${email}`)
+    const { data, isLoading: isLoadingUsers } = useFetcher(search && `${endpoints.USER_SEARCH}/${search}`)
 
-    const submitTransaction = () => {
-        createTransaction.validateFields().then(values => {
-            step === 'description' ? mutate(values) : mutate2({ email, transaction_link: `https://vev.getyournin.com/checkout/${transactionId}` })
-        })
+    const submitTransaction = (email) => {
+        if (step === 'description') createTransaction.validateFields().then(values => mutate(values))
+        else {
+            mutate2({
+                email,
+                transaction_link: `https://vev.getyournin.com/checkout/${transactionId}`,
+                reference_number: transactionId
+            })
+        }
+
     }
 
     function continueProcess(data) {
@@ -31,15 +36,11 @@ const CreateTransaction = ({ visible, onClose }) => {
         setStep('final')
     }
 
-    function handleEmailSearch(email) {
-        setEmails(prev => [...prev, email])
-    }
-
     const props = step !== 'description' ? {
         bodyStyle: { background: '#E6E6E6', paddingLeft: '0', paddingRight: '0' }
     } : {}
 
-    console.log(data)
+    const emails = data?.email_name
 
     return (
         <Modal
@@ -83,13 +84,10 @@ const CreateTransaction = ({ visible, onClose }) => {
                             <div className='w-full'>
                                 <div className='relative flex items-center gap-2'>
                                     <input
-                                        value={email}
+                                        value={search}
                                         type='email'
                                         required
-                                        onChange={e => {
-                                            setEmail(e.target.value)
-                                            handleEmailSearch({ email: 'helari@gmail.com', full_name: 'Helari Jackson T.' })
-                                        }}
+                                        onChange={e => setSearch(e.target.value)}
                                         className=' bg-transparent border-black border-opacity-30 border rounded-[4px] w-full px-3 py-4 text-xs focus:outline-none focus:border-[1px] focus:border-black focus:border-opacity-30 placeholder:text-[#C9C8C6]'
                                         placeholder='Enter recipient email'
                                     />
@@ -99,11 +97,11 @@ const CreateTransaction = ({ visible, onClose }) => {
                                             <div className='flex items-center gap-[12px]'>
                                                 <img src={`/images/avatar2.png`} className='h-[50px] w-[50px] rounded-full' alt='vev' />
                                                 <div>
-                                                    <h4 className='font-semibold text-base text-black opacity-60'>{emails[0]?.full_name}</h4>
+                                                    <h4 className='font-semibold text-base text-black opacity-60'>{`${emails[0]?.first_name} ${emails[0]?.last_name}`}</h4>
                                                     <h5 className='text-sm text-black opacity-60'>{emails[0]?.email}</h5>
                                                 </div>
                                             </div>
-                                            <button onClick={submitTransaction} disabled={isLoading2} className='bg-[#F3724F] rounded text-white px-[30px] py-[15px] text-base'>
+                                            <button onClick={() => submitTransaction(emails[0]?.email)} disabled={isLoading2} className='bg-[#F3724F] rounded text-white px-[30px] py-[15px] text-base'>
                                                 {
                                                     isLoading2 ?
                                                         <div className='flex items-center gap-2'>
