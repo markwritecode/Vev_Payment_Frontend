@@ -1,5 +1,5 @@
-import { lazy, Suspense } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { lazy, Suspense, useEffect } from 'react'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/auth'
 import Layout from '../General/Layout'
 import Loading from '../General/Loading'
@@ -13,6 +13,13 @@ const Profile = lazy(() => import('../../pages/Profile'))
 const Authenticated = () => {
 
     const { signup } = useAuth()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (localStorage.getItem('ichor-checkout-ref')) {
+            navigate(`/checkout/${localStorage.getItem('ichor-checkout-ref')}`)
+        }
+    }, [navigate])
 
     return (
         <Layout>

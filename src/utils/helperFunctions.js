@@ -26,6 +26,6 @@ export const formatDateAndTime2 = (date) => {
 }
 
 export const dateFormatter = date => {
-    const _date = moment(new Date(date)).format(`Do MMMM, YYYY`)
+    const _date = moment(new Date(date)).format(`hh:mm A - Do MMMM, YYYY`)
     return _date.toLowerCase() === 'invalid date' ? '-------' : _date
 }

@@ -4,7 +4,7 @@ import Loading from '../General/Loading'
 
 const SignIn = lazy(() => import('../../pages/SignIn'))
 const SignUp = lazy(() => import('../../pages/SignUp'))
-const Checkout = lazy(() => import('../../pages/Checkout'))
+const Checkout = lazy(() => import('../../components/General/UnauthCheckout'))
 
 const UnAuthenticated = () => {
     return (

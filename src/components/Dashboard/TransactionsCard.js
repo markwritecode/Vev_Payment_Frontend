@@ -1,5 +1,6 @@
 import { ArrowDown3, ArrowUp3 } from 'iconsax-react'
 import { useFetcher } from '../../hooks/fetcher'
+import { currencyFormatter } from '../../utils/helperFunctions'
 import { endpoints } from '../../utils/helperVariables'
 
 const TransactionsCard = () => {
@@ -26,7 +27,7 @@ const TransactionsCard = () => {
                                 </div>
                                 <div className='items-center gap-2 hidden lg:flex'>
                                     {item.type === 'inbound' ? <ArrowDown3 variant='Bold' className='text-[#E51F33]' /> : <ArrowUp3 variant='Bold' className='text-[#36964E]' />}
-                                    <p className='font-semibold text-base'>${item.amount}</p>
+                                    <p className='font-semibold text-base'>${currencyFormatter(item.amount)}</p>
                                 </div>
                             </div>
                         )

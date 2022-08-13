@@ -27,9 +27,9 @@ const TransactionHistory = () => {
                     <div className='mt-[26px] bg-white'>
                         <div className='hidden md:block relative text-gray-400 focus-within:text-gray-400 w-full px-3 md:px-0' style={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)' }}>
                             <span className='absolute inset-y-0 md:left-5 flex items-center pl-2 md:pl-0'>
-                                <SearchNormal1 className='h-4 w-4' />
+                                <SearchNormal1 className='h-4 w-4 text-black font-semibold opacity-50' />
                             </span>
-                            <input className='w-full h-[50px] px-3 bg-white pl-8 md:pl-12 focus:outline-none focus:text-gray-900' placeholder='Search for beneficiary' />
+                            <input className='w-full h-[50px] px-3 bg-white pl-8 md:pl-12 focus:outline-none focus:text-gray-900 placeholder:text-black placeholder:opacity-50 placeholder:font-semibold placeholder:text-base' placeholder='Search for Transaction' />
                         </div>
 
                         <div className='mt-[23px] divide-y divide-black divide-opacity-30 overflow-x-auto'>

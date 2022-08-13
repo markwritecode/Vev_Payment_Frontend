@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import { Modal, notification } from 'antd'
+import { useEffect, useState } from 'react'
 import { FaWallet } from 'react-icons/fa'
 import { IoIosRadioButtonOff, IoIosRadioButtonOn } from 'react-icons/io'
 import { IoWalletSharp } from 'react-icons/io5'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useFetcher } from '../hooks/fetcher'
+import { usePoster } from '../hooks/poster'
+import { currencyFormatter, dateFormatter } from '../utils/helperFunctions'
 import { endpoints } from '../utils/helperVariables'
 
 const Checkout = () => {
@@ -13,13 +16,15 @@ const Checkout = () => {
 
     const location = useLocation()
     const arr = location.pathname.split('/')
-    const ref = arr[arr.length - 1]
-
-    const { data, isLoading } = useFetcher(`${endpoints.TRANSACTION_SHOW}/${ref}`)
+    const ref_id = arr[arr.length - 1]
 
     const handlePaymentChange = value => setSelectedPayment(value)
 
     const nextStep = () => setStep('payment_info')
+
+    useEffect(() => {
+        localStorage.removeItem('ichor-checkout-ref')
+    }, [location])
 
     return (
         <div className='z-30 bg-white w-full h-screen fixed top-0 left-0'>
@@ -30,9 +35,11 @@ const Checkout = () => {
                             <TransactionDetails
                                 nextStep={nextStep}
                                 handlePaymentChange={handlePaymentChange}
+                                ref_id={ref_id}
                             /> :
                             <PaymentInfo
                                 selectedPayment={selectedPayment}
+                                ref_id={ref_id}
                             />
                     }
                 </div>
@@ -43,13 +50,17 @@ const Checkout = () => {
 
 export default Checkout
 
-const TransactionDetails = ({ nextStep, handlePaymentChange }) => {
+const TransactionDetails = ({ nextStep, handlePaymentChange, ref_id }) => {
+
+    const { data } = useFetcher(`${endpoints.TRANSACTION_SHOW}/${ref_id}`)
+
+    const transaction = data?.transaction
 
     const menu = [
-        { title: 'Details', value: 'Lorem ipsum dolor sitb   amet, ' },
-        { title: 'Amount', value: '$ 0.00' },
-        { title: 'Time', value: '09:00 AM' },
-        { title: 'Email', value: 'Jasonpeters@gmail.com' }
+        { title: 'Details', value: transaction?.description },
+        { title: 'Amount', value: `₦ ${currencyFormatter(transaction?.amount)}` },
+        { title: 'Time', value: dateFormatter(transaction?.created_at) },
+        { title: 'Email', value: transaction?.owner }
     ]
 
     const payments = [
@@ -67,9 +78,9 @@ const TransactionDetails = ({ nextStep, handlePaymentChange }) => {
                 {
                     menu.map(item => {
                         return (
-                            <div key={item.title} className='flex items-center justify-between'>
-                                <h4>{item.title}:</h4>
-                                <h5>{item.value}</h5>
+                            <div key={item.title} className='flex items-center gap-4 justify-between'>
+                                <h4 className='uppercase font-semibold'>{item.title}:</h4>
+                                <h5 className='truncate'>{item.value}</h5>
                             </div>
                         )
                     })
@@ -111,14 +122,45 @@ const TransactionDetails = ({ nextStep, handlePaymentChange }) => {
     )
 }
 
-const PaymentInfo = ({ selectedPayment }) => {
-
-    const menu = [
-        { title: 'Amount', value: '$ 0.00' },
-        { title: 'Email', value: 'Jasonpeters@gmail.com' }
-    ]
+const PaymentInfo = ({ selectedPayment, ref_id }) => {
 
     const navigate = useNavigate()
+
+    const { data } = useFetcher(`${endpoints.TRANSACTION_SHOW}/${ref_id}`)
+
+    const transaction = data?.transaction
+
+    const menu = [
+        { title: 'Amount', value: `₦ ${currencyFormatter(transaction?.amount)}` },
+        { title: 'Email', value: transaction?.owner }
+    ]
+
+    const { mutate: process, isLoading: processing } = usePoster(endpoints.PROCESS_PAYMENT, 'Payment processed successfully, kindly confirm', [], confirmationModal)
+    const { mutate: confirm, isLoading: confirming } = usePoster(endpoints.TRANSACTION_CONFIRMATION, 'Transaction confirmed successfully', [])
+
+    const processPayment = () => {
+        process({ transaction_reference: ref_id, payment_method: selectedPayment })
+    }
+
+    const confirmTransaction = (ref_id) => {
+        // confirm({ transaction_reference: ref_id })
+        notification.success({ message: 'Success', description: 'Transaction confirmed' })
+        localStorage.removeItem('ichor-checkout-ref')
+        navigate('/')
+    }
+
+    function confirmationModal(data) {
+        Modal.confirm({
+            title: `Confirmation required`,
+            content: 'Payment processed, click to confirm transaction',
+            centered: true,
+            cancelText: 'Cancel',
+            okButtonProps: {
+                loading: confirming
+            },
+            onOk: () => confirmTransaction(data?.payment)
+        })
+    }
 
     return (
         <div className='w-full'>
@@ -141,7 +183,9 @@ const PaymentInfo = ({ selectedPayment }) => {
                 <h4 className='font-bold text-xl'>Payment Method</h4>
             </div>
             <div className='w-full text-center px-[30px] pt-[23px]'>
-                <button onClick={() => navigate('/')} className='rounded bg-[#F3724F] text-white font-medium text-sm w-full py-2'>Pay</button>
+                <button onClick={processPayment} disabled={processing} className='rounded bg-[#F3724F] text-white font-medium text-sm w-full py-2'>
+                    {processing ? 'Making Payment...' : 'Pay'}
+                </button>
             </div>
         </div>
     )
