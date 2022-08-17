@@ -1,3 +1,4 @@
+import { Modal } from 'antd'
 import { Add, ArrowCircleUp2, SearchNormal1 } from 'iconsax-react'
 import { useState } from 'react'
 import { useFetcher } from '../../hooks/fetcher'
@@ -10,8 +11,12 @@ const TransactionHistory = () => {
     const { data } = useFetcher(endpoints.TRANSACTION_REPORTS)
 
     const [visible, setVisible] = useState(false)
+    const [details, setDetails] = useState(false)
+    const [currentTransaction, setCurrentTransaction] = useState({})
 
     const toggleCreateTransaction = () => setVisible(prev => !prev)
+
+    const toggleDetails = () => setDetails(prev => !prev)
 
     return (
         <div className='mt-[22px]'>
@@ -38,7 +43,10 @@ const TransactionHistory = () => {
                                     const color = item.status === 'received' ? 'bg-[#318947] text-[#318947]' : item.status === 'debited' ? 'bg-[#E51F33] text-[#E51F33]' : 'bg-[#D07D1C] text-[#D07D1C]'
                                     const i = index > 3 ? index % 3 : index
                                     return (
-                                        <div key={index} className='flex items-center justify-between py-[15px] px-5 md:pl-[20px] md:pr-[53px]'>
+                                        <div key={index} onClick={() => {
+                                            setCurrentTransaction(item)
+                                            toggleDetails()
+                                        }} className='flex items-center justify-between py-[15px] px-5 md:pl-[20px] md:pr-[53px] cursor-pointer'>
                                             <div className='flex items-center gap-[12px]'>
                                                 <img src={`/images/avatar${i + 1}.png`} className='h-[40px] w-[40px] md:h-[50px] md:w-[50px] rounded-full' alt='vev' />
                                                 <div>
@@ -64,8 +72,47 @@ const TransactionHistory = () => {
                     </div> : <div className='text-center mt-10 text-xl opacity-50'>You currently have no transactions</div>
             }
             {visible && <CreateTransaction visible={visible} onClose={toggleCreateTransaction} />}
+            {details && <Details visible={details} onClose={toggleDetails} currentTransaction={currentTransaction} />}
         </div>
     )
 }
 
 export default TransactionHistory
+
+const Details = ({ visible, onClose, currentTransaction }) => {
+
+    const menu = [
+        { title: 'Details', value: currentTransaction?.description },
+        { title: 'Amount', value: `₦ ${currencyFormatter(currentTransaction?.amount)}` },
+        { title: 'Time', value: dateFormatter(currentTransaction?.created_at) },
+        { title: 'Email', value: currentTransaction?.owner }
+    ]
+
+    return (
+        <Modal
+            centered
+            visible={visible}
+            onCancel={onClose}
+            footer={null}
+            bodyStyle={{ background: '#E6E6E6', paddingLeft: '0', paddingRight: '0' }}
+            closable={false}>
+            <div className='pt-[64px] px-[30px] flex items-center justify-between'>
+                <h4 className='font-bold text-xl'>Transactions Details</h4>
+                <button className=' capitalize border rounded-md text-[#FC8906] border-[#FC8906] p-1'>{currentTransaction.status}</button>
+            </div>
+            <hr className='border-opacity-30 border-black mt-[6px]' />
+            <div className='px-[30px] pt-[23px] space-y-[23px]'>
+                {
+                    menu.map(item => {
+                        return (
+                            <div key={item.title} className='flex items-center gap-4 justify-between'>
+                                <h4 className='uppercase font-semibold'>{item.title}:</h4>
+                                <h5 className='truncate'>{item.value}</h5>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        </Modal>
+    )
+}

@@ -7,8 +7,9 @@ import SignUpWelcome from '../SignUp/SignUpWelcome'
 
 const Dashboard = lazy(() => import('../../pages/Dashboard'))
 const Transactions = lazy(() => import('../../pages/Transactions'))
-const Checkout = lazy(() => import('../../pages/Checkout'))
+// const Checkout = lazy(() => import('../../pages/Checkout'))
 const Profile = lazy(() => import('../../pages/Profile'))
+const ApproveMoney = lazy(() => import('../../pages/ApproveMoney'))
 
 const Authenticated = () => {
 
@@ -17,7 +18,7 @@ const Authenticated = () => {
 
     useEffect(() => {
         if (localStorage.getItem('ichor-checkout-ref')) {
-            navigate(`/checkout/${localStorage.getItem('ichor-checkout-ref')}`)
+            navigate(`/transactions/${localStorage.getItem('ichor-checkout-ref')}`)
         }
     }, [navigate])
 
@@ -26,9 +27,9 @@ const Authenticated = () => {
             <Suspense fallback={<Loading />}>
                 <Routes>
                     <Route path='/' element={signup ? <SignUpWelcome /> : <Dashboard />} />
-                    <Route path='transactions' element={<Transactions />} />
+                    <Route path='transactions/:id' element={<Transactions />} />
                     <Route path='profile' element={<Profile />} />
-                    <Route path='checkout/:id' element={<Checkout />} />
+                    <Route path='approve_money' element={<ApproveMoney />} />
                     <Route path='*' element={'Page not found'} />
                 </Routes>
             </Suspense>

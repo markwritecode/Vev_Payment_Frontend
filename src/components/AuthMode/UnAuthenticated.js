@@ -15,7 +15,7 @@ const UnAuthenticated = () => {
                     <Routes>
                         <Route path='/' element={<SignIn />} />
                         <Route path='signup' element={<SignUp />} />
-                        <Route path='checkout/:id' element={<Checkout />} />
+                        <Route path='transactions/:id' element={<Checkout />} />
                         <Route path='*' element={'Page not found'} />
                     </Routes>
                 </Suspense>

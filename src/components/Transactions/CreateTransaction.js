@@ -24,7 +24,7 @@ const CreateTransaction = ({ visible, onClose }) => {
         else {
             mutate2({
                 email,
-                transaction_link: `https://vev.getyournin.com/checkout/${transactionId}`,
+                transaction_link: `https://vev.getyournin.com/transactions/${transactionId}`,
                 reference_number: transactionId
             })
         }

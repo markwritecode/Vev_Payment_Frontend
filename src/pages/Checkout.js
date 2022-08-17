@@ -9,41 +9,35 @@ import { usePoster } from '../hooks/poster'
 import { currencyFormatter, dateFormatter } from '../utils/helperFunctions'
 import { endpoints } from '../utils/helperVariables'
 
-const Checkout = () => {
+const Checkout = ({ ref_id }) => {
 
     const [selectedPayment, setSelectedPayment] = useState('')
     const [step, setStep] = useState('transaction_details')
 
-    const location = useLocation()
-    const arr = location.pathname.split('/')
-    const ref_id = arr[arr.length - 1]
-
     const handlePaymentChange = value => setSelectedPayment(value)
 
     const nextStep = () => setStep('payment_info')
+
+    const location = useLocation()
 
     useEffect(() => {
         localStorage.removeItem('ichor-checkout-ref')
     }, [location])
 
     return (
-        <div className='z-30 bg-white w-full h-screen fixed top-0 left-0'>
-            <div className='flex items-center justify-center h-full bg-[#E6E6E6]'>
-                <div className='bg-white rounded-[10px] pb-[30px] w-[370px]'>
-                    {
-                        step === 'transaction_details' ?
-                            <TransactionDetails
-                                nextStep={nextStep}
-                                handlePaymentChange={handlePaymentChange}
-                                ref_id={ref_id}
-                            /> :
-                            <PaymentInfo
-                                selectedPayment={selectedPayment}
-                                ref_id={ref_id}
-                            />
-                    }
-                </div>
-            </div>
+        <div className='bg-white rounded-[10px] pb-[30px] w-[370px] shadow-2xl'>
+            {
+                step === 'transaction_details' ?
+                    <TransactionDetails
+                        nextStep={nextStep}
+                        handlePaymentChange={handlePaymentChange}
+                        ref_id={ref_id}
+                    /> :
+                    <PaymentInfo
+                        selectedPayment={selectedPayment}
+                        ref_id={ref_id}
+                    />
+            }
         </div>
     )
 }
@@ -146,7 +140,7 @@ const PaymentInfo = ({ selectedPayment, ref_id }) => {
         // confirm({ transaction_reference: ref_id })
         notification.success({ message: 'Success', description: 'Transaction confirmed' })
         localStorage.removeItem('ichor-checkout-ref')
-        navigate('/')
+        navigate('/transactions/transactions')
     }
 
     function confirmationModal(data) {

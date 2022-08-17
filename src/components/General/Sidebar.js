@@ -4,7 +4,7 @@ import { useAuth } from '../../contexts/auth'
 
 const navData = [
     { to: '/', icon: <Home variant='Bold' className='h-6 w-6' />, name: 'Dashboard' },
-    { to: '/transactions', icon: <ArrowRight variant='Broken' className='h-6 w-6' />, name: 'My Transaction' },
+    { to: '/transactions/transactions', icon: <ArrowRight variant='Broken' className='h-6 w-6' />, name: 'My Transaction' },
     { to: '/notification', icon: <Notification variant='Bold' className='h-6 w-6' />, name: 'Notification' },
     { to: '/approve_money', icon: <ShieldTick variant='Bold' className='h-6 w-6' />, name: 'Approve Money' },
     { to: '/profile', icon: <Setting2 variant='Bold' className='h-6 w-6' />, name: 'Setting' },
