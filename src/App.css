@@ -96,3 +96,7 @@ body {
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn, .ant-tabs-tab:hover {
     color: #895CDF !important;
 }
+
+.ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
+    padding: 10px 20px !important;
+}
