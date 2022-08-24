@@ -13,7 +13,7 @@ const ApproveMoney = ({ data, loading }) => {
         return (
             <Menu
                 items={[
-                    ...item.owner === user.email ? [{ label: <span onClick={() => confirmationModal(item)}>Approve</span>, key: 'approve' }] : [],
+                    ...item.recipient === user.email ? [{ label: <span onClick={() => confirmationModal(item)}>Approve</span>, key: 'approve' }] : [],
                     // { label: 'Reject', key: 'reject' }
                 ]}
             />
