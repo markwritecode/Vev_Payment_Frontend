@@ -51,39 +51,90 @@ const Profile = () => {
     }
 
     return (
-        <div className='lg:px-[50px] lg:py-[80px]'>
-            <h3 className='font-bold text-4xl opacity-50'>Settings</h3>
-            <div className='mt-8 text-center'>
-                <Upload {...props}>
-                    <div className='text-base opacity-50'>
-                        {/* <IoPencilSharp className='text-white h-4 w-4' /> */}
-                        Edit
+        // <div className='lg:px-[50px] lg:py-[80px]'>
+        //     <h3 className='font-bold text-4xl opacity-50'>Settings</h3>
+        //     <div className='mt-8 text-center'>
+        //         <Upload {...props}>
+        //             <div className='text-base opacity-50'>
+        //                 Edit
+        //             </div>
+        //         </Upload>
+        //     </div>
+        //     <Form
+        //         className='mt-10'
+        //         form={profileForm}
+        //         initialValues={{
+        //             phone_number: profile?.phone_number,
+        //             address: profile?.address,
+        //             state: profile?.state,
+        //             country: profile?.country
+        //         }}
+        //     >
+        //         <div className='grid grid-cols-1 sm:grid-cols-2 sm:gap-9'>
+        //             <CustomInput item={{ name: 'first_name', label: 'First Name:', disabled: true, value: profile?.first_name }} />
+        //             <CustomInput item={{ name: 'last_name', label: 'Last Name:', disabled: true, value: profile?.last_name }} />
+        //             <CustomInput item={{ name: 'email', label: 'Email:', disabled: true, value: profile?.email || '-' }} />
+        //             <CustomInput item={{ name: 'country', label: 'Country', required: true, value: 'Nigeria' }} />
+        //             <CustomInput item={{ name: 'address', label: 'Address', required: true, value: profile?.address || '-' }} />
+        //             <CustomInput item={{ name: 'phone_number', label: 'Contacts Number', required: true, value: profile?.phone_number || '-' }} />
+        //         </div>
+        //         <button onClick={submitProfileEdit} className='bg-[#F3724F] px-3 py-1 rounded-[5px] text-white mt-12'>
+        //             {isLoading2 ? 'Saving...' : 'Save Details'}
+        //         </button>
+        //     </Form>
+        // </div>
+
+        <div className='h-full'>
+            <img className='user-header w-full h-80 hidden lg:block' src='https://i.imgur.com/WS9ODfZ.jpg' alt='' />
+            <div className='grid grid-cols-1 lg:grid-cols-12 h-full py-32 lg:py-0'>
+                <div className='col-span-2 mx-auto'>
+                    <div className='mt-[-64px] lg:bg-white p-2 w-fit rounded-full'>
+                        <img className='rounded-full h-32' src={`https://i.pravatar.cc/300?img=${user.id}`} alt='' />
                     </div>
-                </Upload>
-            </div>
-            <Form
-                className='mt-10'
-                form={profileForm}
-                initialValues={{
-                    phone_number: profile?.phone_number,
-                    address: profile?.address,
-                    state: profile?.state,
-                    country: profile?.country
-                }}
-            >
-                <div className='grid grid-cols-1 sm:grid-cols-2 sm:gap-9'>
-                    <CustomInput item={{ name: 'first_name', label: 'First Name:', disabled: true, value: profile?.first_name }} />
-                    <CustomInput item={{ name: 'last_name', label: 'Last Name:', disabled: true, value: profile?.last_name }} />
-                    <CustomInput item={{ name: 'email', label: 'Email:', disabled: true, value: profile?.email || '-' }} />
-                    <CustomInput item={{ name: 'country', label: 'Country', required: true, value: 'Nigeria' }} />
-                    <CustomInput item={{ name: 'address', label: 'Address', required: true, value: profile?.address || '-' }} />
-                    <CustomInput item={{ name: 'phone_number', label: 'Contacts Number', required: true, value: profile?.phone_number || '-' }} />
+                    <div className='text-center mt-[13px] lg:flex flex-col hidden'>
+                        <button className='bg-[#F3724F] px-3 py-1 rounded-[5px] text-white'>
+                            Upload
+                        </button>
+                        <button className='bg-transparent border-[#F3724F] border px-3 py-1 rounded-[5px] text-white mt-[21px]'>
+                            Remove
+                        </button>
+                        <button className='bg-[#F3724F] px-3 py-1 rounded-[5px] text-white mt-[86px]'>
+                            Add your card details
+                        </button>
+                        <button className='bg-[#F3724F] px-3 py-1 rounded-[5px] text-white mt-[30px]'>
+                            Change Password
+                        </button>
+                    </div>
                 </div>
-                <button onClick={submitProfileEdit} className='bg-[#F3724F] px-3 py-1 rounded-[5px] text-white mt-12'>
-                    {isLoading2 ? 'Saving...' : 'Save Details'}
-                </button>
-            </Form>
+                <div className='lg:bg-white col-span-10 h-full px-3 py-10 lg:px-[50px] lg:py-[80px]'>
+                    <h3 className='font-bold text-4xl opacity-50'>Settings</h3>
+                    <Form
+                        className='mt-10'
+                        form={profileForm}
+                        initialValues={{
+                            phone_number: profile?.phone_number,
+                            address: profile?.address,
+                            state: profile?.state,
+                            country: profile?.country
+                        }}
+                    >
+                        <div className='grid grid-cols-1 sm:grid-cols-2 sm:gap-9'>
+                            <CustomInput item={{ name: 'first_name', label: 'First Name:', disabled: true, value: profile?.first_name }} />
+                            <CustomInput item={{ name: 'last_name', label: 'Last Name:', disabled: true, value: profile?.last_name }} />
+                            <CustomInput item={{ name: 'email', label: 'Email:', disabled: true, value: profile?.email || '-' }} />
+                            <CustomInput item={{ name: 'country', label: 'Country', required: true, value: 'Nigeria' }} />
+                            <CustomInput item={{ name: 'address', label: 'Date of birth', required: true, value: profile?.address || '-' }} />
+                            <CustomInput item={{ name: 'phone_number', label: 'Phone Number', required: true, value: profile?.phone_number || '-' }} />
+                        </div>
+                        <button onClick={submitProfileEdit} className='bg-[#F3724F] px-3 py-1 rounded-[5px] text-white lg:mt-12'>
+                            {isLoading2 ? 'Saving...' : 'Save Changes'}
+                        </button>
+                    </Form>
+                </div>
+            </div>
+
         </div>
+
     )
 }
 
