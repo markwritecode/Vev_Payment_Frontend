@@ -28,8 +28,11 @@ const Header = ({ expanded, toggleExpansion }) => {
                 </div>
 
                 <div className='flex items-center space-x-4 pr-5 cursor-pointer'>
-                    <Avatar size={50} src={`https://i.pravatar.cc/300?img=${user?.id}`} />
-                    <div className='text-xs text-gray-500 font-regular'>{user?.email}</div>
+                    <div className='text-xs text-gray-500 font-regular'>
+                        <h3>Hello, {user?.first_name} {user?.last_name}</h3>
+                        {/* <h4>{user?.email}</h4> */}
+                    </div>
+                    <Avatar size={50} src={`/images/avatar1.png`} />
                 </div>
             </div>
         </header>

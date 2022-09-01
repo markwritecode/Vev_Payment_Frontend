@@ -1,18 +1,20 @@
 import { Form, Modal, Spin } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
-import { ArrowRight, Link1 } from 'iconsax-react'
+import { ArrowRight } from 'iconsax-react'
 import CustomInput from '../../components/General/CustomInput'
 import { usePoster } from '../../hooks/poster'
 import { endpoints } from '../../utils/helperVariables'
 import CustomTextarea from '../General/CustomTextarea'
 import { useState } from 'react'
 import { useFetcher } from '../../hooks/fetcher'
+import ClipboardCopy from '../General/ClipboardCopy'
+import { currencyFormatter, dateFormatter } from '../../utils/helperFunctions'
 
-const CreateTransaction = ({ visible, onClose }) => {
+const CreateTransaction = ({ visible, onClose, step: _step, currentTransaction }) => {
 
-    const [step, setStep] = useState('description')
+    const [step, setStep] = useState(_step || 'description')
     const [search, setSearch] = useState('')
-    const [transactionId, setTransactionId] = useState('')
+    const [transaction, setTransaction] = useState(currentTransaction || '')
 
     const { mutate, isLoading } = usePoster(endpoints.CREATE_TRANSACTION, 'Transaction created successfully', [], continueProcess)
     const { mutate: mutate2, isLoading: isLoading2 } = usePoster(endpoints.SEND_TRANSACTION, 'Transaction successfully', [], onClose)
@@ -24,15 +26,15 @@ const CreateTransaction = ({ visible, onClose }) => {
         else {
             mutate2({
                 email,
-                transaction_link: `https://vev.getyournin.com/transactions/${transactionId}`,
-                reference_number: transactionId
+                transaction_link: `https://vev.getyournin.com/transactions/${transaction?.reference_number}`,
+                reference_number: transaction?.reference_number
             })
         }
 
     }
 
     function continueProcess(data) {
-        setTransactionId(data?.transaction?.reference_number)
+        setTransaction(data?.transaction)
         setStep('final')
     }
 
@@ -41,6 +43,13 @@ const CreateTransaction = ({ visible, onClose }) => {
     } : {}
 
     const emails = data?.email_name
+
+    const menu = [
+        { title: 'Details', value: transaction?.description },
+        { title: 'Amount', value: `₦ ${currencyFormatter(transaction?.amount)}` },
+        { title: 'Time', value: dateFormatter(transaction?.created_at) },
+        { title: 'Email', value: transaction?.owner }
+    ]
 
     return (
         <Modal
@@ -77,20 +86,23 @@ const CreateTransaction = ({ visible, onClose }) => {
                             }
                         </button>
                     </Form> :
-                    <Form form={createTransaction} className='h-96 relative'>
-                        <div className='px-5'>
-                            <h4 className='font-medium text-black text-2xl pb-[39px]'>Create Transaction</h4>
+                    <Form form={createTransaction}>
+                        <div className='px-5 py-5'>
+                            {transaction?.status === 'pending' && <h4 className='font-medium text-black text-2xl pb-[29px]'>Create Transaction</h4>}
 
                             <div className='w-full'>
                                 <div className='relative flex items-center gap-2'>
-                                    <input
-                                        value={search}
-                                        type='email'
-                                        required
-                                        onChange={e => setSearch(e.target.value)}
-                                        className=' bg-transparent border-black border-opacity-30 border rounded-[4px] w-full px-3 py-4 text-xs focus:outline-none focus:border-[1px] focus:border-black focus:border-opacity-30 placeholder:text-[#C9C8C6]'
-                                        placeholder='Enter recipient email'
-                                    />
+                                    {
+                                        transaction?.status === 'pending' &&
+                                        <input
+                                            value={search}
+                                            type='email'
+                                            required
+                                            onChange={e => setSearch(e.target.value)}
+                                            className=' bg-transparent border-black border-opacity-30 border rounded-[4px] w-full px-3 py-4 text-xs focus:outline-none focus:border-[1px] focus:border-black focus:border-opacity-30 placeholder:text-[#C9C8C6]'
+                                            placeholder='Enter recipient email'
+                                        />
+                                    }
                                     {
                                         emails?.length > 0 &&
                                         <div className='absolute top-16 bg-white w-full px-3 py-4 rounded-md flex items-center justify-between'>
@@ -124,16 +136,31 @@ const CreateTransaction = ({ visible, onClose }) => {
                                 </div>
                             </div>
 
+                            <div className={`flex items-center ${transaction.status === 'pending' ? 'pt-5' : ''} justify-between`}>
+                                <h4 className='font-bold text-xl'>Transactions Details</h4>
+                                <button className=' capitalize border rounded-md text-[#FC8906] border-[#FC8906] p-1'>{transaction.status}</button>
+                            </div>
+                            <hr className='border-opacity-30 border-black mt-[6px]' />
+                            <div className='pt-[30px] space-y-[23px]'>
+                                {
+                                    menu.map(item => {
+                                        return (
+                                            <div key={item.title} className='flex items-center gap-4 justify-between'>
+                                                <h4 className='uppercase font-semibold'>{item.title}:</h4>
+                                                <h5 className='truncate'>{item.value}</h5>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+
                         </div>
-                        <div className='absolute w-full bottom-0 border-t border-black border-opacity-20 pt-5'>
-                            <div className='sm:flex items-center justify-center'>
+                        <div className='w-full border-t border-black border-opacity-20 pt-5'>
+                            <div className='sm:flex items-center text-center justify-center'>
                                 <button className='bg-[#F3724F] rounded text-white px-[32px] py-[16px] text-base'>
                                     Share link
                                 </button>
-                                <button className='text-[#F3724F] px-[32px] py-[16px] text-base flex items-center gap-2'>
-                                    <Link1 className='rotate-45' />
-                                    <span>Copy link</span>
-                                </button>
+                                <ClipboardCopy copyText={`https://vev.getyournin.com/transactions/${transaction?.reference_number}`} />
                             </div>
                         </div>
                     </Form>

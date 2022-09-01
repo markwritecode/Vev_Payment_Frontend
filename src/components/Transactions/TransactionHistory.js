@@ -1,4 +1,3 @@
-import { Modal } from 'antd'
 import { Add, ArrowCircleUp2, SearchNormal1 } from 'iconsax-react'
 import { useState } from 'react'
 import { useFetcher } from '../../hooks/fetcher'
@@ -72,47 +71,9 @@ const TransactionHistory = () => {
                     </div> : <div className='text-center mt-10 text-xl opacity-50'>You currently have no transactions</div>
             }
             {visible && <CreateTransaction visible={visible} onClose={toggleCreateTransaction} />}
-            {details && <Details visible={details} onClose={toggleDetails} currentTransaction={currentTransaction} />}
+            {details && <CreateTransaction step='final' visible={details} onClose={toggleDetails} currentTransaction={currentTransaction} />}
         </div>
     )
 }
 
 export default TransactionHistory
-
-const Details = ({ visible, onClose, currentTransaction }) => {
-
-    const menu = [
-        { title: 'Details', value: currentTransaction?.description },
-        { title: 'Amount', value: `₦ ${currencyFormatter(currentTransaction?.amount)}` },
-        { title: 'Time', value: dateFormatter(currentTransaction?.created_at) },
-        { title: 'Email', value: currentTransaction?.owner }
-    ]
-
-    return (
-        <Modal
-            centered
-            visible={visible}
-            onCancel={onClose}
-            footer={null}
-            bodyStyle={{ background: '#E6E6E6', paddingLeft: '0', paddingRight: '0' }}
-            closable={false}>
-            <div className='pt-[64px] px-[30px] flex items-center justify-between'>
-                <h4 className='font-bold text-xl'>Transactions Details</h4>
-                <button className=' capitalize border rounded-md text-[#FC8906] border-[#FC8906] p-1'>{currentTransaction.status}</button>
-            </div>
-            <hr className='border-opacity-30 border-black mt-[6px]' />
-            <div className='px-[30px] pt-[23px] space-y-[23px]'>
-                {
-                    menu.map(item => {
-                        return (
-                            <div key={item.title} className='flex items-center gap-4 justify-between'>
-                                <h4 className='uppercase font-semibold'>{item.title}:</h4>
-                                <h5 className='truncate'>{item.value}</h5>
-                            </div>
-                        )
-                    })
-                }
-            </div>
-        </Modal>
-    )
-}

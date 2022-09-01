@@ -3,6 +3,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/auth'
 import Layout from '../General/Layout'
 import Loading from '../General/Loading'
+import UnderDevelopment from '../General/UnderDevelopment'
 import SignUpWelcome from '../SignUp/SignUpWelcome'
 
 const Dashboard = lazy(() => import('../../pages/Dashboard'))
@@ -28,8 +29,9 @@ const Authenticated = () => {
                 <Routes>
                     <Route path='/' element={signup ? <SignUpWelcome /> : <Dashboard />} />
                     <Route path='transactions/:id' element={<Transactions />} />
-                    <Route path='profile' element={<Profile />} />
-                    <Route path='approve_money' element={<ApproveMoney />} />
+                    <Route path='profile' element={<UnderDevelopment />} />
+                    <Route path='notification' element={<UnderDevelopment />} />
+                    <Route path='approve_money' element={<UnderDevelopment />} />
                     <Route path='*' element={'Page not found'} />
                 </Routes>
             </Suspense>
