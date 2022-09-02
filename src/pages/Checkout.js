@@ -1,7 +1,7 @@
 import { Modal, notification } from 'antd'
+import { ArrowRight } from 'iconsax-react'
 import { useEffect, useState } from 'react'
 import { FaWallet } from 'react-icons/fa'
-import { IoIosRadioButtonOff, IoIosRadioButtonOn } from 'react-icons/io'
 import { IoWalletSharp } from 'react-icons/io5'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useFetcher } from '../hooks/fetcher'
@@ -30,6 +30,7 @@ const Checkout = ({ ref_id }) => {
                 step === 'transaction_details' ?
                     <TransactionDetails
                         nextStep={nextStep}
+                        selectedPayment={selectedPayment}
                         handlePaymentChange={handlePaymentChange}
                         ref_id={ref_id}
                     /> :
@@ -44,7 +45,7 @@ const Checkout = ({ ref_id }) => {
 
 export default Checkout
 
-const TransactionDetails = ({ nextStep, handlePaymentChange, ref_id }) => {
+const TransactionDetails = ({ nextStep, selectedPayment, handlePaymentChange, ref_id }) => {
 
     const { data } = useFetcher(`${endpoints.TRANSACTION_SHOW}/${ref_id}`)
 
@@ -81,14 +82,19 @@ const TransactionDetails = ({ nextStep, handlePaymentChange, ref_id }) => {
                 }
             </div>
             <div className='px-[30px] pt-[23px] space-y-[23px]'>
-                <h4 className='font-bold text-xl'>Payment Option</h4>
                 <div>
+                    <h4 className='font-semibold text-xl text-gray-700'>Payment methods</h4>
+                    <h5 className='text-gray-500 font-medium'>Choose a payment method to pay</h5>
+                </div>
+                <div className='space-y-4'>
                     {
                         payments.map(item => {
                             return (
-                                <label key={item.value} className={`flex items-center cursor-pointer relative justify-between w-full py-4 focus:outline-none`}>
-                                    {item.icon}
-                                    <h5 className='text-base font-bold opacity-70 capitalize'>{item.value.split('_').join(' ')}</h5>
+                                <label key={item.value} className={`border-2 ${selectedPayment === item.value ? 'border-[#F3724F] border-opacity-50 bg-[#F3724F] bg-opacity-10' : 'border-gray-300 text-gray-500'} rounded-lg flex items-center cursor-pointer relative justify-between w-full p-4 focus:outline-none`}>
+                                    <div className='flex gap-2 items-center'>
+                                        {item.icon}
+                                        <h5 className='text-base font-bold opacity-70 capitalize'>{item.value.split('_').join(' ')}</h5>
+                                    </div>
                                     <input
                                         type='radio'
                                         value={item.value}
@@ -98,10 +104,10 @@ const TransactionDetails = ({ nextStep, handlePaymentChange, ref_id }) => {
                                         className='form-radio sr-only peer h-4 w-4 text-[#1eabe7e3]'
                                     />
                                     <div className='block peer-checked:hidden'>
-                                        <IoIosRadioButtonOff className='h-5 w-5 text-black' />
+                                        <ArrowRight className='h-5 w-5' />
                                     </div>
                                     <div className='hidden peer-checked:block'>
-                                        <IoIosRadioButtonOn className='h-5 w-5 text-black' />
+                                        <ArrowRight className='h-5 w-5 text-[#F3724F]' />
                                     </div>
                                 </label>
                             )
