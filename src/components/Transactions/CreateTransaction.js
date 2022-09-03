@@ -88,10 +88,14 @@ const CreateTransaction = ({ visible, onClose, step: _step, currentTransaction }
                     </Form> :
                     <Form form={createTransaction}>
                         <div className='px-5 py-5'>
-                            {transaction?.status === 'pending' && <h4 className='font-medium text-black text-2xl pb-[29px]'>Create Transaction</h4>}
+                            {/* {transaction?.status === 'pending' && <h4 className='font-medium text-black text-2xl pb-[29px]'>Create Transaction</h4>} */}
+                            <div className={`flex items-center ${transaction.status === 'pending' ? 'py-5' : ''} justify-between`}>
+                                <h4 className='font-bold text-xl'>Transactions Details</h4>
+                                <button className=' capitalize border rounded-md text-[#FC8906] border-[#FC8906] p-1'>{transaction.status}</button>
+                            </div>
 
                             <div className='w-full'>
-                                <div className='relative flex items-center gap-2'>
+                                <div className='flex items-center gap-2'>
                                     {
                                         transaction?.status === 'pending' &&
                                         <input
@@ -103,44 +107,39 @@ const CreateTransaction = ({ visible, onClose, step: _step, currentTransaction }
                                             placeholder='Enter recipient email'
                                         />
                                     }
-                                    {
-                                        emails?.length > 0 &&
-                                        <div className='absolute top-16 bg-white w-full px-3 py-4 rounded-md flex items-center justify-between'>
-                                            <div className='flex items-center gap-[12px]'>
-                                                <img src={`/images/avatar2.png`} className='h-[50px] w-[50px] rounded-full' alt='vev' />
-                                                <div>
-                                                    <h4 className='font-semibold text-base text-black opacity-60'>{`${emails[0]?.first_name} ${emails[0]?.last_name}`}</h4>
-                                                    <h5 className='text-sm text-black opacity-60'>{emails[0]?.email}</h5>
-                                                </div>
-                                            </div>
-                                            <button onClick={() => submitTransaction(emails[0]?.email)} disabled={isLoading2} className='bg-[#F3724F] rounded text-white px-[30px] py-[15px] text-base'>
-                                                {
-                                                    isLoading2 ?
-                                                        <div className='flex items-center gap-2'>
-                                                            <span>Loading</span>
-                                                            <Spin indicator={
-                                                                <LoadingOutlined
-                                                                    style={{
-                                                                        color: '#FFFFFF',
-                                                                        fontSize: 24,
-                                                                    }}
-                                                                    spin
-                                                                />} />
-                                                        </div> :
-                                                        <div>Send</div>
-                                                }
-                                            </button>
-                                        </div>
-                                    }
                                     {isLoadingUsers && <Spin indicator={<LoadingOutlined style={{ color: '#D71E0E', fontSize: 24 }} spin />} />}
                                 </div>
+                                {
+                                    emails?.length > 0 &&
+                                    <div className='bg-white w-full px-3 py-4 mt-2 rounded-md flex items-center justify-between'>
+                                        <div className='flex items-center gap-[12px]'>
+                                            <img src={`/images/avatar2.png`} className='h-[50px] w-[50px] rounded-full' alt='vev' />
+                                            <div>
+                                                <h4 className='font-semibold text-base text-black opacity-60'>{`${emails[0]?.first_name} ${emails[0]?.last_name}`}</h4>
+                                                <h5 className='text-sm text-black opacity-60'>{emails[0]?.email}</h5>
+                                            </div>
+                                        </div>
+                                        <button onClick={() => submitTransaction(emails[0]?.email)} disabled={isLoading2} className='bg-[#F3724F] rounded text-white px-[30px] py-[15px] text-base'>
+                                            {
+                                                isLoading2 ?
+                                                    <div className='flex items-center gap-2'>
+                                                        <span>Loading</span>
+                                                        <Spin indicator={
+                                                            <LoadingOutlined
+                                                                style={{
+                                                                    color: '#FFFFFF',
+                                                                    fontSize: 24,
+                                                                }}
+                                                                spin
+                                                            />} />
+                                                    </div> :
+                                                    <div>Send</div>
+                                            }
+                                        </button>
+                                    </div>
+                                }
                             </div>
-
-                            <div className={`flex items-center ${transaction.status === 'pending' ? 'pt-5' : ''} justify-between`}>
-                                <h4 className='font-bold text-xl'>Transactions Details</h4>
-                                <button className=' capitalize border rounded-md text-[#FC8906] border-[#FC8906] p-1'>{transaction.status}</button>
-                            </div>
-                            <hr className='border-opacity-30 border-black mt-[6px]' />
+                            {/* <hr className='border-opacity-30 border-black mt-[6px]' /> */}
                             <div className='pt-[30px] space-y-[23px]'>
                                 {
                                     menu.map(item => {
