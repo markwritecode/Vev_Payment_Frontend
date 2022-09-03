@@ -3,13 +3,14 @@ import { ArrowRight } from 'iconsax-react'
 import { useEffect, useState } from 'react'
 import { FaWallet } from 'react-icons/fa'
 import { IoWalletSharp } from 'react-icons/io5'
+import { IoIosArrowBack } from 'react-icons/io'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useFetcher } from '../hooks/fetcher'
 import { usePoster } from '../hooks/poster'
 import { currencyFormatter, dateFormatter } from '../utils/helperFunctions'
 import { endpoints } from '../utils/helperVariables'
 
-const Checkout = ({ ref_id }) => {
+const Checkout = ({ ref_id, setShowSuccess }) => {
 
     const [selectedPayment, setSelectedPayment] = useState('')
     const [step, setStep] = useState('transaction_details')
@@ -37,6 +38,7 @@ const Checkout = ({ ref_id }) => {
                     <PaymentInfo
                         selectedPayment={selectedPayment}
                         ref_id={ref_id}
+                        setShowSuccess={setShowSuccess}
                     />
             }
         </div>
@@ -122,7 +124,7 @@ const TransactionDetails = ({ nextStep, selectedPayment, handlePaymentChange, re
     )
 }
 
-const PaymentInfo = ({ selectedPayment, ref_id }) => {
+const PaymentInfo = ({ selectedPayment, ref_id, setShowSuccess }) => {
 
     const navigate = useNavigate()
 
@@ -146,7 +148,8 @@ const PaymentInfo = ({ selectedPayment, ref_id }) => {
         // confirm({ transaction_reference: ref_id })
         notification.success({ message: 'Success', description: 'Transaction confirmed' })
         localStorage.removeItem('ichor-checkout-ref')
-        navigate('/transactions/transactions')
+        setShowSuccess(true)
+        // navigate('/transactions/transactions')
     }
 
     function confirmationModal(data) {
@@ -163,8 +166,8 @@ const PaymentInfo = ({ selectedPayment, ref_id }) => {
     }
 
     return (
-        <div className='w-full'>
-            <div className='pt-[27px] px-[30px]'>
+        <div className='w-full px-6 py-6'>
+            {/* <div className='pt-[27px] px-[30px]'>
                 <h4 className='font-bold text-xl'>Payment Info</h4>
             </div>
             <div className='px-[30px] pt-[23px] space-y-[23px]'>
@@ -186,7 +189,48 @@ const PaymentInfo = ({ selectedPayment, ref_id }) => {
                 <button onClick={processPayment} disabled={processing} className='rounded bg-[#F3724F] text-white font-medium text-sm w-full py-2'>
                     {processing ? 'Making Payment...' : 'Pay'}
                 </button>
+            </div> */}
+            <div className='flex items-center justify-between'>
+                <div onClick={() => navigate('/transactions/transactions')} className='bg-gray-200 p-3 rounded-full cursor-pointer'>
+                    <IoIosArrowBack />
+                </div>
+                <h4 className='font-semibold text-lg text-center'>Checkout</h4>
+                <div className='opacity-0'>
+                    <IoIosArrowBack />
+                </div>
             </div>
+            <div className='flex items-center justify-between border-b border-gray-500 pb-5 mt-8'>
+                <div>
+                    <h4 className='font-semibold text-lg'>Premium plan</h4>
+                    <h5 className='text-gray-700'>$8/month - Billed monthly</h5>
+                </div>
+                <p className='font-semibold'>₦0</p>
+            </div>
+            <div className='flex items-center justify-between pt-5'>
+                <div>
+                    <h4 className='font-semibold text-lg'>Friends Addons</h4>
+                    <h5 className='text-gray-700'>₦1/month - Billed monthly</h5>
+                </div>
+                <p className='font-semibold'>₦0</p>
+            </div>
+            <div className='mt-3 border-b border-gray-500 pb-5 flex items-center gap-1'>
+                <input className='w-full p-2 text-black border-opacity-30 border-[1px] border-black rounded-md focus:outline-none focus:border-[1px] focus:border-opacity-30 focus:border-black' />
+                <button className='bg-[#F3724F] rounded text-white p-2 font-medium'>Apply</button>
+            </div>
+            <div className='flex items-center justify-between pt-5 border-b border-gray-500 pb-5'>
+                <div>
+                    <h4 className='font-semibold text-lg'>Subtotal</h4>
+                    <h5 className='text-gray-700'>Tax (if applicable)</h5>
+                </div>
+                <p className='font-semibold'>₦0</p>
+            </div>
+            <div className='flex items-center justify-between pt-5'>
+                <h4 className='font-semibold text-lg'>Total</h4>
+                <p className='font-semibold'>₦{currencyFormatter(transaction?.amount)}</p>
+            </div>
+            <button onClick={processPayment} disabled={processing} className='bg-[#F3724F] rounded text-white p-2 font-medium w-full mt-5'>
+                {processing ? 'Making Payment...' : 'Pay'}
+            </button>
         </div>
     )
 }

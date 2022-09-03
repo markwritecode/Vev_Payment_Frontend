@@ -111,7 +111,7 @@ const CreateTransaction = ({ visible, onClose, step: _step, currentTransaction }
                                 </div>
                                 {
                                     emails?.length > 0 &&
-                                    <div className='bg-white w-full px-3 py-4 mt-2 rounded-md flex items-center justify-between'>
+                                    <div className='bg-white w-full px-3 py-4 mt-2 rounded-md sm:flex items-center justify-between'>
                                         <div className='flex items-center gap-[12px]'>
                                             <img src={`/images/avatar2.png`} className='h-[50px] w-[50px] rounded-full' alt='vev' />
                                             <div>
@@ -119,7 +119,7 @@ const CreateTransaction = ({ visible, onClose, step: _step, currentTransaction }
                                                 <h5 className='text-sm text-black opacity-60'>{emails[0]?.email}</h5>
                                             </div>
                                         </div>
-                                        <button onClick={() => submitTransaction(emails[0]?.email)} disabled={isLoading2} className='bg-[#F3724F] rounded text-white px-[30px] py-[15px] text-base'>
+                                        <button onClick={() => submitTransaction(emails[0]?.email)} disabled={isLoading2} className='w-full mt-3 sm:mt-0 sm:w-auto bg-[#F3724F] rounded text-white px-[30px] py-[15px] text-base'>
                                             {
                                                 isLoading2 ?
                                                     <div className='flex items-center gap-2'>
